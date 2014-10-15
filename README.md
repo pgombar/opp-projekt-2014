@@ -8,6 +8,6 @@ Clanovi tima:
 * Matija Folnovic
 * Ivan Golik
 * Paula Gombar
-* Antea Hadviger (vrhovni vodja)
+* Antea Hadviger (vrhovni vodja!)
 * Jelena Kopcic
 * Ivan Paljak
