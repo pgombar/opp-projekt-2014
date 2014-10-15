@@ -6,7 +6,7 @@ Tema sastanka: Prvi sastanak grupe
 Cilj: Upoznati suradnike, dogovoriti prve korake
 
 Sadržaj sastanka:
-Na sastanku je pročitan tekst zadatka projekta. Za programski jezik u kojem ćemo ostvariti projekt izabrana je Java, a za GUI će se koristiti biblioteka Java FX. Složili smo se da je potrebno do idućeg sastanka (sljedeći tjedan) proučiti UML i sekvencijske dijagrame te izraditi korisničke račune na GitHubu.
+Na sastanku je pročitan tekst zadatka projekta. Za programski jezik u kojem ćemo ostvariti projekt izabrana je Java, a za GUI će se koristiti biblioteka Java FX. Složili smo se da je potrebno do idućeg sastanka (sljedeći tjedan) proučiti sekvencijske dijagrame i dijagrame obrazaca te izraditi korisničke račune na GitHubu.
 
 Dogovorena je ovakva podjela poslova do idućeg sastanka:
 1. Opis projektnog zadatka - Jelena Kopčić
