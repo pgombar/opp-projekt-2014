@@ -1,0 +1,7 @@
+- jezik? Java!
+- Jelena ce napisati opis zadatka
+- Folnor treba podijeliti zadatak
+- podesiti Gitove
+- server i client side su skroz odvojeni jedno od drugog
+- client side ima samo GUI (forma koju popunjava, submita)
+- gui u Java FX
