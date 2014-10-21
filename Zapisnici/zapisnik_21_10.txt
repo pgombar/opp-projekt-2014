@@ -1,0 +1,17 @@
+Sastanak br. 2: Utorak, 21.10.2014., 17.00-18.00h
+
+Prisutni: Magdalena Petak, Jelena Kopčić, Ivan Golik, Antea Hadviger, Matija Folnović
+
+Tema sastanka: Podjela poslova u I. inačici
+Cilj: Upoznati preferencije članova grupe, podijeliti poslove po poglavljima dokumentacije
+
+Sadržaj sastanka:
+Na sastanku je svaki član iznio svoje želje o tome koji bi dio posla htio odraditi u I. inačici dokumentacije.
+Uzimajući u obzir ostale obaveze članova grupe i zavisnost zadataka, složili smo se da bi podjela mogla biti ovakva:
+
+1. Analiza i dijagrami obrazaca uporabe - Jelena Kopčić i Antea Hadviger
+2. Sekvencijski dijagrami - Paula Gombar i Ivan Paljak
+3. Svrha i opći prioriteti sustava, Dijagram razreda s opisom, Dijagram objekata - Matija Folnović i Magdalena Petak
+4. Baza podataka - Ivan Golik
+
+Kako je preduvjet za izradu sekvencijskih dijagrama napravljena analiza obrazaca uporabe, taj će zadatak biti najprije obavljen. Također je dogovoreno da će određeni članovi grupe (vjerojatno Matija i Antea) razjasniti postojeće nedoumice s asistentom.
