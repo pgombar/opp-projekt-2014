@@ -1,0 +1,50 @@
+Sastanak br. 1: Srijeda, 15.10.2014., 14.00-16.00h
+
+Prisutni: Magdalena Petak, Jelena Kopčić, Ivan Golik, Ivan Paljak, Antea Hadviger, Paula Gombar, Matija Folnović
+
+Tema sastanka: Prvi sastanak grupe
+Cilj: Upoznati suradnike, dogovoriti prve korake
+
+Sadržaj sastanka:
+Na sastanku je pročitan tekst zadatka projekta. Za programski jezik u kojem ćemo ostvariti projekt izabrana je Java, a za GUI će se koristiti biblioteka Java FX. Složili smo se da je potrebno do idućeg sastanka (sljedeći tjedan) proučiti sekvencijske dijagrame i dijagrame obrazaca te izraditi korisničke račune na GitHubu.
+
+Dogovorena je ovakva podjela poslova do idućeg sastanka:
+1. Opis projektnog zadatka - Jelena Kopčić
+2. Raščlanjivanje projektnog zadatka - Matija Folnović
+3. Postaviti Git repozitorij - Paula Gombar
+4. Baza podataka - Ivan Golik
+5. OCSF radni okvir - Antea Hadviger
+6. Chat i e-mail protokoli u Javi - Magdalena Petak
+7. Java FX - Ivan Paljak
+
+-----------------------------------------------------------------------------------
+
+Sastanak br. 2: Utorak, 21.10.2014., 17.00-18.00h
+
+Prisutni: Magdalena Petak, Jelena Kopčić, Ivan Golik, Antea Hadviger, Matija Folnović
+
+Tema sastanka: Podjela poslova u I. inačici
+Cilj: Upoznati preferencije članova grupe, podijeliti poslove po poglavljima dokumentacije
+
+Sadržaj sastanka:
+Na sastanku je svaki član iznio svoje želje o tome koji bi dio posla htio odraditi u I. inačici dokumentacije.
+Uzimajući u obzir ostale obaveze članova grupe i zavisnost zadataka, složili smo se da bi podjela mogla biti ovakva:
+
+1. Analiza i dijagrami obrazaca uporabe - Jelena Kopčić i Antea Hadviger
+2. Sekvencijski dijagrami - Paula Gombar i Ivan Paljak
+3. Svrha i opći prioriteti sustava, Dijagram razreda s opisom, Dijagram objekata - Matija Folnović i Magdalena Petak
+4. Baza podataka - Ivan Golik
+
+Kako je preduvjet za izradu sekvencijskih dijagrama napravljena analiza obrazaca uporabe, taj će zadatak biti najprije obavljen. Također je dogovoreno da će određeni članovi grupe (vjerojatno Matija i Antea) razjasniti postojeće nedoumice s asistentom.
+
+-----------------------------------------------------------------------------------
+
+Sastanak br. 3: Utorak, 4.11.2014., 17.00-18.00h
+
+Prisutni: Magdalena Petak, Ivan Golik, Antea Hadviger, Matija Folnović, Ivan Paljak, Paula Gombar
+
+Tema sastanka: Informiranje o napretku rada
+Cilj: Raspraviti potencijalne probleme i nedoumice u radu na prvoj inačici dokumentacije
+
+Sadržaj sastanka:
+Na sastanku je svaki član upoznao ostale o svom napretku u radu na prvoj inačici. Također, svatko je bio u mogućnosti iznijeti probleme ili nedoumice s kojima se dosad susreo kako bi svi raspravili o njima i donijeli zajedničku odluku o tome kako što treba napraviti. Zaključeno je da većih problema nema te da sve ide po planu. Dogovoreno je da će svi pokušati svoj dio posla završiti do nedjelje, 9.11. što je 7 dana prije roka za predaju.
