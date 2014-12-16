@@ -1,0 +1,14 @@
+Sastanak br. 4: Ponedjeljak, 15.12.2014., 17.00-18.30h
+
+Prisutni: Paula Gombar, Ivan Paljak, Jelena Kopèiæ, Ivan Golik, Antea Hadviger, Matija Folnoviæ
+
+Tema sastanka: Podjela poslova u II. inaèici
+Cilj: Upoznati preferencije èlanova grupe, podijeliti poslove
+
+Sadržaj sastanka:
+Na sastanku je svaki èlan iznio svoje želje o tome koji bi dio posla htio odraditi u II. inaèici dokumentacije, odnosno želi li raditi na implementaciji ili na dokumentaciji. Matija je predložio da 4-5 osoba radi na implementaciji i da se podijele na klijentsku i poslužiteljsku stranu. Donesena je ovakva odluka:
+1. Matija Folnoviæ, Ivan Paljak, Ivan Golik - poslužitelj
+2. Paula Gombar, Antea Hadviger - klijent
+3. Jelena Kopèiæ, Magdalena Petak - dokumentacija
+
+Dogovoreno je da æe se implementacija pokušati dovršiti do kraja božiænih praznika.
