@@ -22,4 +22,9 @@ public final class LoginZahtjev implements Zahtjev, Serializable {
     public String getZaporka() {
         return zaporka;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Login Zahtjev: username=%s", korisnickoIme);
+    }
 }

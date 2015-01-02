@@ -2,7 +2,7 @@ package hr.fer.opp.projekt.common.odgovor;
 
 import java.io.Serializable;
 
-public class LoginOdgovor implements Odgovor, Serializable {
+public final class LoginOdgovor implements Odgovor, Serializable {
     private static final long serialVersionUID = -7194425896087464048L;
 
     private final boolean uspjeh;
