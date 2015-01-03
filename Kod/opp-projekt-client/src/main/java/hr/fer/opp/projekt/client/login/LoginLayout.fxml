@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="107.0" prefWidth="267.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hr.fer.opp.projekt.client.LoginController">
+   <children>
+      <TextField fx:id="korisnickoImeText" layoutX="101.0" layoutY="13.0" />
+      <Button fx:id="LoginButton" layoutX="204.0" layoutY="73.0" mnemonicParsing="false" onAction="#handleLogin" text="Login" />
+      <Label layoutX="14.0" layoutY="17.0" text="Korisničko ime" />
+      <Label layoutX="53.0" layoutY="45.0" text="Lozinka" />
+      <PasswordField fx:id="zaporkaText" layoutX="101.0" layoutY="41.0" />
+   </children>
+</AnchorPane>
