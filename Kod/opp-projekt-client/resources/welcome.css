@@ -4,12 +4,22 @@
     -fx-background-position: center center; 
 }
 
-#loginContainer{
-	-fx-background-color: #FFFFFF;
+.welcomeContainer{
+	-fx-background-color: #E6E9FC;
 	-fx-opacity: 0.9;
 }
 
 .tekst{
 	-fx-font-size: 12px;
 	-fx-font-family: Arial;
+}
+
+.tekst#a{
+	-fx-font-size: 15px;
+	-fx-font-weight: bold;
+}
+
+#naslov{
+	-fx-font-size: 35px;
+	-fx-font-weight: bold;
 }
