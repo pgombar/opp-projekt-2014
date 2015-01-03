@@ -1,0 +1,15 @@
+#pane{
+    -fx-background-image: url("starry.jpg");
+    -fx-background-repeat: stretch;
+    -fx-background-position: center center; 
+}
+
+#loginContainer{
+	-fx-background-color: #FFFFFF;
+	-fx-opacity: 0.9;
+}
+
+.tekst{
+	-fx-font-size: 12px;
+	-fx-font-family: Arial;
+}
