@@ -1,0 +1,28 @@
+#pane{
+    -fx-background-image: url("starry.jpg");
+    -fx-background-repeat: stretch;
+    -fx-background-position: center center; 
+}
+
+.welcomeContainer{
+	-fx-background-color: rgba(255, 255, 224, .8);
+}
+
+.tekst{
+	-fx-font-size: 13px;
+	-fx-font-family: Arial;
+}
+
+.tekst#posebno{
+	-fx-font-size: 15px;
+	-fx-font-weight: bold;
+}
+
+.tekst#naslov{
+	-fx-font-size: 35px;
+	-fx-font-weight: bold;
+}
+
+.tekst#footer{
+	-fx-font-style: italic;
+}
