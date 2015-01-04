@@ -1,7 +1,12 @@
 package hr.fer.opp.projekt.common.model;
 
-public final class Korisnik {
-    private long id;
+import java.io.Serializable;
+
+public final class Korisnik implements Serializable {
+
+	private static final long serialVersionUID = -4322708051779590572L;
+
+	private long id;
 
     private String ime;
 

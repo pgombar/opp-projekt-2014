@@ -35,7 +35,7 @@ public class LoginApp extends Application {
 	private void initRootLayout() {
         try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(LoginApp.class.getResource("LoginLayout.fxml"));
+			loader.setLocation(LoginApp.class.getResource("../welcome/WelcomeLayout.fxml"));
 			root = (Parent) loader.load();
 			
 			LoginController controller = (LoginController) loader.getController();
