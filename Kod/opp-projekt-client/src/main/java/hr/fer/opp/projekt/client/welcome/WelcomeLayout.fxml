@@ -9,24 +9,29 @@
 
 <AnchorPane id="pane" prefHeight="540.0" prefWidth="960.0" stylesheets="@../../../../../../../../../resources/welcome.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
    <children>
-      <AnchorPane id="loginContainer" layoutX="427.0" layoutY="191.0" prefHeight="107.0" prefWidth="267.0" styleClass="welcomeContainer">
+      <AnchorPane id="loginContainer" layoutX="560.0" layoutY="163.0" prefHeight="107.0" prefWidth="265.0" styleClass="welcomeContainer">
          <children>
             <Label layoutX="14.0" layoutY="14.0" styleClass="tekst" text="Korisničko ime" />
             <Label layoutX="48.0" layoutY="42.0" styleClass="tekst" text="Zaporka" />
-            <TextField layoutX="103.0" layoutY="10.0" styleClass="tekst" />
-            <PasswordField layoutX="103.0" layoutY="38.0" styleClass="tekst" />
-            <Button layoutX="188.0" layoutY="70.0" mnemonicParsing="false" styleClass="tekst" text="Prijavi se" />
+            <TextField layoutX="103.0" layoutY="10.0" prefHeight="26.0" prefWidth="150.0" styleClass="tekst" />
+            <PasswordField layoutX="103.0" layoutY="38.0" prefHeight="26.0" prefWidth="150.0" styleClass="tekst" />
+            <Button layoutX="182.0" layoutY="73.0" mnemonicParsing="false" styleClass="tekst" text="Prijavi se" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="427.0" layoutY="334.0" prefHeight="80.0" prefWidth="267.0" styleClass="welcomeContainer">
+      <AnchorPane layoutX="560.0" layoutY="318.0" prefHeight="80.0" prefWidth="265.0" styleClass="welcomeContainer">
          <children>
-            <Label id="a" alignment="CENTER" layoutX="28.0" layoutY="14.0" styleClass="tekst" text="Još nemate korisnički račun?" />
+            <Label id="posebno" alignment="CENTER" layoutX="28.0" layoutY="14.0" styleClass="tekst" text="Još nemate korisnički račun?" />
             <Button layoutX="90.0" layoutY="43.0" mnemonicParsing="false" styleClass="tekst" text="Registriraj se" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="319.0" layoutY="58.0" prefHeight="80.0" prefWidth="500.0" styleClass="welcomeContainer">
+      <AnchorPane layoutY="38.0" prefHeight="60.0" prefWidth="960.0" styleClass="welcomeContainer">
          <children>
-            <Text id="naslov" layoutX="151.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UMJETNINE" textAlignment="CENTER" />
+            <Text id="naslov" layoutX="369.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="tekst" text="UMJETNINE" textAlignment="CENTER" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutY="520.0" prefHeight="20.0" prefWidth="960.0" styleClass="welcomeContainer">
+         <children>
+            <Text id="footer" layoutX="408.0" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="tekst" text="Copyright © 2015 Tutleki" />
          </children>
       </AnchorPane>
    </children>

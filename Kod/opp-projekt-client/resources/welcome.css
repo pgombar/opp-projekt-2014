@@ -5,21 +5,24 @@
 }
 
 .welcomeContainer{
-	-fx-background-color: #E6E9FC;
-	-fx-opacity: 0.9;
+	-fx-background-color: rgba(255, 255, 224, .8);
 }
 
 .tekst{
-	-fx-font-size: 12px;
+	-fx-font-size: 13px;
 	-fx-font-family: Arial;
 }
 
-.tekst#a{
+.tekst#posebno{
 	-fx-font-size: 15px;
 	-fx-font-weight: bold;
 }
 
-#naslov{
+.tekst#naslov{
 	-fx-font-size: 35px;
 	-fx-font-weight: bold;
+}
+
+.tekst#footer{
+	-fx-font-style: italic;
 }
