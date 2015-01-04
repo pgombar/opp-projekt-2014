@@ -2,6 +2,7 @@ package hr.fer.opp.projekt.client.login;
 
 import hr.fer.opp.projekt.client.communication.EventChannel;
 import hr.fer.opp.projekt.client.communication.OcsfEventChannel;
+import hr.fer.opp.projekt.client.main.MainApp;
 
 import java.io.IOException;
 
@@ -35,12 +36,10 @@ public class LoginApp extends Application {
 	private void initRootLayout() {
         try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(LoginApp.class.getResource("/fxml/welcome/WelcomeLayout.fxml"));
+			loader.setLocation(this.getClass().getClassLoader().getResource("fxml/welcome/WelcomeLayout.fxml"));
 			root = (Parent) loader.load();
-			
-			LoginController controller = (LoginController) loader.getController();
-			controller.setMainApp(this);
-			
+			root.getStylesheets().add(this.getClass().getClassLoader().getResource("welcome.css").toExternalForm());
+
 			Scene scene = new Scene(root);
 			stage.setScene(scene);
 			stage.show();

@@ -1,5 +1,6 @@
 package hr.fer.opp.projekt.client.main;
 
+import hr.fer.opp.projekt.common.model.Korisnik;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -43,6 +44,12 @@ public class ListItemController {
 
 	public void setStatus(String status) {
 		this.status.setText(status);
+	}
+	
+	public void setKorisnik(Korisnik korisnik) {
+		korisnickoIme.setText(korisnik.getKorisnickoIme());
+		imePrezime.setText(korisnik.getIme() + " " + korisnik.getPrezime());
+		status.setText(korisnik.getOsobniStatus());
 	}
 
 	public void setSlika(ImageView slika) {
