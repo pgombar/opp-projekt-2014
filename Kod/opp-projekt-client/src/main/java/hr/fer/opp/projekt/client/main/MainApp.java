@@ -68,12 +68,12 @@ public class MainApp extends Application {
 	private void initRootLayout() {
         try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("MainLayout.fxml"));
+			loader.setLocation(MainApp.class.getResource("/fxml/main/MainLayout.fxml"));
 			root = (BorderPane) loader.load();
 			mainController = loader.getController();
 			mainController.setMainApp(this);
 			
-			root.getStylesheets().add(MainApp.class.getResource("menu.css").toExternalForm());
+			root.getStylesheets().add(MainApp.class.getResource("/menu.css").toExternalForm());
 
 			Scene scene = new Scene(root);
 			stage.setScene(scene);
@@ -91,7 +91,7 @@ public class MainApp extends Application {
 	    try {
 	        // Load person overview.
 	        FXMLLoader loader = new FXMLLoader();
-	        loader.setLocation(MainApp.class.getResource("UserListLayout.fxml"));
+	        loader.setLocation(MainApp.class.getResource("/fxml/main/UserListLayout.fxml"));
 	        Parent userList = (Parent) loader.load();
 
 	        // Set person overview into the center of root layout.

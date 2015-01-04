@@ -40,7 +40,7 @@ public class UserListController {
                           if(t != null) {
 	           	   	        try {
 	           		   	        FXMLLoader loader = new FXMLLoader();
-	           		   	        loader.setLocation(MainApp.class.getResource("ListItemLayout.fxml"));
+	           		   	        loader.setLocation(MainApp.class.getResource("/fxml/ListItemLayout.fxml"));
 	           					Parent userList = (Parent) loader.load();
 	           			        ListItemController controller = loader.getController();
 	           			        controller.setMainApp(UserListController.this.mainApp);
@@ -89,7 +89,7 @@ public class UserListController {
                super.updateItem(t, bln);
 	   	        try {
 		   	        FXMLLoader loader = new FXMLLoader();
-		   	        loader.setLocation(MainApp.class.getResource("ListItemLayout.fxml"));
+		   	        loader.setLocation(MainApp.class.getResource("/fxml/ListItemLayout.fxml"));
 					Parent userList = (Parent) loader.load();
 			        ListItemController controller = loader.getController();
 			        controller.setMainApp(UserListController.this.mainApp);
