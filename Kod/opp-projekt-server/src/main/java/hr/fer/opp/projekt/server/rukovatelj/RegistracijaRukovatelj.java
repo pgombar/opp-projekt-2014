@@ -1,8 +1,12 @@
 package hr.fer.opp.projekt.server.rukovatelj;
 
+import java.util.ArrayList;
+
 import hr.fer.opp.projekt.common.model.Korisnik;
+import hr.fer.opp.projekt.common.model.Umjetnina;
 import hr.fer.opp.projekt.common.odgovor.RegistracijaOdgovor;
 import hr.fer.opp.projekt.common.zahtjev.RegistracijaZahtjev;
+
 import org.springframework.stereotype.Component;
 
 @Component
