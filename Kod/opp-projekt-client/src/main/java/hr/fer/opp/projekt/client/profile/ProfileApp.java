@@ -2,6 +2,7 @@ package hr.fer.opp.projekt.client.profile;
 
 import hr.fer.opp.projekt.client.communication.EventChannel;
 import hr.fer.opp.projekt.client.communication.OcsfEventChannel;
+import hr.fer.opp.projekt.client.main.MainApp;
 import hr.fer.opp.projekt.common.model.Korisnik;
 
 import java.io.IOException;
@@ -43,6 +44,7 @@ public class ProfileApp extends Application {
 			root = (AnchorPane) loader.load();
 			profileController = loader.getController();
 			profileController.setProfileApp(this);
+			root.getStylesheets().add(MainApp.class.getResource("/menu.css").toExternalForm());
 
 			Korisnik mirko = new Korisnik(4, "Mirko", "Mirkic", "kiki_bombon", "a", "mirko@mirkic.com", ";)", "Mirkonija", "Bok!!!",
 					true, false);
