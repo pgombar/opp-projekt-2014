@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import hr.fer.opp.projekt.common.model.Umjetnina;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -44,22 +45,22 @@ public class MainApp extends Application {
 		
 		this.stage.setTitle("Umjetnine");
 		svi.add(new Korisnik(2, "Ivo", "Ivic", "iivic", "ivo", "ivo@ivic.com",
-	            "321-654-987", "Adresa 5", "Ja sam najbolji", false, false));
+	            "321-654-987", "Adresa 5", "Ja sam najbolji", "", null, null, new ArrayList<Umjetnina>(), null, false, false));
 
 		svi.add(new Korisnik(2, "Ivica", "Ivic", "iivic", "ivo", "ivo@ivic.com",
-	            "321-654-987", "Adresa 5", "Ja sam najbolji", false, false));
+	            "321-654-987", "Adresa 5", "Ja sam najbolji", "", null, null, new ArrayList<Umjetnina>(), null, false, false));
 		
 		blokirani.add(new Korisnik(2, "Blokic", "Ivic", "iivic", "ivo", "ivo@ivic.com",
-	            "321-654-987", "Adresa 5", "Ja sam najbolji", false, false));
+	            "321-654-987", "Adresa 5", "Ja sam najbolji", "", null, null, new ArrayList<Umjetnina>(), null, false, false));
 
 		blokirani.add(new Korisnik(2, "Blokanda", "Ivic", "iivic", "ivo", "ivo@ivic.com",
-	            "321-654-987", "Adresa 5", "Ja sam najbolji", false, false));
+	            "321-654-987", "Adresa 5", "Ja sam najbolji", "", null, null, new ArrayList<Umjetnina>(), null, false, false));
 		
 		omiljeni.add(new Korisnik(2, "Omiljko", "Ivic", "iivic", "ivo", "ivo@ivic.com",
-	            "321-654-987", "Adresa 5", "Ja sam najbolji", false, false));
+	            "321-654-987", "Adresa 5", "Ja sam najbolji", "", null, null, new ArrayList<Umjetnina>(), null, false, false));
 
 		omiljeni.add(new Korisnik(2, "Omiljda", "Ivic", "iivic", "ivo", "ivo@ivic.com",
-	            "321-654-987", "Adresa 5", "Ja sam najbolji", false, false));
+	            "321-654-987", "Adresa 5", "Ja sam najbolji", "", null, null, new ArrayList<Umjetnina>(), null, false, false));
 		
 		initRootLayout();
 		

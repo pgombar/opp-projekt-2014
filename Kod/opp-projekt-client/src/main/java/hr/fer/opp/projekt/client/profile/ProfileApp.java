@@ -6,7 +6,9 @@ import hr.fer.opp.projekt.client.main.MainApp;
 import hr.fer.opp.projekt.common.model.Korisnik;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import hr.fer.opp.projekt.common.model.Umjetnina;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -45,7 +47,7 @@ public class ProfileApp extends MainApp {
 			root.getStylesheets().add(this.getClass().getClassLoader().getResource("menu.css").toExternalForm());
 
 			Korisnik mirko = new Korisnik(4, "Mirko", "Mirkic", "kiki_bombon", "a", "mirko@mirkic.com", ";)", "Mirkonija", "Bok!!!",
-					true, false);
+                    "", null, null, new ArrayList<Umjetnina>(), null, true, false);
 
 			profileController.setKorisnik(mirko);
 

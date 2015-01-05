@@ -1,69 +1,92 @@
 package hr.fer.opp.projekt.common.model;
 
+import javax.persistence.*;
 import java.awt.Image;
 import java.io.Serializable;
 import java.util.List;
 
+@Entity
 public final class Korisnik implements Serializable {
 
-	private static final long serialVersionUID = -4322708051779590572L;
+    private static final long serialVersionUID = -4322708051779590572L;
 
-	private long id;
+    @Id
+    @GeneratedValue
+    private long id;
 
+    @Column(nullable = false)
     private String ime;
 
+    @Column(nullable = false)
     private String prezime;
 
+    @Column(nullable = false)
     private String korisnickoIme;
 
+    @Column(nullable = false)
     private String zaporka;
 
+    @Column(nullable = false)
     private String email;
 
+    @Column
     private String telefon;
 
+    @Column
     private String adresa;
 
+    @Column
     private String osobniStatus;
- 
+
+    @Column
     private String zvanje;
-    
-    private String grana;
-    
-    private String podgrana;
-    
+
+    @ManyToOne
+    private Grana grana;
+
+    @ManyToOne
+    private Podgrana podgrana;
+
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Umjetnina> umjetnine;
-    
+
+    @Transient
     private Image slika;
 
+    @Transient
     private boolean online;
 
+    @Column
     private boolean admin;
 
-    public Korisnik(long id, String ime, String prezime, String korisnickoIme,
-			String zaporka, String email, String telefon, String adresa,
-			String osobniStatus, String zvanje, String grana, String podgrana,
-			List<Umjetnina> umjetnine, Image slika, boolean online,
-			boolean admin) {
-		this.id = id;
-		this.ime = ime;
-		this.prezime = prezime;
-		this.korisnickoIme = korisnickoIme;
-		this.zaporka = zaporka;
-		this.email = email;
-		this.telefon = telefon;
-		this.adresa = adresa;
-		this.osobniStatus = osobniStatus;
-		this.zvanje = zvanje;
-		this.grana = grana;
-		this.podgrana = podgrana;
-		this.umjetnine = umjetnine;
-		this.slika = slika;
-		this.online = online;
-		this.admin = admin;
-	}
+    protected Korisnik() {
 
-	public long getId() {
+    }
+
+    public Korisnik(long id, String ime, String prezime, String korisnickoIme,
+                    String zaporka, String email, String telefon, String adresa,
+                    String osobniStatus, String zvanje, Grana grana, Podgrana podgrana,
+                    List<Umjetnina> umjetnine, Image slika, boolean online,
+                    boolean admin) {
+        this.id = id;
+        this.ime = ime;
+        this.prezime = prezime;
+        this.korisnickoIme = korisnickoIme;
+        this.zaporka = zaporka;
+        this.email = email;
+        this.telefon = telefon;
+        this.adresa = adresa;
+        this.osobniStatus = osobniStatus;
+        this.zvanje = zvanje;
+        this.grana = grana;
+        this.podgrana = podgrana;
+        this.umjetnine = umjetnine;
+        this.slika = slika;
+        this.online = online;
+        this.admin = admin;
+    }
+
+    public long getId() {
         return id;
     }
 
@@ -151,44 +174,44 @@ public final class Korisnik implements Serializable {
         this.admin = admin;
     }
 
-	public String getZvanje() {
-		return zvanje;
-	}
+    public String getZvanje() {
+        return zvanje;
+    }
 
-	public void setZvanje(String zvanje) {
-		this.zvanje = zvanje;
-	}
+    public void setZvanje(String zvanje) {
+        this.zvanje = zvanje;
+    }
 
-	public String getGrana() {
-		return grana;
-	}
+    public Grana getGrana() {
+        return grana;
+    }
 
-	public void setGrana(String grana) {
-		this.grana = grana;
-	}
+    public void setGrana(Grana grana) {
+        this.grana = grana;
+    }
 
-	public String getPodgrana() {
-		return podgrana;
-	}
+    public Podgrana getPodgrana() {
+        return podgrana;
+    }
 
-	public void setPodgrana(String podgrana) {
-		this.podgrana = podgrana;
-	}
+    public void setPodgrana(Podgrana podgrana) {
+        this.podgrana = podgrana;
+    }
 
-	public List<Umjetnina> getUmjetnine() {
-		return umjetnine;
-	}
+    public List<Umjetnina> getUmjetnine() {
+        return umjetnine;
+    }
 
-	public void setUmjetnine(List<Umjetnina> umjetnine) {
-		this.umjetnine = umjetnine;
-	}
+    public void setUmjetnine(List<Umjetnina> umjetnine) {
+        this.umjetnine = umjetnine;
+    }
 
-	public Image getSlika() {
-		return slika;
-	}
+    public Image getSlika() {
+        return slika;
+    }
 
-	public void setSlika(Image slika) {
-		this.slika = slika;
-	}
-    
+    public void setSlika(Image slika) {
+        this.slika = slika;
+    }
+
 }

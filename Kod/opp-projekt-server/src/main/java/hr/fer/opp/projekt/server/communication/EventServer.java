@@ -17,7 +17,7 @@ public class EventServer extends AbstractServer {
 
     private final Collection<RukovateljZahtjevom<?, ?>> rukovatelji;
 
-    public EventServer(int port, Collection<RukovateljZahtjevom<?, ?>> rukovatelji) {
+    public EventServer(int port, Collection<RukovateljZahtjevom<? extends Zahtjev, ?>> rukovatelji) {
         super(port);
 
         this.rukovatelji = rukovatelji;

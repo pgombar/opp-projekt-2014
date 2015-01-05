@@ -1,14 +1,25 @@
 package hr.fer.opp.projekt.common.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Date;
 
+@Entity
 public final class Umjetnina {
+
+    @Id
+    @GeneratedValue
     private long id;
 
+    @Column(nullable = false)
     private String ime;
 
+    @Column(nullable = false)
     private String tehnika;
 
+    @Column(nullable = false)
     private Date datumNastanka;
 
     public Umjetnina(long id, String ime, String tehnika, Date datumNastanka) {

@@ -1,8 +1,18 @@
 package hr.fer.opp.projekt.common.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public final class Grana {
+
+    @Id
+    @GeneratedValue
     private long id;
 
+    @Column(nullable = false)
     private String ime;
 
     public Grana(long id, String ime) {
@@ -25,4 +35,5 @@ public final class Grana {
     public void setId(long id) {
         this.id = id;
     }
+
 }

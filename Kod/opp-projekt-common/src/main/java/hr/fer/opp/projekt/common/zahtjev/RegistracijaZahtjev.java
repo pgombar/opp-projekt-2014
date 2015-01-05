@@ -21,14 +21,14 @@ public final class RegistracijaZahtjev implements Zahtjev, Serializable {
  
     private String zvanje;
     
-    private String grana;
+    private long grana;
     
-    private String podgrana;
+    private long podgrana;
 
 
     public RegistracijaZahtjev(String ime, String prezime,
 			String korisnickoIme, String zaporka, String email, String telefon,
-			String adresa, String zvanje, String grana, String podgrana) {
+			String adresa, String zvanje, long grana, long podgrana) {
 		this.ime = ime;
 		this.prezime = prezime;
 		this.korisnickoIme = korisnickoIme;
@@ -81,19 +81,19 @@ public final class RegistracijaZahtjev implements Zahtjev, Serializable {
 		this.zvanje = zvanje;
 	}
 
-	public String getGrana() {
+	public long getGrana() {
 		return grana;
 	}
 
-	public void setGrana(String grana) {
+	public void setGrana(long grana) {
 		this.grana = grana;
 	}
 
-	public String getPodgrana() {
+	public long getPodgrana() {
 		return podgrana;
 	}
 
-	public void setPodgrana(String podgrana) {
+	public void setPodgrana(long podgrana) {
 		this.podgrana = podgrana;
 	}
 }

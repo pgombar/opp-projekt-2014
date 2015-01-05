@@ -10,7 +10,7 @@ public final class AdminDodajKorisnikaRukovatelj implements RukovateljZahtjevom<
     @Override
     public AdminDodajKorisnikaOdgovor handle(AdminDodajKorisnikaZahtjev zahtjev) {
         Korisnik korisnik = new Korisnik(-1, "", "", zahtjev.getKorisnickoIme(),
-                zahtjev.getZaporka(), zahtjev.getEmail(), "", "", "", "", "", "", null, null, false, false);
+                zahtjev.getZaporka(), zahtjev.getEmail(), "", "", "", "", Podaci.GRANA_2, Podaci.PODGRANA_2, null, null, false, false);
 
         return new AdminDodajKorisnikaOdgovor(korisnik);
     }

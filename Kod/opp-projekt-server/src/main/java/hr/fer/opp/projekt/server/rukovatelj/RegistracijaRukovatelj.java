@@ -11,7 +11,7 @@ public final class RegistracijaRukovatelj implements RukovateljZahtjevom<Registr
     public RegistracijaOdgovor handle(RegistracijaZahtjev zahtjev) {
         Korisnik korisnik = new Korisnik(-1, zahtjev.getIme(), zahtjev.getPrezime(), zahtjev.getKorisnickoIme(),
                 zahtjev.getZaporka(), zahtjev.getEmail(), zahtjev.getTelefon(), zahtjev.getAdresa(), "", zahtjev.getZvanje(), 
-                zahtjev.getGrana(), zahtjev.getPodgrana(), null, null, false, false);
+                null, null, null, null, false, false);
 
         return new RegistracijaOdgovor(korisnik);
     }

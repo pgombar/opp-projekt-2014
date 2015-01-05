@@ -1,6 +1,8 @@
 package hr.fer.opp.projekt.server.rukovatelj;
 
+import hr.fer.opp.projekt.common.model.Grana;
 import hr.fer.opp.projekt.common.model.Korisnik;
+import hr.fer.opp.projekt.common.model.Podgrana;
 import hr.fer.opp.projekt.common.model.Umjetnina;
 
 import java.awt.Image;
@@ -12,9 +14,15 @@ public final class Podaci {
     public static final Umjetnina UMJETNINA_1 = new Umjetnina(1, "Najbolja", "Tehnika", new Date(2014, 12, 25, 12, 24));
     public static final Umjetnina UMJETNINA_2 = new Umjetnina(2, "Superiska", "Tehnikalija", new Date(2013, 12, 25, 12, 24));
     public static final List<Umjetnina> UMJETNINE = Arrays.asList(UMJETNINA_1, UMJETNINA_2);
-    
-    public static final Korisnik KORISNIK_1 = new Korisnik(1, "Pero", "Peric", "pperic", "pero", "pero@peric.com",
-            "123-456-789", "Adresa 1", "Moj osobni status", "mehanicar", "slikarstvo", "slikarenje", UMJETNINE, null, true, false);
-    public static final Korisnik KORISNIK_2 = new Korisnik(2, "Ivo", "Ivic", "iivic", "ivo", "ivo@ivic.com",
-            "321-654-987", "Adresa 5", "Ja sam najbolji", "vozac", "kiparstvo", "kiparenje", UMJETNINE, null, false, false);
+
+    public static final Grana GRANA_1 = new Grana(1, "slikarstvo");
+    public static final Grana GRANA_2 = new Grana(2, "kiparstvo");
+
+    public static final Podgrana PODGRANA_1 = new Podgrana(1, "slikarenje");
+    public static final Podgrana PODGRANA_2 = new Podgrana(2, "kiparenje");
+
+    public static final Korisnik KORISNIK_1 = new Korisnik(20, "Pero", "Peric", "pperic", "pero", "pero@peric.com",
+            "123-456-789", "Adresa 1", "Moj osobni status", "mehanicar", GRANA_1, PODGRANA_1, UMJETNINE, null, true, false);
+    public static final Korisnik KORISNIK_2 = new Korisnik(21, "Ivo", "Ivic", "iivic", "ivo", "ivo@ivic.com",
+            "321-654-987", "Adresa 5", "Ja sam najbolji", "vozac", GRANA_2, PODGRANA_2, UMJETNINE, null, false, false);
 }
