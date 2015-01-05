@@ -1,0 +1,5 @@
+- dohvati sve umjetnike
+- dohvati omiljene/blokirane umjetnike
+- dohvati sve grane/podgrane
+- grana, podgrana, zvanje, lista umjetnina u modelu korisnika?
+- profile picture?

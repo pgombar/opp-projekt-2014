@@ -55,7 +55,6 @@ public class ProfileController {
 	private ListView<Umjetnina> listView;
 	private ObservableList<Umjetnina> data = FXCollections.observableArrayList();
 	
-	
 	@FXML
 	private void initialize() {
 		Image img = new Image(
