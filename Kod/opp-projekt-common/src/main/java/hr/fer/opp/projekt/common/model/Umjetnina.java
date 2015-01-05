@@ -1,15 +1,19 @@
 package hr.fer.opp.projekt.common.model;
 
+import java.io.Serializable;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.util.Date;
 
 @Entity
-public final class Umjetnina {
+public final class Umjetnina implements Serializable {
 
-    @Id
+	private static final long serialVersionUID = -435238936817101076L;
+
+	@Id
     @GeneratedValue
     private long id;
 

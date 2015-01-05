@@ -2,7 +2,10 @@ package hr.fer.opp.projekt.client.main;
 
 import hr.fer.opp.projekt.client.communication.EventChannel;
 import hr.fer.opp.projekt.client.communication.OcsfEventChannel;
-import hr.fer.opp.projekt.common.model.*;
+import hr.fer.opp.projekt.common.model.Korisnik;
+import hr.fer.opp.projekt.common.model.Umjetnina;
+import hr.fer.opp.projekt.common.odgovor.PopisUmjetnikaOdgovor;
+import hr.fer.opp.projekt.common.zahtjev.PopisUmjetnikaZahtjev;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,7 +13,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import hr.fer.opp.projekt.common.model.Umjetnina;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -50,8 +52,14 @@ public class MainApp extends Application {
 		List<Umjetnina> umjetnine = Arrays.asList(umjetnina1, umjetnina2);
 
 		this.stage.setTitle("Umjetnine");
-
-        Grana slikarstvo = new Grana(1, "Slikarstvo");
+        PopisUmjetnikaOdgovor odgovor = channel.sendAndWait(new PopisUmjetnikaZahtjev());
+        
+        System.out.println(odgovor);
+		
+		//DohvatiUmjetnikaOdgovor odgovor = channel.sendAndWait(new DohvatiUmjetnikaZahtjev(1));
+		
+        svi.addAll(odgovor.getRezultati());
+        /*Grana slikarstvo = new Grana(1, "Slikarstvo");
         Podgrana slikarenje = new Podgrana(1, "Slikarenje");
 		svi.add(new Korisnik(1, "Pero", "Peric", "pperic", "pero", "pero@peric.com",
 	            "123-456-789", "Adresa 1", "Moj osobni status", "mehanicar", slikarstvo, slikarenje, umjetnine, null, true, false));
@@ -70,7 +78,7 @@ public class MainApp extends Application {
 
 		omiljeni.add(new Korisnik(1, "Omiljac", "Peric", "pperic", "pero", "pero@peric.com",
 	            "123-456-789", "Adresa 1", "Moj osobni status", "mehanicar", slikarstvo, slikarenje, umjetnine, null, true, false));
-		
+		*/
 		initRootLayout();
 		
 	}

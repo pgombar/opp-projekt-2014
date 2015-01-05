@@ -13,11 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public final class PopisKorisnikaRukovatelj implements RukovateljZahtjevom<PopisUmjetnikaZahtjev, PopisUmjetnikaOdgovor> {
+public final class PopisUmjetnikaRukovatelj implements RukovateljZahtjevom<PopisUmjetnikaZahtjev, PopisUmjetnikaOdgovor> {
     private final KorisnikRepository korisnikRepository;
 
     @Autowired
-    public PopisKorisnikaRukovatelj(KorisnikRepository korisnikRepository) {
+    public PopisUmjetnikaRukovatelj(KorisnikRepository korisnikRepository) {
         this.korisnikRepository = korisnikRepository;
     }
 
