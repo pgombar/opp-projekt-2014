@@ -3,9 +3,12 @@ package hr.fer.opp.projekt.client.main;
 import hr.fer.opp.projekt.client.communication.EventChannel;
 import hr.fer.opp.projekt.client.communication.OcsfEventChannel;
 import hr.fer.opp.projekt.common.model.Korisnik;
+import hr.fer.opp.projekt.common.model.Umjetnina;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javafx.application.Application;
@@ -32,7 +35,6 @@ public class MainApp extends Application {
 	private List<Korisnik> omiljeni = new ArrayList<Korisnik>();
 	private List<Korisnik> blokirani = new ArrayList<Korisnik>();
 
-	
 	@Override
 	public void start(Stage stage) throws Exception {
         final ObservableClient client = new ObservableClient("0.0.0.0", 5000);
@@ -42,24 +44,30 @@ public class MainApp extends Application {
 
 		this.stage = stage;
 		
+		Umjetnina umjetnina1 = new Umjetnina(1, "Najbolja", "Tehnika", new Date(2014, 12, 25, 12, 24));
+		Umjetnina umjetnina2 = new Umjetnina(2, "Superiska", "Tehnikalija", new Date(2013, 12, 25, 12, 24));
+		
+		List<Umjetnina> umjetnine = Arrays.asList(umjetnina1, umjetnina2);
+
 		this.stage.setTitle("Umjetnine");
-		svi.add(new Korisnik(2, "Ivo", "Ivic", "iivic", "ivo", "ivo@ivic.com",
-	            "321-654-987", "Adresa 5", "Ja sam najbolji", false, false));
 
-		svi.add(new Korisnik(2, "Ivica", "Ivic", "iivic", "ivo", "ivo@ivic.com",
-	            "321-654-987", "Adresa 5", "Ja sam najbolji", false, false));
+		svi.add(new Korisnik(1, "Pero", "Peric", "pperic", "pero", "pero@peric.com",
+	            "123-456-789", "Adresa 1", "Moj osobni status", "mehanicar", "slikarstvo", "slikarenje", umjetnine, null, true, false));
+
+		svi.add(new Korisnik(1, "Perica", "Peric", "pperic", "pero", "pero@peric.com",
+	            "123-456-789", "Adresa 1", "Moj osobni status", "mehanicar", "slikarstvo", "slikarenje", umjetnine, null, true, false));
 		
-		blokirani.add(new Korisnik(2, "Blokic", "Ivic", "iivic", "ivo", "ivo@ivic.com",
-	            "321-654-987", "Adresa 5", "Ja sam najbolji", false, false));
+		blokirani.add(new Korisnik(1, "Bosko", "Peric", "pperic", "pero", "pero@peric.com",
+	            "123-456-789", "Adresa 1", "Moj osobni status", "mehanicar", "slikarstvo", "slikarenje", umjetnine, null, true, false));
 
-		blokirani.add(new Korisnik(2, "Blokanda", "Ivic", "iivic", "ivo", "ivo@ivic.com",
-	            "321-654-987", "Adresa 5", "Ja sam najbolji", false, false));
+		blokirani.add(new Korisnik(1, "Blokic", "Peric", "pperic", "pero", "pero@peric.com",
+	            "123-456-789", "Adresa 1", "Moj osobni status", "mehanicar", "slikarstvo", "slikarenje", umjetnine, null, true, false));
 		
-		omiljeni.add(new Korisnik(2, "Omiljko", "Ivic", "iivic", "ivo", "ivo@ivic.com",
-	            "321-654-987", "Adresa 5", "Ja sam najbolji", false, false));
+		omiljeni.add(new Korisnik(1, "Omiljko", "Peric", "pperic", "pero", "pero@peric.com",
+	            "123-456-789", "Adresa 1", "Moj osobni status", "mehanicar", "slikarstvo", "slikarenje", umjetnine, null, true, false));
 
-		omiljeni.add(new Korisnik(2, "Omiljda", "Ivic", "iivic", "ivo", "ivo@ivic.com",
-	            "321-654-987", "Adresa 5", "Ja sam najbolji", false, false));
+		omiljeni.add(new Korisnik(1, "Omiljac", "Peric", "pperic", "pero", "pero@peric.com",
+	            "123-456-789", "Adresa 1", "Moj osobni status", "mehanicar", "slikarstvo", "slikarenje", umjetnine, null, true, false));
 		
 		initRootLayout();
 		
