@@ -7,17 +7,14 @@ import hr.fer.opp.projekt.common.model.Korisnik;
 
 import java.io.IOException;
 
-import com.lloseng.ocsf.client.ObservableClient;
-
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-public class ProfileApp extends Application {
+import com.lloseng.ocsf.client.ObservableClient;
+
+public class ProfileApp extends MainApp {
 
 	private Stage stage;
 	private AnchorPane root;
@@ -43,7 +40,7 @@ public class ProfileApp extends Application {
 			loader.setLocation(this.getClass().getClassLoader().getResource("fxml/profile/ProfileLayout.fxml"));
 			root = (AnchorPane) loader.load();
 			profileController = loader.getController();
-			profileController.setProfileApp(this);
+			profileController.setMainApp(this);
 //			root.getStylesheets().add(MainApp.class.getResource("/menu.css").toExternalForm());
 			root.getStylesheets().add(this.getClass().getClassLoader().getResource("menu.css").toExternalForm());
 

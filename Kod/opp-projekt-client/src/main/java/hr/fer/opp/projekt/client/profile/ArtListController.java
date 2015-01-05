@@ -5,8 +5,6 @@ import hr.fer.opp.projekt.common.model.Korisnik;
 import hr.fer.opp.projekt.common.model.Umjetnina;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javafx.collections.FXCollections;
@@ -14,62 +12,27 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
-public class ProfileController {
+public class ArtListController {
 
 	private MainApp mainApp;
-
-	@FXML
-	private Label korisnickoIme;
-	@FXML
-	private Label imePrezime;
-	@FXML
-	private Label status;
-	@FXML
-	private Label email;
-	@FXML
-	private Label telefon;
-	@FXML
-	private Label adresa;
-	@FXML
-	private ImageView slika;
-	@FXML
-	private Button pogledajProfil;
-	@FXML
-	private GridPane grid1;
 	@FXML
 	private ListView<Umjetnina> listView;
 	private ObservableList<Umjetnina> data = FXCollections.observableArrayList();
 	
+	public ArtListController() {
+	}
 	
 	@FXML
 	private void initialize() {
-		Image img = new Image(
-				"https://yt3.ggpht.com/-7zFDHK5X45w/AAAAAAAAAAI/AAAAAAAAAAA/QJfHeLTEZwE/s100-c-k-no/photo.jpg");
-		slika.setImage(img);
-		
-		List<Umjetnina> umjetnine = new ArrayList<Umjetnina>();
-		umjetnine.add(new Umjetnina(1, "Najbolja", "Tehnika", new Date(2014, 12, 25, 12, 24)));
-		umjetnine.add(new Umjetnina(2, "Jos bolja", "Tehnika", new Date(2014, 12, 25, 12, 24)));
-		umjetnine.add(new Umjetnina(3, "Super", "Tehnika", new Date(2014, 12, 25, 12, 24)));
-
-		this.setList(umjetnine);
-		
-		
 		listView.setItems(data);
 		listView.setCellFactory(new Callback<ListView<Umjetnina>, ListCell<Umjetnina>>(){
 			 
@@ -85,7 +48,7 @@ public class ProfileController {
 	           		   	        loader.setLocation(this.getClass().getClassLoader().getResource("fxml/profile/ArtListItemLayout.fxml"));
 	           					Parent userList = (Parent) loader.load();
 	           			        ArtListItemController controller = loader.getController();
-	           			        controller.setMainApp(ProfileController.this.mainApp);
+	           			        controller.setMainApp(ArtListController.this.mainApp);
 	           			        controller.setUmjetnina(t);
 	           			        
 	           			        setGraphic(userList);
@@ -129,6 +92,10 @@ public class ProfileController {
             }
         });
 	}
+	
+    public void setMainApp(MainApp mainApp) {
+        this.mainApp = mainApp;
+    }
     
     public void setList(List<Umjetnina> umjetnine) {
     	data.clear();
@@ -138,43 +105,5 @@ public class ProfileController {
     public void add(Umjetnina umjetnina) {
     	data.add(umjetnina);
     }
-
-	public void setKorisnickoIme(String korisnickoIme) {
-		this.korisnickoIme.setText(korisnickoIme);
-	}
-
-	public void setImePrezime(String imePrezime) {
-		this.imePrezime.setText(imePrezime);
-	}
-
-	public void setStatus(String status) {
-		this.status.setText(status);
-	}
-
-	public void setKorisnik(Korisnik korisnik) {
-		korisnickoIme.setText(korisnik.getKorisnickoIme());
-		imePrezime.setText(korisnik.getIme() + " " + korisnik.getPrezime());
-		status.setText(korisnik.getOsobniStatus());
-		email.setText(korisnik.getEmail());
-		telefon.setText(korisnik.getTelefon());
-		adresa.setText(korisnik.getAdresa());
-	}
-
-	public void setSlika(ImageView slika) {
-		this.slika = slika;
-	}
-
-	public void setMainApp(MainApp mainApp) {
-		this.mainApp = mainApp;
-	}
-	
-	private Node getNodeFromGridPane(GridPane gridPane, int col, int row) {
-	    for (Node node : gridPane.getChildren()) {
-	        if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == row) {
-	            return node;
-	        }
-	    }
-	    return null;
-	}
-
+    
 }

@@ -18,8 +18,6 @@ public class ListItemController {
 	private Label status;
 	@FXML
 	private ImageView slika;
-	@FXML
-	private Button pogledajProfil;
 	
 	public ListItemController() {
 	}

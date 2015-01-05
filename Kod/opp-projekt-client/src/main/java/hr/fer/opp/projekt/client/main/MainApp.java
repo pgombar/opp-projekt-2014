@@ -73,7 +73,7 @@ public class MainApp extends Application {
 			mainController = loader.getController();
 			mainController.setMainApp(this);
 			
-			root.getStylesheets().add(MainApp.class.getResource("/menu.css").toExternalForm());
+			root.getStylesheets().add(this.getClass().getClassLoader().getResource("menu.css").toExternalForm());
 
 			Scene scene = new Scene(root);
 			stage.setScene(scene);

@@ -1,5 +1,6 @@
 package hr.fer.opp.projekt.client.main;
 
+import hr.fer.opp.projekt.client.profile.ProfileController;
 import hr.fer.opp.projekt.common.model.Korisnik;
 
 import java.io.IOException;
@@ -11,9 +12,11 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 public class UserListController {
@@ -58,7 +61,24 @@ public class UserListController {
 
                     @Override
                     public void handle(MouseEvent event) {
-                        mainApp.showProfile(listView.getSelectionModel().getSelectedItem().getId());
+                    	try {
+                    		FXMLLoader loader = new FXMLLoader();
+                    		loader.setLocation(this.getClass().getClassLoader().getResource("fxml/profile/ProfileLayout.fxml"));
+                    		Parent profile = (Parent) loader.load();
+                    		ProfileController controller = loader.getController();
+                    		controller.setMainApp(UserListController.this.mainApp);
+                    		profile.getStylesheets().add(this.getClass().getClassLoader().getResource("menu.css").toExternalForm());
+                    		Korisnik korisnik = listView.getSelectionModel().getSelectedItem();
+                    		controller.setKorisnik(korisnik);
+                    		
+                    		Stage stage = new Stage();
+                    		stage.setTitle(korisnik.getIme() + " " + korisnik.getPrezime());
+                    		Scene scene = new Scene(profile);
+                			stage.setScene(scene);
+                			stage.show();
+                    	} catch (IOException e) {
+                    		e.printStackTrace();
+                    	}
                     }
                 });
             	return cell;
