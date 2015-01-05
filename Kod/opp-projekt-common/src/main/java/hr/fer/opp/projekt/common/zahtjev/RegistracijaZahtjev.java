@@ -16,17 +16,32 @@ public final class RegistracijaZahtjev implements Zahtjev, Serializable {
     private final String email;
 
     private final String telefon;
+    
+    private String adresa;
+ 
+    private String zvanje;
+    
+    private String grana;
+    
+    private String podgrana;
 
-    public RegistracijaZahtjev(String ime, String prezime, String korisnickoIme, String zaporka, String email, String telefon) {
-        this.ime = ime;
-        this.prezime = prezime;
-        this.korisnickoIme = korisnickoIme;
-        this.zaporka = zaporka;
-        this.email = email;
-        this.telefon = telefon;
-    }
 
-    public String getTelefon() {
+    public RegistracijaZahtjev(String ime, String prezime,
+			String korisnickoIme, String zaporka, String email, String telefon,
+			String adresa, String zvanje, String grana, String podgrana) {
+		this.ime = ime;
+		this.prezime = prezime;
+		this.korisnickoIme = korisnickoIme;
+		this.zaporka = zaporka;
+		this.email = email;
+		this.telefon = telefon;
+		this.adresa = adresa;
+		this.zvanje = zvanje;
+		this.grana = grana;
+		this.podgrana = podgrana;
+	}
+
+	public String getTelefon() {
         return telefon;
     }
 
@@ -49,4 +64,36 @@ public final class RegistracijaZahtjev implements Zahtjev, Serializable {
     public String getIme() {
         return ime;
     }
+
+	public String getAdresa() {
+		return adresa;
+	}
+
+	public void setAdresa(String adresa) {
+		this.adresa = adresa;
+	}
+
+	public String getZvanje() {
+		return zvanje;
+	}
+
+	public void setZvanje(String zvanje) {
+		this.zvanje = zvanje;
+	}
+
+	public String getGrana() {
+		return grana;
+	}
+
+	public void setGrana(String grana) {
+		this.grana = grana;
+	}
+
+	public String getPodgrana() {
+		return podgrana;
+	}
+
+	public void setPodgrana(String podgrana) {
+		this.podgrana = podgrana;
+	}
 }
