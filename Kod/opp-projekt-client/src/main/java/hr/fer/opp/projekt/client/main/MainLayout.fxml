@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" styleClass="background" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hr.fer.opp.projekt.client.main.MainController">
+   <left>
+      <VBox alignment="TOP_CENTER" prefHeight="715.0" prefWidth="217.0" spacing="10.0" styleClass="tekst" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="mojProfil" mnemonicParsing="false" onAction="#handleMojProfil" text="Moj profil" />
+            <Button fx:id="prikaziSve" mnemonicParsing="false" onAction="#handlePrikaziSve" text="Svi umjetnici" />
+            <Button fx:id="prikaziOmiljene" mnemonicParsing="false" onAction="#handlePrikaziOmiljene" text="Omiljeni umjetnici" />
+            <Button fx:id="prikaziBlokirane" mnemonicParsing="false" onAction="#handlePrikaziBlokirane" text="Blokirani umjetnici" />
+            <TreeView fx:id="kategorije" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+   </left>
+   <top>
+      <AnchorPane prefHeight="57.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_RIGHT" layoutX="796.0" prefHeight="57.0" prefWidth="228.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="796.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Label id="ime" alignment="CENTER" styleClass="ime" text="Ime Prezime" />
+                  <Button fx:id="odjava" mnemonicParsing="false" onAction="#handleOdjava" styleClass="tekst" text="Odjavi se" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <HBox prefHeight="45.0" prefWidth="386.0" spacing="10.0">
+               <children>
+                  <Button mnemonicParsing="false" text="Promijeni izgled sučelja" />
+                  <TextField />
+                  <Button mnemonicParsing="false" text="Traži" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </top>
+</BorderPane>

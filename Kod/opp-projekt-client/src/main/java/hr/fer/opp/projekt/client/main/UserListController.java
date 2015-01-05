@@ -44,10 +44,7 @@ public class UserListController {
 	           					Parent userList = (Parent) loader.load();
 	           			        ListItemController controller = loader.getController();
 	           			        controller.setMainApp(UserListController.this.mainApp);
-	           			        System.out.println(t);
-	           			        controller.setKorisnickoIme(t.getKorisnickoIme());
-	           			        controller.setImePrezime(t.getIme() + " " + t.getPrezime());
-	           			        controller.setStatus(t.getOsobniStatus());
+	           			        controller.setKorisnik(t);
 	           			        
 	           			        setGraphic(userList);
 	           				} catch (IOException e) {
@@ -82,24 +79,4 @@ public class UserListController {
     	data.add(korisnik);
     }
     
-    class UserCell extends ListCell<Korisnik> {
-    	
-    	   @Override
-           protected void updateItem(Korisnik t, boolean bln) {
-               super.updateItem(t, bln);
-	   	        try {
-		   	        FXMLLoader loader = new FXMLLoader();
-		   	        loader.setLocation(this.getClass().getClassLoader().getResource("fxml/ListItemLayout.fxml"));
-					Parent userList = (Parent) loader.load();
-			        ListItemController controller = loader.getController();
-			        controller.setMainApp(UserListController.this.mainApp);
-			        controller.setKorisnik(t);
-			        
-			        setGraphic(userList);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-
-           }
-    }
 }
