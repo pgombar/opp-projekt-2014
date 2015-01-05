@@ -44,7 +44,8 @@ public class ProfileApp extends Application {
 			root = (AnchorPane) loader.load();
 			profileController = loader.getController();
 			profileController.setProfileApp(this);
-			root.getStylesheets().add(MainApp.class.getResource("/menu.css").toExternalForm());
+//			root.getStylesheets().add(MainApp.class.getResource("/menu.css").toExternalForm());
+			root.getStylesheets().add(this.getClass().getClassLoader().getResource("menu.css").toExternalForm());
 
 			Korisnik mirko = new Korisnik(4, "Mirko", "Mirkic", "kiki_bombon", "a", "mirko@mirkic.com", ";)", "Mirkonija", "Bok!!!",
 					true, false);
