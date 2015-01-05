@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hr.fer.opp.projekt.client.profile.ProfileController">
    <children>
       <VBox layoutX="14.0" layoutY="14.0" prefWidth="500.0">
          <children>
@@ -37,7 +36,7 @@
                </children>
             </GridPane>
             <Label text="Kontakt" />
-            <GridPane>
+            <GridPane fx:id="kontakt">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -51,9 +50,9 @@
                   <Label text="e-mail" />
                   <Label text="Telefon" GridPane.rowIndex="1" />
                   <Label text="Adresa" GridPane.rowIndex="2" />
-                  <Label text="bla@a.com" GridPane.columnIndex="1" />
-                  <Label text="0910921" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Label text="asdad" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label fx:id="email" text="bla@a.com" GridPane.columnIndex="1" />
+                  <Label fx:id="telefon" text="0910921" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label fx:id="adresa" text="asdad" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
             </GridPane>
             <Label text="Galerija umjetnina" />
@@ -61,7 +60,7 @@
       </VBox>
       <VBox layoutX="586.0" layoutY="14.0" prefHeight="400.0" prefWidth="200.0">
          <children>
-            <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="slika" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
                <children>
                   <Button mnemonicParsing="false" text="M" />

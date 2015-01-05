@@ -44,11 +44,11 @@ public class ProfileApp extends Application {
 			profileController = loader.getController();
 			profileController.setProfileApp(this);
 
-			Korisnik mirko = new Korisnik(4, "Mirko", "Mirkic", "kiki_bombon", "a", "hehe@a.com", "", "", "Bok!!!",
+			Korisnik mirko = new Korisnik(4, "Mirko", "Mirkic", "kiki_bombon", "a", "mirko@mirkic.com", ";)", "Mirkonija", "Bok!!!",
 					true, false);
 
 			profileController.setKorisnik(mirko);
-			
+
 			Scene scene = new Scene(root);
 			stage.setScene(scene);
 			stage.show();
