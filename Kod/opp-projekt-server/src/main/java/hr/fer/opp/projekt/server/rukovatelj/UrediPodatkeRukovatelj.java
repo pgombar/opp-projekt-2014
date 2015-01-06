@@ -1,13 +1,27 @@
 package hr.fer.opp.projekt.server.rukovatelj;
 
+import hr.fer.opp.projekt.common.model.Korisnik;
 import hr.fer.opp.projekt.common.odgovor.UrediPodatkeOdgovor;
 import hr.fer.opp.projekt.common.zahtjev.UrediPodatkeZahtjev;
+import hr.fer.opp.projekt.server.repository.KorisnikRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public final class UrediPodatkeRukovatelj implements RukovateljZahtjevom<UrediPodatkeZahtjev, UrediPodatkeOdgovor> {
+    private final KorisnikRepository korisnikRepository;
+
+    @Autowired
+    public UrediPodatkeRukovatelj(KorisnikRepository korisnikRepository) {
+        this.korisnikRepository = korisnikRepository;
+    }
+
     @Override
     public UrediPodatkeOdgovor handle(UrediPodatkeZahtjev zahtjev) {
+        Korisnik korisnikZahtjev = zahtjev.getUmjetnik();
+        Korisnik existing = korisnikRepository.findOne(korisnikZahtjev.getId());
+
+
         return new UrediPodatkeOdgovor(zahtjev.getUmjetnik());
     }
 }

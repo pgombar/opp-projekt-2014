@@ -10,6 +10,8 @@ import java.util.List;
 public interface KorisnikRepository extends CrudRepository<Korisnik, Long> {
     @Query("select u from Korisnik u where u.korisnickoIme like '%:korisnickoIme%' and " +
             "u.ime like '%:ime%' and u.prezime like '%:prezime%'")
-    List<Korisnik> pretrazi(@Param("korisnickoIme") String korisnickoIme, @Param("ime") String ime,
-                            @Param("prezime") String prezime);
+    List<Korisnik> search(@Param("korisnickoIme") String korisnickoIme, @Param("ime") String ime,
+                          @Param("prezime") String prezime);
+
+    Korisnik findByKorisnickoIme(@Param("korisnickoIme") String korisnickoIme);
 }

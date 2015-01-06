@@ -19,6 +19,10 @@ public final class Podgrana implements Serializable {
     @Column(nullable = false)
     private String ime;
 
+    protected Podgrana() {
+
+    }
+
     public Podgrana(long id, String ime) {
         this.id = id;
         this.ime = ime;

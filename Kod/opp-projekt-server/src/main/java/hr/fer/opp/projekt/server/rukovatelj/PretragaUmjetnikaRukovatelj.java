@@ -7,7 +7,6 @@ import hr.fer.opp.projekt.server.repository.KorisnikRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Component
@@ -21,7 +20,7 @@ public final class PretragaUmjetnikaRukovatelj implements RukovateljZahtjevom<Pr
 
     @Override
     public PretragaUmjetnikaOdgovor handle(PretragaUmjetnikaZahtjev zahtjev) {
-        List<Korisnik> rezultati = korisnikRepository.pretrazi(zahtjev.getKorisnickoIme(), zahtjev.getIme(),
+        List<Korisnik> rezultati = korisnikRepository.search(zahtjev.getKorisnickoIme(), zahtjev.getIme(),
                 zahtjev.getPrezime());
 
         return new PretragaUmjetnikaOdgovor(rezultati);

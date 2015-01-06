@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public final class AdminDodajKorisnikaRukovatelj implements RukovateljZahtjevom<AdminDodajKorisnikaZahtjev, AdminDodajKorisnikaOdgovor> {
     @Override
     public AdminDodajKorisnikaOdgovor handle(AdminDodajKorisnikaZahtjev zahtjev) {
-        Korisnik korisnik = new Korisnik(-1, "", "", zahtjev.getKorisnickoIme(),
+        Korisnik korisnik = new Korisnik("", "", zahtjev.getKorisnickoIme(),
                 zahtjev.getZaporka(), zahtjev.getEmail(), "", "", "", "", Podaci.GRANA_2, Podaci.PODGRANA_2, null, null, false, false);
 
         return new AdminDodajKorisnikaOdgovor(korisnik);

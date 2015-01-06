@@ -26,6 +26,10 @@ public final class Umjetnina implements Serializable {
     @Column(nullable = false)
     private Date datumNastanka;
 
+    protected Umjetnina() {
+
+    }
+
     public Umjetnina(long id, String ime, String tehnika, Date datumNastanka) {
         this.id = id;
         this.ime = ime;

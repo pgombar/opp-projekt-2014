@@ -19,6 +19,11 @@ public final class Grana implements Serializable {
     @Column(nullable = false)
     private String ime;
 
+
+    protected Grana() {
+
+    }
+
     public Grana(long id, String ime) {
         this.id = id;
         this.ime = ime;
