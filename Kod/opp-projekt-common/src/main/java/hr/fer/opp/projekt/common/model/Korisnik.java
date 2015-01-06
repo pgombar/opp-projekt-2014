@@ -1,8 +1,14 @@
 package hr.fer.opp.projekt.common.model;
 
+import hr.fer.opp.projekt.common.util.ImageUtil;
+
+import javax.imageio.ImageIO;
 import javax.persistence.*;
-import java.awt.Image;
-import java.io.Serializable;
+import javax.sql.rowset.serial.SerialBlob;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.List;
 
 @Entity
@@ -20,7 +26,7 @@ public final class Korisnik implements Serializable {
     @Column(nullable = false)
     private String prezime;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String korisnickoIme;
 
     @Column(nullable = false)
@@ -50,8 +56,13 @@ public final class Korisnik implements Serializable {
     @OneToMany(fetch = FetchType.EAGER)
     private List<Umjetnina> umjetnine;
 
+    @Column
+    @Lob
+    @Basic(fetch = FetchType.EAGER)
+    private Blob slikaBlob;
+
     @Transient
-    private Image slika;
+    private byte[] slika;
 
     @Transient
     private boolean online;
@@ -80,14 +91,12 @@ public final class Korisnik implements Serializable {
     private List<Korisnik> blokiraniUmjetniciOd;
 
     protected Korisnik() {
-
     }
 
     public Korisnik(String ime, String prezime, String korisnickoIme,
                     String zaporka, String email, String telefon, String adresa,
                     String osobniStatus, String zvanje, Grana grana, Podgrana podgrana,
-                    List<Umjetnina> umjetnine, Image slika, boolean online,
-                    boolean admin) {
+                    List<Umjetnina> umjetnine, BufferedImage slika, boolean online, boolean admin) {
         this.ime = ime;
         this.prezime = prezime;
         this.korisnickoIme = korisnickoIme;
@@ -100,9 +109,32 @@ public final class Korisnik implements Serializable {
         this.grana = grana;
         this.podgrana = podgrana;
         this.umjetnine = umjetnine;
-        this.slika = slika;
         this.online = online;
         this.admin = admin;
+
+        setSlika(slika);
+    }
+
+    @PostLoad
+    public void postLoad() {
+        if (slikaBlob != null) {
+            this.slika = ImageUtil.loadBlob(slikaBlob);
+        }
+    }
+
+    public void merge(Korisnik korisnikZahtjev) {
+        this.admin = korisnikZahtjev.admin;
+        this.adresa = korisnikZahtjev.adresa;
+        this.email = korisnikZahtjev.email;
+        this.grana = korisnikZahtjev.grana;
+        this.ime = korisnikZahtjev.ime;
+        this.korisnickoIme = korisnikZahtjev.korisnickoIme;
+        this.osobniStatus = korisnikZahtjev.osobniStatus;
+        this.podgrana = korisnikZahtjev.podgrana;
+        this.prezime = korisnikZahtjev.prezime;
+        this.telefon = korisnikZahtjev.telefon;
+        this.zaporka = korisnikZahtjev.zaporka;
+        this.zvanje = korisnikZahtjev.zvanje;
     }
 
     public long getId() {
@@ -225,12 +257,21 @@ public final class Korisnik implements Serializable {
         this.umjetnine = umjetnine;
     }
 
-    public Image getSlika() {
-        return slika;
+    public BufferedImage getSlika() {
+        if (slika == null) {
+            return null;
+        } else {
+            return ImageUtil.byteArrayToImage(this.slika);
+        }
     }
 
-    public void setSlika(Image slika) {
-        this.slika = slika;
+    public void setSlika(BufferedImage slika) {
+        this.slika = ImageUtil.imageToByteArray(slika);
+
+        try {
+            this.slikaBlob = new SerialBlob(this.slika);
+        } catch (SQLException e) {
+        }
     }
 
     public List<Korisnik> getOmiljeniUmjetnici() {
@@ -247,21 +288,6 @@ public final class Korisnik implements Serializable {
 
     public void setBlokiraniUmjetnici(List<Korisnik> blokiraniUmjetnici) {
         this.blokiraniUmjetnici = blokiraniUmjetnici;
-    }
-
-    public void merge(Korisnik korisnikZahtjev) {
-        this.admin = korisnikZahtjev.admin;
-        this.adresa = korisnikZahtjev.adresa;
-        this.email = korisnikZahtjev.email;
-        this.grana = korisnikZahtjev.grana;
-        this.ime = korisnikZahtjev.ime;
-        this.korisnickoIme = korisnikZahtjev.korisnickoIme;
-        this.osobniStatus = korisnikZahtjev.osobniStatus;
-        this.podgrana = korisnikZahtjev.podgrana;
-        this.prezime = korisnikZahtjev.prezime;
-        this.telefon = korisnikZahtjev.telefon;
-        this.zaporka = korisnikZahtjev.zaporka;
-        this.zvanje = korisnikZahtjev.zvanje;
     }
 
 }

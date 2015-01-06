@@ -1,12 +1,15 @@
 package hr.fer.opp.projekt.common.model;
 
+import hr.fer.opp.projekt.common.util.ImageUtil;
+
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.sql.rowset.serial.SerialBlob;
 
 @Entity
 public final class Umjetnina implements Serializable {
@@ -26,6 +29,14 @@ public final class Umjetnina implements Serializable {
     @Column(nullable = false)
     private Date datumNastanka;
 
+    @Column
+    @Lob
+    @Basic(fetch = FetchType.EAGER)
+    private Blob slikaBlob;
+
+    @Transient
+    private byte[] slika;
+
     protected Umjetnina() {
 
     }
@@ -35,6 +46,13 @@ public final class Umjetnina implements Serializable {
         this.ime = ime;
         this.tehnika = tehnika;
         this.datumNastanka = datumNastanka;
+    }
+
+    @PostLoad
+    public void postLoad() {
+        if (slikaBlob != null) {
+            this.slika = ImageUtil.loadBlob(slikaBlob);
+        }
     }
 
     public long getId() {
@@ -67,5 +85,22 @@ public final class Umjetnina implements Serializable {
 
     public void setDatumNastanka(Date datumNastanka) {
         this.datumNastanka = datumNastanka;
+    }
+
+    public BufferedImage getSlika() {
+        if (slika == null) {
+            return null;
+        } else {
+            return ImageUtil.byteArrayToImage(this.slika);
+        }
+    }
+
+    public void setSlika(BufferedImage slika) {
+        this.slika = ImageUtil.imageToByteArray(slika);
+
+        try {
+            this.slikaBlob = new SerialBlob(this.slika);
+        } catch (SQLException e) {
+        }
     }
 }

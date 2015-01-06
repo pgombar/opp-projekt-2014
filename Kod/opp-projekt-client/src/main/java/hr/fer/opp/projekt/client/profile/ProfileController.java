@@ -11,6 +11,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -177,6 +178,7 @@ public class ProfileController {
 		zvanje.setText(korisnik.getZvanje());
 		grana.setText(korisnik.getGrana().getIme());
 		podgrana.setText(korisnik.getPodgrana().getIme());
+        slika.setImage(SwingFXUtils.toFXImage(korisnik.getSlika(), null));
 		setList(korisnik.getUmjetnine());
 		if(korisnik.isOnline()) {
 			online.setImage(new Image(this.getClass().getClassLoader().getResource("online.png").toExternalForm()));
