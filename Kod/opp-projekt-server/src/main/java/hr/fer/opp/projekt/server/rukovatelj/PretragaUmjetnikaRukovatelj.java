@@ -27,6 +27,6 @@ public final class PretragaUmjetnikaRukovatelj implements RukovateljZahtjevom<Pr
     }
 
     private static String like(String str) {
-        return String.format("%%%s%%", str);
+        return String.format("%%%s%%", str.toLowerCase());
     }
 }
