@@ -46,6 +46,12 @@ public class ProfileController {
 	@FXML
 	private Label adresa;
 	@FXML
+	private Label zvanje;
+	@FXML
+	private Label grana;
+	@FXML
+	private Label podgrana;
+	@FXML
 	private ImageView slika;
 	@FXML
 	private Button pogledajProfil;
@@ -157,6 +163,10 @@ public class ProfileController {
 		email.setText(korisnik.getEmail());
 		telefon.setText(korisnik.getTelefon());
 		adresa.setText(korisnik.getAdresa());
+		zvanje.setText(korisnik.getZvanje());
+		grana.setText(korisnik.getGrana().getIme());
+		podgrana.setText(korisnik.getPodgrana().getIme());
+		setList(korisnik.getUmjetnine());
 	}
 
 	public void setSlika(ImageView slika) {

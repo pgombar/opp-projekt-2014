@@ -31,9 +31,9 @@
                   <Label text="Zvanje" />
                   <Label text="Grana umjetnosti" GridPane.rowIndex="1" />
                   <Label text="Podgrana umjetnosti" GridPane.rowIndex="2" />
-                  <Label text="Vodoinstalater" GridPane.columnIndex="1" />
-                  <Label text="Kupaona" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Label text="Lavabo" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label fx:id="zvanje" text="Vodoinstalater" GridPane.columnIndex="1" />
+                  <Label fx:id="grana" text="Kupaona" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label fx:id="podgrana" text="Lavabo" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
             </GridPane>
             <Separator prefWidth="200.0" />

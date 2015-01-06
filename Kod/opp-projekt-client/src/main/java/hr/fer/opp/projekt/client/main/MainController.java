@@ -1,7 +1,15 @@
 package hr.fer.opp.projekt.client.main;
 
+import hr.fer.opp.projekt.common.model.Grana;
+import hr.fer.opp.projekt.common.model.Podgrana;
+
+import java.util.List;
+
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 
@@ -20,22 +28,40 @@ public class MainController {
 	private Button odjava;
 	@FXML
 	private TreeView<String> kategorije;
+	@FXML
+	private Button trazi;
+	@FXML
+	private TextField pretraga;
 	
 	public MainController() {
 	}
 	
 	@FXML
 	private void initialize() {
-		TreeItem<String> root = new TreeItem<String>("Kategorije");
-		kategorije.setRoot(root);
-		root.getChildren().add(new TreeItem<String>("slikarstvo"));
-		root.getChildren().add(new TreeItem<String>("kiparstvo"));
-		root.getChildren().add(new TreeItem<String>("sta jos postoji"));
-		root.getChildren().add(new TreeItem<String>("neznam"));
+		kategorije.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<String>>() {
+            @Override
+            public void changed(ObservableValue<? extends TreeItem<String>> observable, 
+            		TreeItem<String> old_val, TreeItem<String> new_val) {
+            		mainApp.searchGrana(new_val.getValue());
+            }
+
+        });
 	}
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
+    }
+    
+    public void prikaziGrane() {
+		TreeItem<String> root = new TreeItem<>("Grane umjetnosti");
+		kategorije.setRoot(root);
+		List<Grana> grane = mainApp.getGrane();
+		List<List<Podgrana>> podgrane = mainApp.getPodgrane();
+		for(int i = 0; i < grane.size(); ++i) {
+			root.getChildren().add(new TreeItem<>(grane.get(i).getIme()));
+			for(int j = 0; j < podgrane.get(i).size(); ++j)
+				root.getChildren().get(i).getChildren().add(new TreeItem<>(podgrane.get(i).get(j).getIme()));
+		}
     }
 
 	@FXML
@@ -61,5 +87,15 @@ public class MainController {
 	@FXML
 	private void handleOdjava() {
 		
+	}
+	
+	@FXML
+	private void handleKategorija() {
+		
+	}
+	
+	@FXML
+	private void handleTrazi() {
+		mainApp.search(pretraga.getText());
 	}
 }

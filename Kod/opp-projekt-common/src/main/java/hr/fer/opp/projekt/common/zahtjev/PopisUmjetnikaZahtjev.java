@@ -7,7 +7,7 @@ public final class PopisUmjetnikaZahtjev implements  Zahtjev, Serializable {
 
     public static final PopisUmjetnikaZahtjev INSTANCE = new PopisUmjetnikaZahtjev();
 
-    public PopisUmjetnikaZahtjev() {
+    private PopisUmjetnikaZahtjev() {
 
     }
 }

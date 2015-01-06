@@ -279,7 +279,7 @@
    -fx-background-color: -fx-box-border,-fx-box-border,white;
 }
 .tree-view .tree-cell:empty:hover {
-    -fx-background-color: black;
+    -fx-background-color: white;
 }
 .tree-view .tree-cell:hover {
     -fx-background-color: -fx-box-border,rgb(231,231,231);
@@ -288,7 +288,7 @@
     -fx-background-color: -fx-box-border, rgb(205,205,205);
 }
 .tree-view:focused .tree-cell:focused {
-    -fx-background-color: -fx-box-border, black;  
+    -fx-background-color: -fx-box-border, white;  
 }
 .tree-view:focused .tree-cell:focused:hover {
     -fx-background-color: -fx-box-border,rgb(231,231,231);  

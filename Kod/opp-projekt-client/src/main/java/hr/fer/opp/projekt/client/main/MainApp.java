@@ -2,10 +2,14 @@ package hr.fer.opp.projekt.client.main;
 
 import hr.fer.opp.projekt.client.communication.EventChannel;
 import hr.fer.opp.projekt.client.communication.OcsfEventChannel;
+import hr.fer.opp.projekt.common.model.Grana;
 import hr.fer.opp.projekt.common.model.Korisnik;
+import hr.fer.opp.projekt.common.model.Podgrana;
 import hr.fer.opp.projekt.common.model.Umjetnina;
 import hr.fer.opp.projekt.common.odgovor.PopisUmjetnikaOdgovor;
+import hr.fer.opp.projekt.common.odgovor.PretragaUmjetnikaOdgovor;
 import hr.fer.opp.projekt.common.zahtjev.PopisUmjetnikaZahtjev;
+import hr.fer.opp.projekt.common.zahtjev.PretragaUmjetnikaZahtjev;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,7 +37,8 @@ public class MainApp extends Application {
 	private MainController mainController;
 	private UserListController userListController;
 	
-	private List<Korisnik> svi = new ArrayList<Korisnik>();
+	private Korisnik korisnik;
+	private List<Korisnik> svi;
 	private List<Korisnik> omiljeni = new ArrayList<Korisnik>();
 	private List<Korisnik> blokirani = new ArrayList<Korisnik>();
 
@@ -52,13 +57,9 @@ public class MainApp extends Application {
 		List<Umjetnina> umjetnine = Arrays.asList(umjetnina1, umjetnina2);
 
 		this.stage.setTitle("Umjetnine");
-        PopisUmjetnikaOdgovor odgovor = channel.sendAndWait(new PopisUmjetnikaZahtjev());
+
+		dohvatiPodatke();
         
-        System.out.println(odgovor);
-		
-		//DohvatiUmjetnikaOdgovor odgovor = channel.sendAndWait(new DohvatiUmjetnikaZahtjev(1));
-		
-        svi.addAll(odgovor.getRezultati());
         /*Grana slikarstvo = new Grana(1, "Slikarstvo");
         Podgrana slikarenje = new Podgrana(1, "Slikarenje");
 		svi.add(new Korisnik(1, "Pero", "Peric", "pperic", "pero", "pero@peric.com",
@@ -83,6 +84,11 @@ public class MainApp extends Application {
 		
 	}
 	
+	private void dohvatiPodatke() {
+        PopisUmjetnikaOdgovor odgovor = channel.sendAndWait(PopisUmjetnikaZahtjev.INSTANCE);
+        svi = odgovor.getRezultati();
+   }
+	
 	private void initRootLayout() {
         try {
 			FXMLLoader loader = new FXMLLoader();
@@ -99,6 +105,7 @@ public class MainApp extends Application {
 			
 			
 			showUserList();
+			mainController.prikaziGrane();
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -138,15 +145,46 @@ public class MainApp extends Application {
 	}
 	
 	public void showBlocked() {
-		userListController.setList(blokirani);
+		userListController.setList(korisnik.getBlokiraniUmjetnici());
 	}
 	
 	public void showFavorite() {
-		userListController.setList(omiljeni);
+		userListController.setList(korisnik.getOmiljeniUmjetnici());
+	}
+	
+	public void search(String search) {
+		 PretragaUmjetnikaOdgovor odgovor = channel.sendAndWait(new PretragaUmjetnikaZahtjev(search, search, search));
+		 System.out.println("stigo odg");
+		 userListController.setList(odgovor.getRezultati());
+	     System.out.println("bok");
+	}
+	
+	public void searchGrana(String grana) {
+		List<Korisnik> search = new ArrayList<>();
+		for(Korisnik k : svi) {
+			if(k.getGrana().equals(grana) || k.getPodgrana().equals(grana))
+				search.add(k);
+		}
+		userListController.setList(search);
 	}
 	
 	public EventChannel getChannel() {
 		return channel;
+	}
+	
+	public List<Grana> getGrane() {
+		List<Grana> grane = Arrays.asList(new Grana(1, "slikarstvo"), new Grana(2, "kiparstvo"), new Grana(3, "grafika"));
+		return grane;
+	}
+	
+	public List<List<Podgrana>> getPodgrane() {
+		List<Podgrana> podgrane = Arrays.asList(new Podgrana(1, "podgrana 1"), new Podgrana(2, "podgrana 2"));
+		List<List<Podgrana>> ret = Arrays.asList(podgrane, podgrane, podgrane);
+		return ret;
+	}
+	
+	public Korisnik getKorisnik() {
+		return korisnik;
 	}
 	
 	public static void main(String[] args) {
