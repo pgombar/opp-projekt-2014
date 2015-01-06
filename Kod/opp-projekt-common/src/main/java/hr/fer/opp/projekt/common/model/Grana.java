@@ -28,8 +28,7 @@ public final class Grana implements Serializable {
     	return ime;
     }
     
-    public Grana(long id, String ime) {
-        this.id = id;
+    public Grana(String ime) {
         this.ime = ime;
     }
 

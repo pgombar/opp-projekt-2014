@@ -215,7 +215,7 @@ public class MainApp extends Application {
 	}
 	
 	public List<Grana> getGrane() {
-		List<Grana> grane = Arrays.asList(new Grana(1, "slikarstvo"), new Grana(2, "kiparstvo"), new Grana(3, "grafika"));
+		List<Grana> grane = Arrays.asList(new Grana("slikarstvo"), new Grana("kiparstvo"), new Grana("grafika"));
 		return grane;
 	}
 	
@@ -228,7 +228,7 @@ public class MainApp extends Application {
 	}
 	
 	public List<List<Podgrana>> getPodgrane() {
-		List<Podgrana> podgrane = Arrays.asList(new Podgrana(1, "podgrana 1"), new Podgrana(2, "podgrana 2"));
+		List<Podgrana> podgrane = Arrays.asList(new Podgrana("podgrana 1"), new Podgrana("podgrana 2"));
 		List<List<Podgrana>> ret = Arrays.asList(podgrane, podgrane, podgrane);
 		return ret;
 	}

@@ -19,6 +19,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -28,6 +29,7 @@ import java.util.concurrent.CountDownLatch;
 @ComponentScan
 @EnableAutoConfiguration
 @EnableJpaRepositories
+@EnableTransactionManagement
 @EntityScan(value = "hr.fer.opp.projekt.common.model")
 public class Application {
     private static final Logger LOGGER = LoggerFactory.getLogger(EventServer.class);

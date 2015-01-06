@@ -112,7 +112,7 @@ public final class Korisnik implements Serializable {
         this.online = online;
         this.admin = admin;
 
-        setSlika(slika);
+        if (slika != null) setSlika(slika);
     }
 
     @PostLoad

@@ -27,8 +27,7 @@ public final class Podgrana implements Serializable {
     	return ime;
     }
     
-    public Podgrana(long id, String ime) {
-        this.id = id;
+    public Podgrana(String ime) {
         this.ime = ime;
     }
 

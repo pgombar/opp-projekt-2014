@@ -54,8 +54,8 @@ public class AdminApp extends MainApp {
 
 		this.stage.setTitle("Umjetnine");
 
-		Grana slikarstvo = new Grana(1, "Slikarstvo");
-		Podgrana slikarenje = new Podgrana(1, "Slikarenje");
+		Grana slikarstvo = new Grana("Slikarstvo");
+		Podgrana slikarenje = new Podgrana("Slikarenje");
 		svi.add(new Korisnik("Pero", "Peric", "pperic", "pero", "pero@peric.com", "123-456-789", "Adresa 1",
 				"Moj osobni status", "mehanicar", slikarstvo, slikarenje, umjetnine, null, true, false));
 

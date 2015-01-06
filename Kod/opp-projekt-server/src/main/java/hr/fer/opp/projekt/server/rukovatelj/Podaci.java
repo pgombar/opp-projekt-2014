@@ -15,11 +15,11 @@ public final class Podaci {
     public static final Umjetnina UMJETNINA_2 = new Umjetnina(2, "Superiska", "Tehnikalija", new Date(2013, 12, 25, 12, 24));
     public static final List<Umjetnina> UMJETNINE = Arrays.asList(UMJETNINA_1, UMJETNINA_2);
 
-    public static final Grana GRANA_1 = new Grana(1, "slikarstvo");
-    public static final Grana GRANA_2 = new Grana(2, "kiparstvo");
+    public static final Grana GRANA_1 = new Grana("slikarstvo");
+    public static final Grana GRANA_2 = new Grana("kiparstvo");
 
-    public static final Podgrana PODGRANA_1 = new Podgrana(1, "slikarenje");
-    public static final Podgrana PODGRANA_2 = new Podgrana(2, "kiparenje");
+    public static final Podgrana PODGRANA_1 = new Podgrana("slikarenje");
+    public static final Podgrana PODGRANA_2 = new Podgrana("kiparenje");
 
     public static final Korisnik KORISNIK_1 = new Korisnik("Pero", "Peric", "pperic", "pero", "pero@peric.com",
             "123-456-789", "Adresa 1", "Moj osobni status", "mehanicar", GRANA_1, PODGRANA_1, UMJETNINE, null, true, false);
