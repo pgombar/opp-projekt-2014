@@ -56,22 +56,22 @@ public class AdminApp extends MainApp {
 
 		Grana slikarstvo = new Grana(1, "Slikarstvo");
 		Podgrana slikarenje = new Podgrana(1, "Slikarenje");
-		svi.add(new Korisnik(1, "Pero", "Peric", "pperic", "pero", "pero@peric.com", "123-456-789", "Adresa 1",
+		svi.add(new Korisnik("Pero", "Peric", "pperic", "pero", "pero@peric.com", "123-456-789", "Adresa 1",
 				"Moj osobni status", "mehanicar", slikarstvo, slikarenje, umjetnine, null, true, false));
 
-		svi.add(new Korisnik(1, "Perica", "Peric", "pperic", "pero", "pero@peric.com", "123-456-789", "Adresa 1",
+		svi.add(new Korisnik("Perica", "Peric", "pperic", "pero", "pero@peric.com", "123-456-789", "Adresa 1",
 				"Moj osobni status", "mehanicar", slikarstvo, slikarenje, umjetnine, null, true, false));
 
-		blokirani.add(new Korisnik(1, "Bosko", "Peric", "pperic", "pero", "pero@peric.com", "123-456-789", "Adresa 1",
+		blokirani.add(new Korisnik("Bosko", "Peric", "pperic", "pero", "pero@peric.com", "123-456-789", "Adresa 1",
 				"Moj osobni status", "mehanicar", slikarstvo, slikarenje, umjetnine, null, true, false));
 
-		blokirani.add(new Korisnik(1, "Blokic", "Peric", "pperic", "pero", "pero@peric.com", "123-456-789", "Adresa 1",
+		blokirani.add(new Korisnik("Blokic", "Peric", "pperic", "pero", "pero@peric.com", "123-456-789", "Adresa 1",
 				"Moj osobni status", "mehanicar", slikarstvo, slikarenje, umjetnine, null, true, false));
 
-		omiljeni.add(new Korisnik(1, "Omiljko", "Peric", "pperic", "pero", "pero@peric.com", "123-456-789", "Adresa 1",
+		omiljeni.add(new Korisnik("Omiljko", "Peric", "pperic", "pero", "pero@peric.com", "123-456-789", "Adresa 1",
 				"Moj osobni status", "mehanicar", slikarstvo, slikarenje, umjetnine, null, true, false));
 
-		omiljeni.add(new Korisnik(1, "Omiljac", "Peric", "pperic", "pero", "pero@peric.com", "123-456-789", "Adresa 1",
+		omiljeni.add(new Korisnik("Omiljac", "Peric", "pperic", "pero", "pero@peric.com", "123-456-789", "Adresa 1",
 				"Moj osobni status", "mehanicar", slikarstvo, slikarenje, umjetnine, null, true, false));
 
 		initRootLayout();
