@@ -8,7 +8,8 @@
 
 <AnchorPane prefHeight="107.0" prefWidth="267.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hr.fer.opp.projekt.client.login.LoginController">
    <children>
-      <TextField fx:id="korisnickoImeText" layoutX="101.0" layoutY="13.0">
+   
+      <TextField fx:id="korisnickoIme" layoutX="101.0" layoutY="13.0">
          <font>
             <Font size="12.0" />
          </font></TextField>
@@ -24,7 +25,7 @@
          <font>
             <Font size="12.0" />
          </font></Label>
-      <PasswordField fx:id="zaporkaText" layoutX="101.0" layoutY="41.0">
+      <PasswordField fx:id="zaporka" layoutX="101.0" layoutY="41.0">
          <font>
             <Font size="12.0" />
          </font></PasswordField>

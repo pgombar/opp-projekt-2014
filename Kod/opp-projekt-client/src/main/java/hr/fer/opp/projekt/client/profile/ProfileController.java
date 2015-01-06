@@ -54,9 +54,17 @@ public class ProfileController {
 	@FXML
 	private ImageView slika;
 	@FXML
-	private Button pogledajProfil;
+	private Button mail;
+	@FXML
+	private Button chat;
 	@FXML
 	private GridPane grid1;
+	@FXML
+	private ImageView online;
+	@FXML
+	private ImageView blocked;
+	@FXML
+	private ImageView favorited;
 	@FXML
 	private ListView<Umjetnina> listView;
 	private ObservableList<Umjetnina> data = FXCollections.observableArrayList();
@@ -66,6 +74,9 @@ public class ProfileController {
 		Image img = new Image(
 				"https://yt3.ggpht.com/-7zFDHK5X45w/AAAAAAAAAAI/AAAAAAAAAAA/QJfHeLTEZwE/s100-c-k-no/photo.jpg");
 		slika.setImage(img);
+		
+		mail.setGraphic(new ImageView(this.getClass().getClassLoader().getResource("mail.png").toExternalForm()));
+		chat.setGraphic(new ImageView(this.getClass().getClassLoader().getResource("chat.png").toExternalForm()));
 		
 		List<Umjetnina> umjetnine = new ArrayList<Umjetnina>();
 		umjetnine.add(new Umjetnina(1, "Najbolja", "Tehnika", new Date(2014, 12, 25, 12, 24)));
@@ -167,6 +178,21 @@ public class ProfileController {
 		grana.setText(korisnik.getGrana().getIme());
 		podgrana.setText(korisnik.getPodgrana().getIme());
 		setList(korisnik.getUmjetnine());
+		if(korisnik.isOnline()) {
+			online.setImage(new Image(this.getClass().getClassLoader().getResource("online.png").toExternalForm()));
+		} else {
+			online.setImage(new Image(this.getClass().getClassLoader().getResource("offline.png").toExternalForm()));
+		}
+		if(mainApp.isBlokiran(korisnik)) {
+			blocked.setImage(new Image(this.getClass().getClassLoader().getResource("block-mini.png").toExternalForm()));
+		} else {
+			blocked.setImage(new Image(this.getClass().getClassLoader().getResource("block-mini.png").toExternalForm()));
+		}
+		if(mainApp.isOmiljen(korisnik)) {
+			favorited.setImage(new Image(this.getClass().getClassLoader().getResource("fav-mini.png").toExternalForm()));
+		} else {
+			favorited.setImage(new Image(this.getClass().getClassLoader().getResource("fav-mini.png").toExternalForm()));
+		}
 	}
 
 	public void setSlika(ImageView slika) {

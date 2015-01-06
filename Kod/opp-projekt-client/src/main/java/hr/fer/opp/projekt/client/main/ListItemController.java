@@ -18,7 +18,13 @@ public class ListItemController {
 	private Label status;
 	@FXML
 	private ImageView slika;
-	
+	@FXML
+	private ImageView online;
+	@FXML
+	private ImageView blocked;
+	@FXML
+	private ImageView favorited;
+
 	public ListItemController() {
 	}
 	
@@ -48,6 +54,21 @@ public class ListItemController {
 		korisnickoIme.setText(korisnik.getKorisnickoIme());
 		imePrezime.setText(korisnik.getIme() + " " + korisnik.getPrezime());
 		status.setText(korisnik.getOsobniStatus());
+		if(korisnik.isOnline()) {
+			online.setImage(new Image(this.getClass().getClassLoader().getResource("online.png").toExternalForm()));
+		} else {
+			online.setImage(new Image(this.getClass().getClassLoader().getResource("offline.png").toExternalForm()));
+		}
+		if(mainApp.isBlokiran(korisnik)) {
+			blocked.setImage(new Image(this.getClass().getClassLoader().getResource("block-mini.png").toExternalForm()));
+		} else {
+			blocked.setImage(new Image(this.getClass().getClassLoader().getResource("block-mini.png").toExternalForm()));
+		}
+		if(mainApp.isOmiljen(korisnik)) {
+			favorited.setImage(new Image(this.getClass().getClassLoader().getResource("fav-mini.png").toExternalForm()));
+		} else {
+			favorited.setImage(new Image(this.getClass().getClassLoader().getResource("fav-mini.png").toExternalForm()));
+		}
 	}
 
 	public void setSlika(ImageView slika) {

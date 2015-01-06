@@ -42,7 +42,7 @@ public class MainController {
             @Override
             public void changed(ObservableValue<? extends TreeItem<String>> observable, 
             		TreeItem<String> old_val, TreeItem<String> new_val) {
-            		mainApp.searchGrana(new_val.getValue());
+            		if(new_val.getParent() != null) mainApp.searchGrana(new_val.getValue());
             }
 
         });

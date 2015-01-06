@@ -12,6 +12,6 @@ public interface KorisnikRepository extends CrudRepository<Korisnik, Long> {
             "lower(u.prezime) like :prezime")
     List<Korisnik> search(@Param("korisnickoIme") String korisnickoIme, @Param("ime") String ime,
                           @Param("prezime") String prezime);
-
+    
     Korisnik findByKorisnickoIme(@Param("korisnickoIme") String korisnickoIme);
 }

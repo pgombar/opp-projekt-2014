@@ -12,7 +12,18 @@
    <children>
       <VBox layoutX="14.0" layoutY="14.0" prefWidth="500.0">
          <children>
-            <Label fx:id="korisnickoIme" text="Korisničko ime" />
+            <HBox prefHeight="12.0" prefWidth="500.0">
+               <children>
+                  <Label fx:id="korisnickoIme" text="Korisničko ime" />
+                  <HBox alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="420.0" spacing="5.0">
+                     <children>
+                        <ImageView fx:id="online" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="blocked" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="favorited" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
             <Label fx:id="imePrezime" styleClass="ime" text="Ime Prezime" />
             <Label fx:id="status" text="Status" />
             <Separator prefWidth="200.0" />
@@ -63,14 +74,15 @@
       <VBox layoutX="586.0" layoutY="14.0" prefHeight="400.0" prefWidth="200.0">
          <children>
             <ImageView fx:id="slika" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
+            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="5.0">
                <children>
-                  <Button mnemonicParsing="false" text="M" />
-                  <Button mnemonicParsing="false" text="C" />
+                  <Button fx:id="mail" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" styleClass="icon" text="" />
+                  <Button fx:id="chat" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" styleClass="icon" text="" />
                   <Button mnemonicParsing="false" text="O" />
                   <Button mnemonicParsing="false" text="B/F" />
                </children>
             </HBox>
+            <ToggleButton mnemonicParsing="false" text="ToggleButton" />
          </children>
       </VBox>
       <ListView fx:id="listView" layoutX="14.0" layoutY="337.0" prefHeight="331.0" prefWidth="500.0" />

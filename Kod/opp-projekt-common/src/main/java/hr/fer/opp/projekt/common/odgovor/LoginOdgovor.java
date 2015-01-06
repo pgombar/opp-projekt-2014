@@ -8,7 +8,7 @@ public final class LoginOdgovor implements Odgovor, Serializable {
     private final boolean uspjeh;
 
     private final String porukaGreske;
-
+    
     private LoginOdgovor(boolean uspjeh, String porukaGreske) {
         this.uspjeh = uspjeh;
         this.porukaGreske = porukaGreske;
@@ -21,7 +21,7 @@ public final class LoginOdgovor implements Odgovor, Serializable {
     public String getPorukaGreske() {
         return porukaGreske;
     }
-
+    
     public static LoginOdgovor success() {
         return new LoginOdgovor(true, "");
     }

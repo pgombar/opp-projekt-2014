@@ -22,7 +22,11 @@ public final class Podgrana implements Serializable {
     protected Podgrana() {
 
     }
-
+    
+    public String toString() {
+    	return ime;
+    }
+    
     public Podgrana(long id, String ime) {
         this.id = id;
         this.ime = ime;

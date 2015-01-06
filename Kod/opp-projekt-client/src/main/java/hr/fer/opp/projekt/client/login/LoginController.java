@@ -1,5 +1,6 @@
 package hr.fer.opp.projekt.client.login;
 
+import hr.fer.opp.projekt.client.main.MainApp;
 import hr.fer.opp.projekt.common.odgovor.LoginOdgovor;
 import hr.fer.opp.projekt.common.zahtjev.LoginZahtjev;
 import javafx.fxml.FXML;
@@ -9,13 +10,13 @@ import javafx.scene.control.TextField;
 
 public class LoginController {
 
-	private LoginApp loginApp;
+	private MainApp mainApp;
 	@FXML
 	private Button loginButton;
 	@FXML
-	private TextField korisnickoImeText;
+	private TextField korisnickoIme;
 	@FXML
-	private PasswordField zaporkaText;
+	private PasswordField zaporka;
 	
 	public LoginController() {
 	}
@@ -26,12 +27,12 @@ public class LoginController {
 	
 	@FXML
 	private void handleLogin() {
-		LoginZahtjev zahtjev = new LoginZahtjev(korisnickoImeText.getText(), zaporkaText.getText());
-		LoginOdgovor odgovor = loginApp.getChannel().sendAndWait(zahtjev);
-		//System.out.println(odgovor);
+		LoginZahtjev zahtjev = new LoginZahtjev(korisnickoIme.getText(), zaporka.getText());
+		LoginOdgovor odgovor = mainApp.getChannel().sendAndWait(zahtjev);
+		System.out.println(odgovor);
 	}
 
-    public void setMainApp(LoginApp loginApp) {
-        this.loginApp = loginApp;
+    public void setMainApp(MainApp mainApp) {
+        this.mainApp = mainApp;
     }
 }

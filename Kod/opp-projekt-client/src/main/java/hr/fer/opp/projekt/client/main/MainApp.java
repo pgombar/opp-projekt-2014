@@ -2,6 +2,8 @@ package hr.fer.opp.projekt.client.main;
 
 import hr.fer.opp.projekt.client.communication.EventChannel;
 import hr.fer.opp.projekt.client.communication.OcsfEventChannel;
+import hr.fer.opp.projekt.client.login.LoginController;
+import hr.fer.opp.projekt.client.login.RegisterController;
 import hr.fer.opp.projekt.common.model.Grana;
 import hr.fer.opp.projekt.common.model.Korisnik;
 import hr.fer.opp.projekt.common.model.Podgrana;
@@ -80,13 +82,15 @@ public class MainApp extends Application {
 		omiljeni.add(new Korisnik(1, "Omiljac", "Peric", "pperic", "pero", "pero@peric.com",
 	            "123-456-789", "Adresa 1", "Moj osobni status", "mehanicar", slikarstvo, slikarenje, umjetnine, null, true, false));
 		*/
-		initRootLayout();
-		
+		//initRootLayout();
+		//showRegistration();
+		showLogin();
 	}
 	
 	private void dohvatiPodatke() {
         PopisUmjetnikaOdgovor odgovor = channel.sendAndWait(PopisUmjetnikaZahtjev.INSTANCE);
         svi = odgovor.getRezultati();
+        korisnik = svi.get(0);
    }
 	
 	private void initRootLayout() {
@@ -110,6 +114,44 @@ public class MainApp extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private void showLogin() {
+	       try {
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(this.getClass().getClassLoader().getResource("fxml/welcome/WelcomeLayout.fxml"));
+				Parent root = (Parent) loader.load();
+				LoginController controller = loader.getController();
+				controller.setMainApp(this);
+				
+				root.getStylesheets().add(this.getClass().getClassLoader().getResource("welcome.css").toExternalForm());
+
+				Stage stage = new Stage();
+				Scene scene = new Scene(root);
+				stage.setScene(scene);
+				stage.showAndWait();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	}
+	
+	private void showRegistration() {
+	       try {
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(this.getClass().getClassLoader().getResource("fxml/register/RegisterLayout.fxml"));
+				Parent root = (Parent) loader.load();
+				RegisterController controller = loader.getController();
+				controller.setMainApp(this);
+				
+				//root.getStylesheets().add(this.getClass().getClassLoader().getResource("menu.css").toExternalForm());
+
+				Stage stage = new Stage();
+				Scene scene = new Scene(root);
+				stage.setScene(scene);
+				stage.showAndWait();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 	}
 	
 	private void showUserList() {
@@ -175,6 +217,14 @@ public class MainApp extends Application {
 	public List<Grana> getGrane() {
 		List<Grana> grane = Arrays.asList(new Grana(1, "slikarstvo"), new Grana(2, "kiparstvo"), new Grana(3, "grafika"));
 		return grane;
+	}
+	
+	public boolean isBlokiran(Korisnik korisnik) {
+		return blokirani.contains(korisnik);
+	}
+	
+	public boolean isOmiljen(Korisnik korisnik) {
+		return omiljeni.contains(korisnik);
 	}
 	
 	public List<List<Podgrana>> getPodgrane() {
