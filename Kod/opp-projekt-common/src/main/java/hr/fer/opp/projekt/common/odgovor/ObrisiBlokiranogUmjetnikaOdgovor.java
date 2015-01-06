@@ -8,14 +8,14 @@ import java.util.List;
 public class ObrisiBlokiranogUmjetnikaOdgovor implements Odgovor, Serializable {
     private static final long serialVersionUID = -6501310805416392781L;
 
-    private final List<Korisnik> omiljeniUmjetnici;
+    private final List<Korisnik> blokiraniUmjetnici;
 
-    public ObrisiBlokiranogUmjetnikaOdgovor(List<Korisnik> omiljeniUmjetnici) {
-        this.omiljeniUmjetnici = omiljeniUmjetnici;
+    public ObrisiBlokiranogUmjetnikaOdgovor(List<Korisnik> blokiraniUmjetnici) {
+        this.blokiraniUmjetnici = blokiraniUmjetnici;
     }
 
-    public List<Korisnik> getOmiljeniUmjetnici() {
-        return omiljeniUmjetnici;
+    public List<Korisnik> getBlokiraniUmjetnici() {
+        return blokiraniUmjetnici;
     }
 
 }

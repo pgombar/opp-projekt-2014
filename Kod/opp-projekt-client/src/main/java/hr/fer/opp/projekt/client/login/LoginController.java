@@ -21,6 +21,8 @@ public class LoginController {
 	private TextField korisnickoIme;
 	@FXML
 	private PasswordField zaporka;
+	@FXML
+	private Label greska;
 	
 	public LoginController() {
 	}
@@ -37,12 +39,7 @@ public class LoginController {
 			System.out.println("Logiram korisnka " + odgovor.getKorisnik().getKorisnickoIme());
 			mainApp.login(odgovor.getKorisnik());
 		} else {
-			// tu treba pravi error dialog xD koji ne radi jer verzija kurac palac
-		    Stage stage = new Stage();
-		    StackPane root = new StackPane();
-		    root.getChildren().add(new Label(odgovor.getPorukaGreske()));
-		    stage.setScene(new Scene(root));
-		    stage.show();
+			greska.setText(odgovor.getPorukaGreske());
 		}
 	}
 	

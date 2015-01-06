@@ -8,9 +8,17 @@ import hr.fer.opp.projekt.common.model.Grana;
 import hr.fer.opp.projekt.common.model.Korisnik;
 import hr.fer.opp.projekt.common.model.Podgrana;
 import hr.fer.opp.projekt.common.model.Umjetnina;
+import hr.fer.opp.projekt.common.odgovor.DodajBlokiranogUmjetnikaOdgovor;
+import hr.fer.opp.projekt.common.odgovor.DodajOmiljenogUmjetnikaOdgovor;
+import hr.fer.opp.projekt.common.odgovor.ObrisiBlokiranogUmjetnikaOdgovor;
+import hr.fer.opp.projekt.common.odgovor.ObrisiOmiljenogUmjetnikaOdgovor;
 import hr.fer.opp.projekt.common.odgovor.PopisUmjetnikaOdgovor;
 import hr.fer.opp.projekt.common.odgovor.PretragaUmjetnikaOdgovor;
 import hr.fer.opp.projekt.common.zahtjev.LogoutZahtjev;
+import hr.fer.opp.projekt.common.zahtjev.DodajBlokiranogUmjetnikaZahtjev;
+import hr.fer.opp.projekt.common.zahtjev.DodajOmiljenogUmjetnikaZahtjev;
+import hr.fer.opp.projekt.common.zahtjev.ObrisiBlokiranogUmjetnikaZahtjev;
+import hr.fer.opp.projekt.common.zahtjev.ObrisiOmiljenogUmjetnikaZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.PopisUmjetnikaZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.PretragaUmjetnikaZahtjev;
 
@@ -195,11 +203,17 @@ public class MainApp extends Application {
 	}
 	
 	public boolean isBlokiran(Korisnik korisnik) {
-		return blokirani.contains(korisnik);
+		dohvatiPodatke();
+		for(Korisnik k : blokirani)
+			if(k.getId() == korisnik.getId()) return true;
+		return false;
 	}
 	
 	public boolean isOmiljen(Korisnik korisnik) {
-		return omiljeni.contains(korisnik);
+		dohvatiPodatke();
+		for(Korisnik k : omiljeni)
+			if(k.getId() == korisnik.getId()) return true;
+		return false;	
 	}
 	
 	public List<List<Podgrana>> getPodgrane() {
@@ -227,4 +241,29 @@ public class MainApp extends Application {
 		showLogin();
 	}
 
+	public void toggleBlock(Korisnik korisnik) {
+		if(isOmiljen(korisnik)) return;
+		if(isBlokiran(korisnik)) { 
+			ObrisiBlokiranogUmjetnikaZahtjev zahtjev = new ObrisiBlokiranogUmjetnikaZahtjev(this.korisnik.getId(), korisnik.getId());
+			ObrisiBlokiranogUmjetnikaOdgovor odgovor = channel.sendAndWait(zahtjev);
+			blokirani = odgovor.getBlokiraniUmjetnici();
+		} else {
+			DodajBlokiranogUmjetnikaZahtjev zahtjev = new DodajBlokiranogUmjetnikaZahtjev(this.korisnik.getId(), korisnik.getId());
+			DodajBlokiranogUmjetnikaOdgovor odgovor = channel.sendAndWait(zahtjev);
+			blokirani = odgovor.getBlokiraniUmjetnici();
+		}
+	}
+
+	public void toggleFavorite(Korisnik korisnik) {
+		if(isBlokiran(korisnik)) return;
+		if(isOmiljen(korisnik)) { 
+			ObrisiOmiljenogUmjetnikaZahtjev zahtjev = new ObrisiOmiljenogUmjetnikaZahtjev(this.korisnik.getId(), korisnik.getId());
+			ObrisiOmiljenogUmjetnikaOdgovor odgovor = channel.sendAndWait(zahtjev);
+			omiljeni = odgovor.getOmiljeniUmjetnici();
+		} else {
+			DodajOmiljenogUmjetnikaZahtjev zahtjev = new DodajOmiljenogUmjetnikaZahtjev(this.korisnik.getId(), korisnik.getId());
+			DodajOmiljenogUmjetnikaOdgovor odgovor = channel.sendAndWait(zahtjev);
+			omiljeni = odgovor.getOmiljeniUmjetnici();
+		}
+	}
 }

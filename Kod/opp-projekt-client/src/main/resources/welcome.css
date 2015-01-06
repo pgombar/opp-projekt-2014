@@ -26,3 +26,8 @@
 .tekst#footer{
 	-fx-font-style: italic;
 }
+
+.tekst#greska {
+    -fx-text-fill: red;
+    -fx-font-weight: bold;
+}

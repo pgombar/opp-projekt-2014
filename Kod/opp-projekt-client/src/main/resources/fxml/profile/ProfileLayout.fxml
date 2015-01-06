@@ -76,10 +76,10 @@
             <ImageView fx:id="slika" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="5.0">
                <children>
-                  <Button fx:id="mail" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" styleClass="icon" text="" />
-                  <Button fx:id="chat" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" styleClass="icon" text="" />
-                  <Button mnemonicParsing="false" styleClass="icon" />
-                  <Button mnemonicParsing="false" styleClass="icon" />
+                  <Button fx:id="mail" contentDisplay="CENTER" mnemonicParsing="false" styleClass="icon" onAction="#handleMail" />
+                  <Button fx:id="chat" contentDisplay="CENTER" mnemonicParsing="false" styleClass="icon" onAction="#handleChat" />
+                  <Button fx:id="block" contentDisplay="CENTER" mnemonicParsing="false" styleClass="icon" onAction="#handleBlock" />
+                  <Button fx:id="favorite" contentDisplay="CENTER" mnemonicParsing="false" styleClass="icon" onAction="#handleFavorite" />
                </children>
             </HBox>
          </children>

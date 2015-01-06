@@ -190,6 +190,10 @@
 	-fx-background-color: black;
 }
 
+.list-cell:empty {
+    -fx-opacity: 0;
+}
+
 /*******************************************************************************
  *                                                                             *
  * ScrollBar CSS From JMetro Theme                                             *

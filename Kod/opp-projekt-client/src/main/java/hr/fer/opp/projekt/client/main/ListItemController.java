@@ -62,12 +62,12 @@ public class ListItemController {
 		if(mainApp.isBlokiran(korisnik)) {
 			blocked.setImage(new Image(this.getClass().getClassLoader().getResource("block-mini.png").toExternalForm()));
 		} else {
-			blocked.setImage(new Image(this.getClass().getClassLoader().getResource("block-mini.png").toExternalForm()));
+			blocked.setImage(new Image(this.getClass().getClassLoader().getResource("not-block-mini.png").toExternalForm()));
 		}
 		if(mainApp.isOmiljen(korisnik)) {
 			favorited.setImage(new Image(this.getClass().getClassLoader().getResource("fav-mini.png").toExternalForm()));
 		} else {
-			favorited.setImage(new Image(this.getClass().getClassLoader().getResource("fav-mini.png").toExternalForm()));
+			favorited.setImage(new Image(this.getClass().getClassLoader().getResource("not-fav-mini.png").toExternalForm()));
 		}
 	}
 
