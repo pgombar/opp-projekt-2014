@@ -47,7 +47,7 @@ public final class Korisnik implements Serializable {
     @ManyToOne
     private Podgrana podgrana;
 
-    @OneToMany//(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Umjetnina> umjetnine;
 
     @Transient
@@ -59,30 +59,25 @@ public final class Korisnik implements Serializable {
     @Column
     private boolean admin;
 
-    //    @ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(name = "OmiljeniUmjetnici",
-//            joinColumns = @JoinColumn(name = "korisnikId"), inverseJoinColumns = @JoinColumn(name = "omiljeniId"))
-    @Transient
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "OmiljeniUmjetnici",
+            joinColumns = @JoinColumn(name = "korisnikId"), inverseJoinColumns = @JoinColumn(name = "omiljeniId"))
     private List<Korisnik> omiljeniUmjetnici;
 
-    //    @ManyToMany
-//    @JoinTable(name = "OmiljeniUmjetnici",
-//            joinColumns = @JoinColumn(name = "omiljeniId"), inverseJoinColumns = @JoinColumn(name = "korisnikId"))
-    @Transient
+    @ManyToMany
+    @JoinTable(name = "OmiljeniUmjetnici",
+            joinColumns = @JoinColumn(name = "omiljeniId"), inverseJoinColumns = @JoinColumn(name = "korisnikId"))
     private List<Korisnik> omiljeniUmjetniciOd;
 
-    //    @ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(name = "BlokiraniUmjetnici",
-//            joinColumns = @JoinColumn(name = "korisnikId"), inverseJoinColumns = @JoinColumn(name = "blokiraniId"))
-    @Transient
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "BlokiraniUmjetnici",
+            joinColumns = @JoinColumn(name = "korisnikId"), inverseJoinColumns = @JoinColumn(name = "blokiraniId"))
     private List<Korisnik> blokiraniUmjetnici;
 
-    //    @ManyToMany
-//    @JoinTable(name = "BlokiraniUmjetnici",
-//            joinColumns = @JoinColumn(name = "blokiraniId"), inverseJoinColumns = @JoinColumn(name = "korisnikId"))
-    @Transient
+    @ManyToMany
+    @JoinTable(name = "BlokiraniUmjetnici",
+            joinColumns = @JoinColumn(name = "blokiraniId"), inverseJoinColumns = @JoinColumn(name = "korisnikId"))
     private List<Korisnik> blokiraniUmjetniciOd;
-
 
     protected Korisnik() {
 
