@@ -2,10 +2,7 @@ package hr.fer.opp.projekt.common.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public final class Podgrana implements Serializable {
@@ -16,18 +13,18 @@ public final class Podgrana implements Serializable {
     @GeneratedValue
     private long id;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Grana grana;
+
     @Column(nullable = false)
     private String ime;
 
     protected Podgrana() {
 
     }
-    
-    public String toString() {
-    	return ime;
-    }
-    
-    public Podgrana(String ime) {
+
+    public Podgrana(Grana grana, String ime) {
+        this.grana = grana;
         this.ime = ime;
     }
 
@@ -46,4 +43,9 @@ public final class Podgrana implements Serializable {
     public void setIme(String ime) {
         this.ime = ime;
     }
+
+    public String toString() {
+        return ime;
+    }
+
 }

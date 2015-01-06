@@ -1,11 +1,10 @@
 package hr.fer.opp.projekt.common.model;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public final class Grana implements Serializable {
@@ -19,17 +18,16 @@ public final class Grana implements Serializable {
     @Column(nullable = false)
     private String ime;
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "grana")
+    private List<Podgrana> podgrane;
 
     protected Grana() {
 
     }
 
-    public String toString() {
-    	return ime;
-    }
-    
-    public Grana(String ime) {
+    public Grana(String ime, Podgrana... podgrane) {
         this.ime = ime;
+        this.podgrane = Arrays.asList(podgrane);
     }
 
     public String getIme() {
@@ -46,6 +44,10 @@ public final class Grana implements Serializable {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String toString() {
+        return ime;
     }
 
 }

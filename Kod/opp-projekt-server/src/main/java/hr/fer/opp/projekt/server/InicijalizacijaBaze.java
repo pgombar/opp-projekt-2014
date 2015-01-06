@@ -58,8 +58,8 @@ public class InicijalizacijaBaze {
     }
 
     private void addPodgrane() {
-        podgranaRepository.save(new Podgrana("Podgrana 1"));
-        podgranaRepository.save(new Podgrana("Podgrana 2"));
+        podgranaRepository.save(new Podgrana(grana(1), "Podgrana 1"));
+        podgranaRepository.save(new Podgrana(grana(2), "Podgrana 2"));
     }
 
     private void addKorisnike() {
