@@ -9,6 +9,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
@@ -32,6 +33,8 @@ public class MainController {
 	private Button trazi;
 	@FXML
 	private TextField pretraga;
+	@FXML
+	private Label imePrezime;
 	
 	public MainController() {
 	}
@@ -52,7 +55,7 @@ public class MainController {
         this.mainApp = mainApp;
     }
     
-    public void prikaziGrane() {
+    public void inicijaliziraj() {
 		TreeItem<String> root = new TreeItem<>("Grane umjetnosti");
 		kategorije.setRoot(root);
 		List<Grana> grane = mainApp.getGrane();
@@ -62,6 +65,7 @@ public class MainController {
 			for(int j = 0; j < podgrane.get(i).size(); ++j)
 				root.getChildren().get(i).getChildren().add(new TreeItem<>(podgrane.get(i).get(j).getIme()));
 		}
+		imePrezime.setText(mainApp.getKorisnik().getIme() + " " + mainApp.getKorisnik().getPrezime());
     }
 
 	@FXML
@@ -86,7 +90,7 @@ public class MainController {
 	
 	@FXML
 	private void handleOdjava() {
-		
+		mainApp.logout();
 	}
 	
 	@FXML
