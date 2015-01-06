@@ -27,19 +27,15 @@ import java.util.concurrent.CountDownLatch;
 
 @Configuration
 @ComponentScan
+@EnableTransactionManagement
+
 @EnableAutoConfiguration
 @EnableJpaRepositories
-@EnableTransactionManagement
 @EntityScan(value = "hr.fer.opp.projekt.common.model")
 public class Application {
     private static final Logger LOGGER = LoggerFactory.getLogger(EventServer.class);
 
     @Autowired private Collection<RukovateljZahtjevom<? extends Zahtjev, ?>> rukovatelji;
-
-    @Bean
-    public AbstractServer eventServer() {
-        return new EventServer(5000, rukovatelji);
-    }
 
     public static void main(String[] args) {
         CountDownLatch latch = new CountDownLatch(1);
@@ -63,4 +59,5 @@ public class Application {
             context.close();
         }
     }
+
 }

@@ -2,6 +2,7 @@ package hr.fer.opp.projekt.server.rukovatelj;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import com.lloseng.ocsf.server.ConnectionToClient;
 import hr.fer.opp.projekt.common.model.Korisnik;
 import hr.fer.opp.projekt.common.odgovor.PopisUmjetnikaOdgovor;
 import hr.fer.opp.projekt.common.zahtjev.PopisUmjetnikaZahtjev;
@@ -22,7 +23,7 @@ public final class PopisUmjetnikaRukovatelj implements RukovateljZahtjevom<Popis
     }
 
     @Override
-    public PopisUmjetnikaOdgovor handle(PopisUmjetnikaZahtjev zahtjev) {
+    public PopisUmjetnikaOdgovor handle(PopisUmjetnikaZahtjev zahtjev, ConnectionToClient client, Korisnik active) {
         List<Korisnik> korisnici = ImmutableList.copyOf(korisnikRepository.findAll());
 
         return new PopisUmjetnikaOdgovor(korisnici);

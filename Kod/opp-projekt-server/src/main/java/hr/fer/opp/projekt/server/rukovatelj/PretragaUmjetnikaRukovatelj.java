@@ -1,5 +1,6 @@
 package hr.fer.opp.projekt.server.rukovatelj;
 
+import com.lloseng.ocsf.server.ConnectionToClient;
 import hr.fer.opp.projekt.common.model.Korisnik;
 import hr.fer.opp.projekt.common.odgovor.PretragaUmjetnikaOdgovor;
 import hr.fer.opp.projekt.common.zahtjev.PretragaUmjetnikaZahtjev;
@@ -19,7 +20,8 @@ public final class PretragaUmjetnikaRukovatelj implements RukovateljZahtjevom<Pr
     }
 
     @Override
-    public PretragaUmjetnikaOdgovor handle(PretragaUmjetnikaZahtjev zahtjev) {
+    public PretragaUmjetnikaOdgovor handle(PretragaUmjetnikaZahtjev zahtjev, ConnectionToClient client,
+                                           Korisnik active) {
         List<Korisnik> rezultati = korisnikRepository.search(like(zahtjev.getKorisnickoIme()),
                 like(zahtjev.getIme()), like(zahtjev.getPrezime()));
 

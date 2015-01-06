@@ -1,5 +1,7 @@
 package hr.fer.opp.projekt.server.rukovatelj;
 
+import com.lloseng.ocsf.server.ConnectionToClient;
+import hr.fer.opp.projekt.common.model.Korisnik;
 import hr.fer.opp.projekt.common.odgovor.DohvatiUmjetnikaOdgovor;
 import hr.fer.opp.projekt.common.zahtjev.DohvatiUmjetnikaZahtjev;
 import hr.fer.opp.projekt.server.repository.KorisnikRepository;
@@ -16,7 +18,7 @@ public final class DohvatiUmjetnikaRukovatelj implements RukovateljZahtjevom<Doh
     }
 
     @Override
-    public DohvatiUmjetnikaOdgovor handle(DohvatiUmjetnikaZahtjev zahtjev) {
+    public DohvatiUmjetnikaOdgovor handle(DohvatiUmjetnikaZahtjev zahtjev, ConnectionToClient client, Korisnik active) {
         return new DohvatiUmjetnikaOdgovor(korisnikRepository.findOne(zahtjev.getId()));
     }
 }

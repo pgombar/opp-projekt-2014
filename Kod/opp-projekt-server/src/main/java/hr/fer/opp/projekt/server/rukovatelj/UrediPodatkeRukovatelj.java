@@ -1,5 +1,6 @@
 package hr.fer.opp.projekt.server.rukovatelj;
 
+import com.lloseng.ocsf.server.ConnectionToClient;
 import hr.fer.opp.projekt.common.model.Korisnik;
 import hr.fer.opp.projekt.common.odgovor.UrediPodatkeOdgovor;
 import hr.fer.opp.projekt.common.zahtjev.UrediPodatkeZahtjev;
@@ -17,7 +18,7 @@ public final class UrediPodatkeRukovatelj implements RukovateljZahtjevom<UrediPo
     }
 
     @Override
-    public UrediPodatkeOdgovor handle(UrediPodatkeZahtjev zahtjev) {
+    public UrediPodatkeOdgovor handle(UrediPodatkeZahtjev zahtjev, ConnectionToClient client, Korisnik active) {
         Korisnik korisnikZahtjev = zahtjev.getUmjetnik();
         Korisnik existing = korisnikRepository.findOne(korisnikZahtjev.getId());
 

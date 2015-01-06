@@ -63,9 +63,13 @@ public class InicijalizacijaBaze {
     }
 
     private void addKorisnike() {
-        korisnikRepository.save(new Korisnik("Mirko", "Mirkovic", "mmirkovic", "mirkec", "mirko@gmail.com", "091472827", "Ilica 10", "Nisam zgodan al sam nezgodan", "soboslikar", grana(2), podgrana(1), new ArrayList<Umjetnina>(), slika("doge.jpg"), false, true));
+        korisnikRepository.save(new Korisnik("Mirko", "Mirkovic", "mmirkovic", "mirkec", "mirko@gmail.com", "091472827",
+                "Ilica 10", "Nisam zgodan al sam nezgodan", "soboslikar", grana(2), podgrana(1),
+                new ArrayList<Umjetnina>(), slika("doge.jpg"), true));
 
-        korisnikRepository.save(new Korisnik("Ankica", "Ancic", "aancic", "ankica", "ankica@gmail.com", "091472827", "Ilica 10", "Kaj buljis", "soboslikar", grana(1), podgrana(1), new ArrayList<Umjetnina>(), slika("doge.jpg"), false, true));
+        korisnikRepository.save(new Korisnik("Ankica", "Ancic", "aancic", "ankica", "ankica@gmail.com", "091472827",
+                "Ilica 10", "Kaj buljis", "soboslikar", grana(1), podgrana(1), new ArrayList<Umjetnina>(),
+                slika("doge.jpg"), true));
     }
 
     private Grana grana(long id) {

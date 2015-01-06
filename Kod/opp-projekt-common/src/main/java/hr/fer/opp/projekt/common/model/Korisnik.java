@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -61,11 +62,14 @@ public final class Korisnik implements Serializable {
     @Basic(fetch = FetchType.EAGER)
     private Blob slikaBlob;
 
-    @Transient
-    private byte[] slika;
+    @Column
+    private boolean online;
+
+    @Column
+    private Date zadnjiPutAktivan;
 
     @Transient
-    private boolean online;
+    private byte[] slika;
 
     @Column
     private boolean admin;
@@ -96,7 +100,7 @@ public final class Korisnik implements Serializable {
     public Korisnik(String ime, String prezime, String korisnickoIme,
                     String zaporka, String email, String telefon, String adresa,
                     String osobniStatus, String zvanje, Grana grana, Podgrana podgrana,
-                    List<Umjetnina> umjetnine, BufferedImage slika, boolean online, boolean admin) {
+                    List<Umjetnina> umjetnine, BufferedImage slika, boolean admin) {
         this.ime = ime;
         this.prezime = prezime;
         this.korisnickoIme = korisnickoIme;
@@ -109,7 +113,6 @@ public final class Korisnik implements Serializable {
         this.grana = grana;
         this.podgrana = podgrana;
         this.umjetnine = umjetnine;
-        this.online = online;
         this.admin = admin;
 
         if (slika != null) setSlika(slika);
@@ -210,7 +213,7 @@ public final class Korisnik implements Serializable {
     }
 
     public boolean isOnline() {
-        return online;
+        return online && new Date().getTime() - this.zadnjiPutAktivan.getTime() < 5 * 60 * 1000;
     }
 
     public void setOnline(boolean online) {

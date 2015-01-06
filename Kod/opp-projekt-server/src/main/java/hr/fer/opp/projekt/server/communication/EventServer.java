@@ -2,30 +2,54 @@ package hr.fer.opp.projekt.server.communication;
 
 import com.lloseng.ocsf.server.AbstractServer;
 import com.lloseng.ocsf.server.ConnectionToClient;
+import hr.fer.opp.projekt.common.model.Korisnik;
 import hr.fer.opp.projekt.common.odgovor.Odgovor;
 import hr.fer.opp.projekt.common.zahtjev.Zahtjev;
+import hr.fer.opp.projekt.server.repository.KorisnikRepository;
 import hr.fer.opp.projekt.server.rukovatelj.RukovateljZahtjevom;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
-import java.util.Collection;
+import java.util.*;
 
-public class EventServer extends AbstractServer {
+@Component
+public class EventServer extends AbstractServer implements ApplicationContextAware {
     private static final Logger LOGGER = LoggerFactory.getLogger(EventServer.class);
 
-    private final Collection<RukovateljZahtjevom<?, ?>> rukovatelji;
+    private final KorisnikRepository korisnikRepository;
 
-    public EventServer(int port, Collection<RukovateljZahtjevom<? extends Zahtjev, ?>> rukovatelji) {
+    private final Map<Long, Connection> connections;
+
+    private ApplicationContext applicationContext;
+
+    @Autowired
+    public EventServer(@Value("${application.port}") int port, KorisnikRepository korisnikRepository) {
         super(port);
 
-        this.rukovatelji = rukovatelji;
+        this.korisnikRepository = korisnikRepository;
+        this.connections = new HashMap<>();
+    }
+
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
     }
 
     @Override
     protected void clientConnected(ConnectionToClient client) {
         LOGGER.info("Client {} connected!", client.getInetAddress());
+
+        connections.put(client.getId(), new Connection(client));
 
         super.clientConnected(client);
     }
@@ -33,6 +57,8 @@ public class EventServer extends AbstractServer {
     @Override
     protected synchronized void clientDisconnected(ConnectionToClient client) {
         LOGGER.info("Client {} disconnected!", client.getInetAddress());
+
+        removeKorisnik(client);
 
         super.clientDisconnected(client);
     }
@@ -59,6 +85,7 @@ public class EventServer extends AbstractServer {
     }
 
     @Override
+    @Transactional
     protected void handleMessageFromClient(Object msg, ConnectionToClient client) {
         Zahtjev zahtjev = (Zahtjev) msg;
 
@@ -68,7 +95,13 @@ public class EventServer extends AbstractServer {
 
         LOGGER.debug("Rjesavam zahtjev {} s {}", zahtjev, rukovatelj);
 
-        Odgovor odgovor = rukovatelj.handle(zahtjev);
+        Connection connection = connections.get(client.getId());
+
+        Odgovor odgovor = rukovatelj.handle(zahtjev, client, connection.korisnik);
+
+        if (connection.korisnik != null) {
+            korisnikRepository.setZadnjiPutAktivanFor(connection.korisnik.getId(), new Date());
+        }
 
         try {
             LOGGER.debug("Odgovaram na zahtjev {} s {}.", zahtjev, odgovor);
@@ -79,8 +112,19 @@ public class EventServer extends AbstractServer {
         }
     }
 
+    public void setKorisnik(ConnectionToClient client, Korisnik korisnik) {
+        connections.get(client.getId()).korisnik = korisnik;
+    }
+
+    public void removeKorisnik(ConnectionToClient client) {
+        Korisnik korisnik = connections.get(client.getId()).korisnik;
+        korisnikRepository.setOnlineToFalseFor(korisnik.getId());
+
+        connections.get(client.getId()).korisnik = null;
+    }
+
     private RukovateljZahtjevom<Zahtjev, ?> findRukovatelj(Zahtjev zahtjev) {
-        for(RukovateljZahtjevom<?, ?> rukovatelj : rukovatelji) {
+        for(RukovateljZahtjevom rukovatelj : applicationContext.getBeansOfType(RukovateljZahtjevom.class).values()) {
             ParameterizedType genericSuperclass = (ParameterizedType) rukovatelj.getClass().getGenericInterfaces()[0];
             Class<?> clazz = (Class<?>) genericSuperclass.getActualTypeArguments()[0];
 
@@ -91,4 +135,15 @@ public class EventServer extends AbstractServer {
 
         return null;
     }
+
+    private static class Connection {
+        private final ConnectionToClient connection;
+
+        private Korisnik korisnik = null;
+
+        private Connection(ConnectionToClient connection) {
+            this.connection = connection;
+        }
+    }
+
 }

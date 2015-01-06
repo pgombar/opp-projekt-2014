@@ -10,6 +10,7 @@ import hr.fer.opp.projekt.common.model.Podgrana;
 import hr.fer.opp.projekt.common.model.Umjetnina;
 import hr.fer.opp.projekt.common.odgovor.PopisUmjetnikaOdgovor;
 import hr.fer.opp.projekt.common.odgovor.PretragaUmjetnikaOdgovor;
+import hr.fer.opp.projekt.common.zahtjev.LogoutZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.PopisUmjetnikaZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.PretragaUmjetnikaZahtjev;
 
@@ -221,6 +222,8 @@ public class MainApp extends Application {
 	}
 
 	public void logout() {
+        channel.sendAndWait(LogoutZahtjev.INSTANCE);
+
 		showLogin();
 	}
 
