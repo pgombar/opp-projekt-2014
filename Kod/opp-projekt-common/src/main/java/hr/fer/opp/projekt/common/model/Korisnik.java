@@ -9,8 +9,10 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public final class Korisnik implements Serializable {
@@ -60,7 +62,7 @@ public final class Korisnik implements Serializable {
     @Column
     @Lob
     @Basic(fetch = FetchType.EAGER)
-    private Blob slikaBlob;
+    private transient Blob slikaBlob;
 
     @Column
     private boolean online;
@@ -293,4 +295,18 @@ public final class Korisnik implements Serializable {
         this.blokiraniUmjetnici = blokiraniUmjetnici;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Korisnik korisnik = (Korisnik) o;
+
+        return Objects.equals(id, korisnik.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 }
