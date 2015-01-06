@@ -8,8 +8,8 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface KorisnikRepository extends CrudRepository<Korisnik, Long> {
-    @Query("select u from Korisnik u where u.korisnickoIme like '%:korisnickoIme%' and " +
-            "u.ime like '%:ime%' and u.prezime like '%:prezime%'")
+    @Query("select u from Korisnik u where u.korisnickoIme like :korisnickoIme or u.ime like :ime or " +
+            "u.prezime like :prezime")
     List<Korisnik> search(@Param("korisnickoIme") String korisnickoIme, @Param("ime") String ime,
                           @Param("prezime") String prezime);
 

@@ -20,9 +20,13 @@ public final class PretragaUmjetnikaRukovatelj implements RukovateljZahtjevom<Pr
 
     @Override
     public PretragaUmjetnikaOdgovor handle(PretragaUmjetnikaZahtjev zahtjev) {
-        List<Korisnik> rezultati = korisnikRepository.search(zahtjev.getKorisnickoIme(), zahtjev.getIme(),
-                zahtjev.getPrezime());
+        List<Korisnik> rezultati = korisnikRepository.search(like(zahtjev.getKorisnickoIme()),
+                like(zahtjev.getIme()), like(zahtjev.getPrezime()));
 
         return new PretragaUmjetnikaOdgovor(rezultati);
+    }
+
+    private static String like(String str) {
+        return String.format("%%%s%%", str);
     }
 }
