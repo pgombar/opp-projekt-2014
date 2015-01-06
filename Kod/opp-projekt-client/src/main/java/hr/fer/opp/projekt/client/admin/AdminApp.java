@@ -47,8 +47,8 @@ public class AdminApp extends MainApp {
 
 		this.stage = stage;
 
-		Umjetnina umjetnina1 = new Umjetnina(1, "Najbolja", "Tehnika", new Date(2014, 12, 25, 12, 24));
-		Umjetnina umjetnina2 = new Umjetnina(2, "Superiska", "Tehnikalija", new Date(2013, 12, 25, 12, 24));
+		Umjetnina umjetnina1 = new Umjetnina("Najbolja", "Tehnika", new Date(2014, 12, 25, 12, 24), null, null);
+		Umjetnina umjetnina2 = new Umjetnina("Superiska", "Tehnikalija", new Date(2013, 12, 25, 12, 24), null, null);
 
 		List<Umjetnina> umjetnine = Arrays.asList(umjetnina1, umjetnina2);
 

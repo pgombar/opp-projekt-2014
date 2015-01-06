@@ -12,8 +12,7 @@ public final class AdminDodajKorisnikaRukovatelj implements RukovateljZahtjevom<
     public AdminDodajKorisnikaOdgovor handle(AdminDodajKorisnikaZahtjev zahtjev, ConnectionToClient client,
                                              Korisnik active) {
         Korisnik korisnik = new Korisnik("", "", zahtjev.getKorisnickoIme(),
-                zahtjev.getZaporka(), zahtjev.getEmail(), "", "", "", "", Podaci.GRANA_2, Podaci.PODGRANA_2, null, null,
-                false);
+                zahtjev.getZaporka(), zahtjev.getEmail(), "", "", "", "", null, null, null, null, false);
 
         return new AdminDodajKorisnikaOdgovor(korisnik);
     }

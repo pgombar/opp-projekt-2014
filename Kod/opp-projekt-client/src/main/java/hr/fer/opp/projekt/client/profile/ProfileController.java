@@ -83,11 +83,11 @@ public class ProfileController {
 		
 		mail.setGraphic(new ImageView(this.getClass().getClassLoader().getResource("mail.png").toExternalForm()));
 		chat.setGraphic(new ImageView(this.getClass().getClassLoader().getResource("chat.png").toExternalForm()));
-		
+
 		List<Umjetnina> umjetnine = new ArrayList<Umjetnina>();
-		umjetnine.add(new Umjetnina(1, "Najbolja", "Tehnika", new Date(2014, 12, 25, 12, 24)));
-		umjetnine.add(new Umjetnina(2, "Jos bolja", "Tehnika", new Date(2014, 12, 25, 12, 24)));
-		umjetnine.add(new Umjetnina(3, "Super", "Tehnika", new Date(2014, 12, 25, 12, 24)));
+		umjetnine.add(new Umjetnina("Najbolja", "Tehnika", new Date(2014, 12, 25, 12, 24), null, null));
+		umjetnine.add(new Umjetnina("Jos bolja", "Tehnika", new Date(2014, 12, 25, 12, 24), null, null));
+		umjetnine.add(new Umjetnina("Super", "Tehnika", new Date(2014, 12, 25, 12, 24), null, null));
 
 		this.setList(umjetnine);
 		

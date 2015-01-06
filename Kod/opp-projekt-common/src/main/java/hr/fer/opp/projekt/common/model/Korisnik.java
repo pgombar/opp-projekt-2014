@@ -56,7 +56,7 @@ public final class Korisnik implements Serializable {
     @ManyToOne
     private Podgrana podgrana;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "korisnik")
     private List<Umjetnina> umjetnine;
 
     @Column

@@ -34,6 +34,9 @@ public final class Umjetnina implements Serializable {
     @Basic(fetch = FetchType.EAGER)
     private Blob slikaBlob;
 
+    @ManyToOne(fetch =  FetchType.EAGER)
+    private Korisnik korisnik;
+
     @Transient
     private byte[] slika;
 
@@ -41,11 +44,13 @@ public final class Umjetnina implements Serializable {
 
     }
 
-    public Umjetnina(long id, String ime, String tehnika, Date datumNastanka) {
-        this.id = id;
+    public Umjetnina(String ime, String tehnika, Date datumNastanka, BufferedImage slika, Korisnik korisnik) {
         this.ime = ime;
         this.tehnika = tehnika;
         this.datumNastanka = datumNastanka;
+        this.korisnik = korisnik;
+
+        setSlika(slika);
     }
 
     @PostLoad
@@ -85,6 +90,14 @@ public final class Umjetnina implements Serializable {
 
     public void setDatumNastanka(Date datumNastanka) {
         this.datumNastanka = datumNastanka;
+    }
+
+    public Korisnik getKorisnik() {
+        return korisnik;
+    }
+
+    public void setKorisnik(Korisnik korisnik) {
+        this.korisnik = korisnik;
     }
 
     public BufferedImage getSlika() {

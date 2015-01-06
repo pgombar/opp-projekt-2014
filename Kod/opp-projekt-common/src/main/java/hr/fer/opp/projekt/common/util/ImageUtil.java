@@ -47,10 +47,14 @@ public final class ImageUtil {
     }
 
     public static BufferedImage byteArrayToImage(byte[] image) {
-        try {
-            return ImageIO.read(new ByteArrayInputStream(image));
-        } catch (IOException e) {
+        if (image == null) {
             return null;
+        } else {
+            try {
+                return ImageIO.read(new ByteArrayInputStream(image));
+            } catch (IOException e) {
+                return null;
+            }
         }
     }
 }
