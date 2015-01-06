@@ -8,11 +8,15 @@ import hr.fer.opp.projekt.common.zahtjev.RegistracijaZahtjev;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 public class RegisterController {
 
@@ -47,15 +51,22 @@ public class RegisterController {
 	
 	@FXML
 	private void handleZavrsi() {
+		System.out.println(grana.getSelectionModel().getSelectedItem().getId());
 		RegistracijaOdgovor odgovor = mainApp.getChannel().sendAndWait(new RegistracijaZahtjev(ime.getText(), prezime.getText(), korisnickoIme.getText(), zaporka.getText(),
 				mail.getText(), telefon.getText(), adresa.getText(), zvanje.getText(), 
 				grana.getSelectionModel().getSelectedItem().getId(), podgrana.getSelectionModel().getSelectedItem().getId()));
 	
-		if(odgovor.getGreske() != null) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.show();
+		if(odgovor.getKorisnik() == null) {
+			// tu treba pravi error dialog xD koji ne radi jer verzija kurac palac
+		    Stage stage = new Stage();
+		    StackPane root = new StackPane();
+		    root.getChildren().add(new Label(odgovor.getGreske().get(0)));
+		    stage.setScene(new Scene(root));
+		    stage.show();
 		} else {
-			// zatvori prozor
+			System.out.println("Uspjesna registracija korisnika");
+		    Stage stage = (Stage) zavrsi.getScene().getWindow();
+		    stage.close();		
 		}
 	}
 	

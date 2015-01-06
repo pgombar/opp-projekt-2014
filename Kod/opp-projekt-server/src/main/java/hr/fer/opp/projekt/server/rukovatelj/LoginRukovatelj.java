@@ -21,7 +21,7 @@ public class LoginRukovatelj implements RukovateljZahtjevom<LoginZahtjev, LoginO
         Korisnik korisnik = korisnikRepository.findByKorisnickoIme(zahtjev.getKorisnickoIme());
 
         if (korisnik != null && korisnik.getZaporka().equals(zahtjev.getZaporka())) {
-            return LoginOdgovor.success();
+            return LoginOdgovor.success(korisnik);
         } else {
             return LoginOdgovor.fail("Pogrešno korisničko ime i/ili zaporka.");
         }

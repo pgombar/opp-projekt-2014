@@ -21,7 +21,7 @@
       <AnchorPane layoutX="560.0" layoutY="318.0" prefHeight="80.0" prefWidth="265.0" styleClass="welcomeContainer">
          <children>
             <Label id="posebno" alignment="CENTER" layoutX="28.0" layoutY="14.0" styleClass="tekst" text="Još nemate korisnički račun?" />
-            <Button layoutX="90.0" layoutY="43.0" mnemonicParsing="false" styleClass="tekst" text="Registriraj se" />
+            <Button layoutX="90.0" layoutY="43.0" mnemonicParsing="false" styleClass="tekst" text="Registriraj se" onAction="#handleRegister" />
          </children>
       </AnchorPane>
       <AnchorPane layoutY="38.0" prefHeight="60.0" prefWidth="960.0" styleClass="welcomeContainer">

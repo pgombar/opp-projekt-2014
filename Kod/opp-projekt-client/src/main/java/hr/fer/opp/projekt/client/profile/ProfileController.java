@@ -72,8 +72,7 @@ public class ProfileController {
 	
 	@FXML
 	private void initialize() {
-		Image img = new Image(
-				"https://yt3.ggpht.com/-7zFDHK5X45w/AAAAAAAAAAI/AAAAAAAAAAA/QJfHeLTEZwE/s100-c-k-no/photo.jpg");
+		Image img = new Image(this.getClass().getClassLoader().getResource("doge.jpg").toExternalForm());
 		slika.setImage(img);
 		
 		mail.setGraphic(new ImageView(this.getClass().getClassLoader().getResource("mail.png").toExternalForm()));

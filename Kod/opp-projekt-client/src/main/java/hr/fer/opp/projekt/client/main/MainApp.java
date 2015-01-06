@@ -60,40 +60,20 @@ public class MainApp extends Application {
 
 		this.stage.setTitle("Umjetnine");
 
-		dohvatiPodatke();
-        
-        /*Grana slikarstvo = new Grana(1, "Slikarstvo");
-        Podgrana slikarenje = new Podgrana(1, "Slikarenje");
-		svi.add(new Korisnik(1, "Pero", "Peric", "pperic", "pero", "pero@peric.com",
-	            "123-456-789", "Adresa 1", "Moj osobni status", "mehanicar", slikarstvo, slikarenje, umjetnine, null, true, false));
-
-		svi.add(new Korisnik(1, "Perica", "Peric", "pperic", "pero", "pero@peric.com",
-	            "123-456-789", "Adresa 1", "Moj osobni status", "mehanicar", slikarstvo, slikarenje, umjetnine, null, true, false));
-		
-		blokirani.add(new Korisnik(1, "Bosko", "Peric", "pperic", "pero", "pero@peric.com",
-	            "123-456-789", "Adresa 1", "Moj osobni status", "mehanicar", slikarstvo, slikarenje, umjetnine, null, true, false));
-
-		blokirani.add(new Korisnik(1, "Blokic", "Peric", "pperic", "pero", "pero@peric.com",
-	            "123-456-789", "Adresa 1", "Moj osobni status", "mehanicar", slikarstvo, slikarenje, umjetnine, null, true, false));
-		
-		omiljeni.add(new Korisnik(1, "Omiljko", "Peric", "pperic", "pero", "pero@peric.com",
-	            "123-456-789", "Adresa 1", "Moj osobni status", "mehanicar", slikarstvo, slikarenje, umjetnine, null, true, false));
-
-		omiljeni.add(new Korisnik(1, "Omiljac", "Peric", "pperic", "pero", "pero@peric.com",
-	            "123-456-789", "Adresa 1", "Moj osobni status", "mehanicar", slikarstvo, slikarenje, umjetnine, null, true, false));
-		*/
-		//initRootLayout();
-		//showRegistration();
 		showLogin();
 	}
 	
 	private void dohvatiPodatke() {
         PopisUmjetnikaOdgovor odgovor = channel.sendAndWait(PopisUmjetnikaZahtjev.INSTANCE);
-        svi = odgovor.getRezultati();
-        korisnik = svi.get(0);
+        svi = new ArrayList<Korisnik>();
+        List<Korisnik> korisnici = odgovor.getRezultati();
+        for(Korisnik k : korisnici)
+        	if(k.getId() != korisnik.getId())
+        		svi.add(k);
    }
 	
 	private void initRootLayout() {
+		dohvatiPodatke();
         try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(this.getClass().getClassLoader().getResource("fxml/main/MainLayout.fxml"));
@@ -107,9 +87,8 @@ public class MainApp extends Application {
 			stage.setScene(scene);
 			stage.show();
 			
-			
 			showUserList();
-			mainController.prikaziGrane();
+			mainController.inicijaliziraj();
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -126,16 +105,15 @@ public class MainApp extends Application {
 				
 				root.getStylesheets().add(this.getClass().getClassLoader().getResource("welcome.css").toExternalForm());
 
-				Stage stage = new Stage();
 				Scene scene = new Scene(root);
 				stage.setScene(scene);
-				stage.showAndWait();
+				stage.show();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 	}
 	
-	private void showRegistration() {
+	public void showRegistration() {
 	       try {
 				FXMLLoader loader = new FXMLLoader();
 				loader.setLocation(this.getClass().getClassLoader().getResource("fxml/register/RegisterLayout.fxml"));
@@ -156,15 +134,12 @@ public class MainApp extends Application {
 	
 	private void showUserList() {
 	    try {
-	        // Load person overview.
 	        FXMLLoader loader = new FXMLLoader();
 	        loader.setLocation(this.getClass().getClassLoader().getResource("fxml/main/UserListLayout.fxml"));
 	        Parent userList = (Parent) loader.load();
 
-	        // Set person overview into the center of root layout.
 	        root.setCenter(userList);
 
-	        // Give the controller access to the main app.
 	        userListController = loader.getController();
 	        userListController.setMainApp(this);
 	        showAll();
@@ -183,6 +158,7 @@ public class MainApp extends Application {
 	}
 	
 	public void showAll() {
+		dohvatiPodatke();
         userListController.setList(svi);
 	}
 	
@@ -196,9 +172,7 @@ public class MainApp extends Application {
 	
 	public void search(String search) {
 		 PretragaUmjetnikaOdgovor odgovor = channel.sendAndWait(new PretragaUmjetnikaZahtjev(search, search, search));
-		 System.out.println("stigo odg");
 		 userListController.setList(odgovor.getRezultati());
-	     System.out.println("bok");
 	}
 	
 	public void searchGrana(String grana) {
@@ -239,6 +213,15 @@ public class MainApp extends Application {
 	
 	public static void main(String[] args) {
 		launch(args);
+	}
+
+	public void login(Korisnik korisnik) {
+		this.korisnik = korisnik;
+		initRootLayout();
+	}
+
+	public void logout() {
+		showLogin();
 	}
 
 }
