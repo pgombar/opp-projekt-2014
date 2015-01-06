@@ -21,8 +21,8 @@ public final class Podaci {
     public static final Podgrana PODGRANA_1 = new Podgrana(1, "slikarenje");
     public static final Podgrana PODGRANA_2 = new Podgrana(2, "kiparenje");
 
-    public static final Korisnik KORISNIK_1 = new Korisnik(20, "Pero", "Peric", "pperic", "pero", "pero@peric.com",
+    public static final Korisnik KORISNIK_1 = new Korisnik("Pero", "Peric", "pperic", "pero", "pero@peric.com",
             "123-456-789", "Adresa 1", "Moj osobni status", "mehanicar", GRANA_1, PODGRANA_1, UMJETNINE, null, true, false);
-    public static final Korisnik KORISNIK_2 = new Korisnik(21, "Ivo", "Ivic", "iivic", "ivo", "ivo@ivic.com",
+    public static final Korisnik KORISNIK_2 = new Korisnik("Ivo", "Ivic", "iivic", "ivo", "ivo@ivic.com",
             "321-654-987", "Adresa 5", "Ja sam najbolji", "vozac", GRANA_2, PODGRANA_2, UMJETNINE, null, false, false);
 }

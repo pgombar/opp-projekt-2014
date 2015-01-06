@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import hr.fer.opp.projekt.common.model.Umjetnina;
+import hr.fer.opp.projekt.common.odgovor.DohvatiUmjetnikaOdgovor;
+import hr.fer.opp.projekt.common.zahtjev.DohvatiUmjetnikaZahtjev;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -46,10 +48,11 @@ public class ProfileApp extends MainApp {
 //			root.getStylesheets().add(MainApp.class.getResource("/menu.css").toExternalForm());
 			root.getStylesheets().add(this.getClass().getClassLoader().getResource("menu.css").toExternalForm());
 
-			Korisnik mirko = new Korisnik(4, "Mirko", "Mirkic", "kiki_bombon", "a", "mirko@mirkic.com", ";)", "Mirkonija", "Bok!!!",
-					"vozac", new Grana(1, "Kiparstvo"), new Podgrana(1, "Kiparenje"), new ArrayList<Umjetnina>(), null, false, false);
+            DohvatiUmjetnikaOdgovor odgovor = this.channel.sendAndWait(new DohvatiUmjetnikaZahtjev(1L));
+//			Korisnik mirko = new Korisnik("Mirko", "Mirkic", "kiki_bombon", "a", "mirko@mirkic.com", ";)", "Mirkonija", "Bok!!!",
+//					"vozac", new Grana(1, "Kiparstvo"), new Podgrana(1, "Kiparenje"), new ArrayList<Umjetnina>(), null, false, false);
 
-			profileController.setKorisnik(mirko);
+			profileController.setKorisnik(odgovor.getUmjetnik());
 
 			Scene scene = new Scene(root);
 			stage.setScene(scene);

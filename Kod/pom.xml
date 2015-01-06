@@ -24,6 +24,7 @@
 
     <properties>
         <java.version>1.7</java.version>
+        <guava.version>18.0</guava.version>
         <spring.version>4.0.3.RELEASE</spring.version>
     </properties>
 
@@ -48,6 +49,12 @@
                 <groupId>com.lloseng</groupId>
                 <artifactId>ocsf</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

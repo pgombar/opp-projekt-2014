@@ -59,16 +59,35 @@ public final class Korisnik implements Serializable {
     @Column
     private boolean admin;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "OmiljeniUmjetnici",
+            joinColumns = @JoinColumn(name = "korisnikId"), inverseJoinColumns = @JoinColumn(name = "omiljeniId"))
+    private List<Korisnik> omiljeniUmjetnici;
+
+    @ManyToMany
+    @JoinTable(name = "OmiljeniUmjetnici",
+            joinColumns = @JoinColumn(name = "omiljeniId"), inverseJoinColumns = @JoinColumn(name = "korisnikId"))
+    private List<Korisnik> omiljeniUmjetniciOd;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "BlokiraniUmjetnici",
+            joinColumns = @JoinColumn(name = "korisnikId"), inverseJoinColumns = @JoinColumn(name = "blokiraniId"))
+    private List<Korisnik> blokiraniUmjetnici;
+
+    @ManyToMany
+    @JoinTable(name = "BlokiraniUmjetnici",
+            joinColumns = @JoinColumn(name = "blokiraniId"), inverseJoinColumns = @JoinColumn(name = "korisnikId"))
+    private List<Korisnik> blokiraniUmjetniciOd;
+
     protected Korisnik() {
 
     }
 
-    public Korisnik(long id, String ime, String prezime, String korisnickoIme,
+    public Korisnik(String ime, String prezime, String korisnickoIme,
                     String zaporka, String email, String telefon, String adresa,
                     String osobniStatus, String zvanje, Grana grana, Podgrana podgrana,
                     List<Umjetnina> umjetnine, Image slika, boolean online,
                     boolean admin) {
-        this.id = id;
         this.ime = ime;
         this.prezime = prezime;
         this.korisnickoIme = korisnickoIme;
@@ -212,6 +231,37 @@ public final class Korisnik implements Serializable {
 
     public void setSlika(Image slika) {
         this.slika = slika;
+    }
+
+    public List<Korisnik> getOmiljeniUmjetnici() {
+        return omiljeniUmjetnici;
+    }
+
+    public void setOmiljeniUmjetnici(List<Korisnik> omiljeniUmjetnici) {
+        this.omiljeniUmjetnici = omiljeniUmjetnici;
+    }
+
+    public List<Korisnik> getBlokiraniUmjetnici() {
+        return blokiraniUmjetnici;
+    }
+
+    public void setBlokiraniUmjetnici(List<Korisnik> blokiraniUmjetnici) {
+        this.blokiraniUmjetnici = blokiraniUmjetnici;
+    }
+
+    public void merge(Korisnik korisnikZahtjev) {
+        this.admin = korisnikZahtjev.admin;
+        this.adresa = korisnikZahtjev.adresa;
+        this.email = korisnikZahtjev.email;
+        this.grana = korisnikZahtjev.grana;
+        this.ime = korisnikZahtjev.ime;
+        this.korisnickoIme = korisnikZahtjev.korisnickoIme;
+        this.osobniStatus = korisnikZahtjev.osobniStatus;
+        this.podgrana = korisnikZahtjev.podgrana;
+        this.prezime = korisnikZahtjev.prezime;
+        this.telefon = korisnikZahtjev.telefon;
+        this.zaporka = korisnikZahtjev.zaporka;
+        this.zvanje = korisnikZahtjev.zvanje;
     }
 
 }
