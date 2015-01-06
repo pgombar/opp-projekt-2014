@@ -21,7 +21,10 @@ public final class UrediPodatkeRukovatelj implements RukovateljZahtjevom<UrediPo
         Korisnik korisnikZahtjev = zahtjev.getUmjetnik();
         Korisnik existing = korisnikRepository.findOne(korisnikZahtjev.getId());
 
+        existing.merge(korisnikZahtjev);
 
-        return new UrediPodatkeOdgovor(zahtjev.getUmjetnik());
+        Korisnik saved = korisnikRepository.save(existing);
+
+        return new UrediPodatkeOdgovor(saved);
     }
 }

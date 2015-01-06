@@ -248,4 +248,20 @@ public final class Korisnik implements Serializable {
     public void setBlokiraniUmjetnici(List<Korisnik> blokiraniUmjetnici) {
         this.blokiraniUmjetnici = blokiraniUmjetnici;
     }
+
+    public void merge(Korisnik korisnikZahtjev) {
+        this.admin = korisnikZahtjev.admin;
+        this.adresa = korisnikZahtjev.adresa;
+        this.email = korisnikZahtjev.email;
+        this.grana = korisnikZahtjev.grana;
+        this.ime = korisnikZahtjev.ime;
+        this.korisnickoIme = korisnikZahtjev.korisnickoIme;
+        this.osobniStatus = korisnikZahtjev.osobniStatus;
+        this.podgrana = korisnikZahtjev.podgrana;
+        this.prezime = korisnikZahtjev.prezime;
+        this.telefon = korisnikZahtjev.telefon;
+        this.zaporka = korisnikZahtjev.zaporka;
+        this.zvanje = korisnikZahtjev.zvanje;
+    }
+
 }
