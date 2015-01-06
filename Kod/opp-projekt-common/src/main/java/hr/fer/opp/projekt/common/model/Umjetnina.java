@@ -50,7 +50,9 @@ public final class Umjetnina implements Serializable {
         this.datumNastanka = datumNastanka;
         this.korisnik = korisnik;
 
-        setSlika(slika);
+        if (slika != null) {
+            setSlika(slika);
+        }
     }
 
     @PostLoad
