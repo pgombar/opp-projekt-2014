@@ -15,6 +15,7 @@ import hr.fer.opp.projekt.common.odgovor.ObrisiBlokiranogUmjetnikaOdgovor;
 import hr.fer.opp.projekt.common.odgovor.ObrisiOmiljenogUmjetnikaOdgovor;
 import hr.fer.opp.projekt.common.odgovor.PopisUmjetnikaOdgovor;
 import hr.fer.opp.projekt.common.odgovor.PretragaUmjetnikaOdgovor;
+import hr.fer.opp.projekt.common.odgovor.UrediPodatkeOdgovor;
 import hr.fer.opp.projekt.common.zahtjev.DodajBlokiranogUmjetnikaZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.DodajOmiljenogUmjetnikaZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.DohvatiSifrarnikeZahtjev;
@@ -23,6 +24,7 @@ import hr.fer.opp.projekt.common.zahtjev.ObrisiBlokiranogUmjetnikaZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.ObrisiOmiljenogUmjetnikaZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.PopisUmjetnikaZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.PretragaUmjetnikaZahtjev;
+import hr.fer.opp.projekt.common.zahtjev.UrediPodatkeZahtjev;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -284,5 +286,12 @@ public class MainApp extends Application {
 		if(skin.equals("menu1.css")) skin = "menu2.css"; else skin = "menu1.css";
 		root.getStylesheets().clear();
 		root.getStylesheets().add(this.getClass().getClassLoader().getResource(skin).toExternalForm());
+	}
+	
+	public void changeStatus(String osobniStatus) {
+		this.korisnik.setOsobniStatus(osobniStatus);
+		UrediPodatkeZahtjev zahtjev = new UrediPodatkeZahtjev(korisnik);
+		UrediPodatkeOdgovor odgovor = channel.sendAndWait(zahtjev);
+		this.korisnik = odgovor.getKorisnik();
 	}
 }

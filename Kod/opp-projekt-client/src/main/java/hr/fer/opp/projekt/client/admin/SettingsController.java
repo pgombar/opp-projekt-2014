@@ -1,9 +1,11 @@
 package hr.fer.opp.projekt.client.admin;
 
+import java.io.File;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class SettingsController {
@@ -19,32 +21,40 @@ public class SettingsController {
 	private TextField port;
 	@FXML
 	private TextField brojKorisnika;
-		
+
 	public SettingsController() {
 	}
-	
+
 	@FXML
 	private void initialize() {
-//		TreeItem<String> root = new TreeItem<String>("Kategorije");
-//		kategorije.setRoot(root);
-//		root.getChildren().add(new TreeItem<String>("slikarstvo"));
-//		root.getChildren().add(new TreeItem<String>("kiparstvo"));
-//		root.getChildren().add(new TreeItem<String>("sta jos postoji"));
-//		root.getChildren().add(new TreeItem<String>("neznam"));
+		// TreeItem<String> root = new TreeItem<String>("Kategorije");
+		// kategorije.setRoot(root);
+		// root.getChildren().add(new TreeItem<String>("slikarstvo"));
+		// root.getChildren().add(new TreeItem<String>("kiparstvo"));
+		// root.getChildren().add(new TreeItem<String>("sta jos postoji"));
+		// root.getChildren().add(new TreeItem<String>("neznam"));
 	}
 
-    public void setMainApp(AdminApp adminApp) {
-        this.mainApp = adminApp;
-    }
+	public void setMainApp(AdminApp adminApp) {
+		this.mainApp = adminApp;
+	}
 
 	@FXML
 	private void handleOdustani() {
 		Stage stage = (Stage) odustani.getScene().getWindow();
 		stage.close();
 	}
-	
+
 	@FXML
 	private void handleSpremi() {
-		
+		Stage stage = (Stage) spremi.getScene().getWindow();
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Open Resource File");
+		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Images", "*.png", "*.jpg"),
+				new FileChooser.ExtensionFilter("JPG", "*.jpg"), new FileChooser.ExtensionFilter("PNG", "*.png"));
+		File file = fileChooser.showOpenDialog(stage);
+		if (file != null) {
+			ip.setText(file.getName());
+		}
 	}
 }

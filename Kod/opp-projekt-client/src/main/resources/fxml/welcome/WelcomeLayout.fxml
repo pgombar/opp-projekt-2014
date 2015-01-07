@@ -14,7 +14,7 @@
             <Label layoutX="48.0" layoutY="42.0" styleClass="tekst" text="Zaporka" />
             <TextField fx:id="korisnickoIme" layoutX="103.0" layoutY="10.0" prefHeight="26.0" prefWidth="150.0" styleClass="tekst" />
             <PasswordField fx:id="zaporka" layoutX="103.0" layoutY="38.0" prefHeight="26.0" prefWidth="150.0" styleClass="tekst" />
-            <Button layoutX="175.0" layoutY="92.0" mnemonicParsing="false" onAction="#handleLogin" styleClass="tekst" text="Prijavi se" />
+            <Button layoutX="94.0" layoutY="90.0" mnemonicParsing="false" onAction="#handleLogin" styleClass="tekst" text="Prijavi se" />
             <Label id="greska" fx:id="greska" layoutX="13.0" layoutY="69.0" prefHeight="17.0" prefWidth="240.0" styleClass="tekst" />
          </children>
       </AnchorPane>
