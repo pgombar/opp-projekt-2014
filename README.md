@@ -33,3 +33,13 @@ Server: hr.fer.opp.projekt.server.Application
 Client: hr.fer.opp.projekt.client.Main
 
 Oboje mozete pokrenuti kao normalne java aplikacije (desni klik -> run as -> java application, ili krace `alt+shift+x j`)
+
+Instalacija
+-----------
+
+1. korak - izvrsiti: `mvn clean package`
+2. korak - u direktorij `opp-projekt-server/target` kreirana je datoteka `opp-projekt-server-1.0-SNAPSHOT.jar`
+  - za pokretanje servera, potrebno je samo izvrsiti `java -jar opp-projekt-server-1.0-SNAPSHOT.jar`
+3. korak - u direktorij `opp-projekt-client/target/jfx/app` kreirana je datoteka `opp-projekt-client-1.0-SNAPSHOT-jfx.jar`
+  - za pokretanje klijenta, potrebno je izvrsiti `java -jar opp-projekt-client-1.0-SNAPSHOT-jfx.jar`
+  - upozorenje: kada se premjestaju datoteke, potrebno je premjestiti i `lib` direktorij u `opp-projekt-client/target/jfx/app`
