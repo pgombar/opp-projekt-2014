@@ -12,12 +12,12 @@
    <left>
       <VBox prefHeight="715.0" prefWidth="217.0" spacing="10.0" styleClass="tekst" BorderPane.alignment="CENTER">
          <children>
-            <TextArea id="statusTekst" fx:id="status" onMouseClicked="#handleMakniTekst" prefHeight="50.0" prefWidth="200.0" />
-            <Button fx:id="objaviStatus" mnemonicParsing="false" onMouseClicked="#handleObjaviStatus" text="Objavi status" />
-            <Button fx:id="mojProfil" mnemonicParsing="false" onAction="#handleMojProfil" text="Moj profil" />
-            <Button fx:id="prikaziSve" mnemonicParsing="false" onAction="#handlePrikaziSve" text="Svi umjetnici" />
-            <Button fx:id="prikaziOmiljene" mnemonicParsing="false" onAction="#handlePrikaziOmiljene" text="Omiljeni umjetnici" />
-            <Button fx:id="prikaziBlokirane" mnemonicParsing="false" onAction="#handlePrikaziBlokirane" text="Blokirani umjetnici" />
+            <TextField fx:id="status" onAction="#handleMakniTekst" styleClass="status" />
+            <Button fx:id="objaviStatus" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#handleObjaviStatus" text="Objavi status" />
+            <Button fx:id="mojProfil" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleMojProfil" text="Moj profil" />
+            <Button fx:id="prikaziSve" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handlePrikaziSve" text="Svi umjetnici" />
+            <Button fx:id="prikaziOmiljene" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handlePrikaziOmiljene" text="Omiljeni umjetnici" />
+            <Button fx:id="prikaziBlokirane" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handlePrikaziBlokirane" text="Blokirani umjetnici" />
             <TreeView fx:id="kategorije" />
          </children>
          <padding>
@@ -39,7 +39,7 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="589.0" spacing="10.0">
                <children>
-                  <Button mnemonicParsing="false" text="Promijeni izgled sučelja" />
+                  <Button mnemonicParsing="false" onAction="#handleSkin" text="Promijeni izgled sučelja" />
                   <TextField fx:id="pretraga" />
                   <Button fx:id="trazi" mnemonicParsing="false" onAction="#handleTrazi" text="Traži" />
                </children>
