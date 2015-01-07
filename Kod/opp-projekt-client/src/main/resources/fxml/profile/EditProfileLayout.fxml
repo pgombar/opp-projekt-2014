@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<GridPane id="background" hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="481.0" prefWidth="350.0" vgap="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hr.fer.opp.projekt.client.profile.EditProfileController">
+<GridPane hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="481.0" prefWidth="350.0" styleClass="background" vgap="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hr.fer.opp.projekt.client.profile.EditProfileController">
   <columnConstraints>
     <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="214.0" minWidth="10.0" prefWidth="139.0" />
     <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="255.0" minWidth="10.0" prefWidth="181.0" />
@@ -25,7 +25,7 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label text="Korisničko ime"/>
+      <Label text="Korisničko ime" />
       <Label text="Lozinka" GridPane.rowIndex="1" />
       <Label text="Ime" GridPane.rowIndex="2" />
       <Label text="Prezime" GridPane.rowIndex="3" />
@@ -40,12 +40,12 @@
       <TextField fx:id="ime" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <TextField fx:id="prezime" GridPane.columnIndex="1" GridPane.rowIndex="3" />
       <TextField fx:id="zvanje" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-      <ComboBox fx:id="grana" prefHeight="25.0" prefWidth="186.0" GridPane.columnIndex="1" GridPane.rowIndex="5" onAction="#handleOdabirGrane"/>
+      <ComboBox fx:id="grana" onAction="#handleOdabirGrane" prefHeight="25.0" prefWidth="186.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
       <ComboBox fx:id="podgrana" prefHeight="25.0" prefWidth="187.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
       <TextField fx:id="mail" GridPane.columnIndex="1" GridPane.rowIndex="7" />
       <TextField fx:id="adresa" GridPane.columnIndex="1" GridPane.rowIndex="8" />
       <TextField fx:id="telefon" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-      <Button fx:id="zavrsi" mnemonicParsing="false" text="Završi" GridPane.columnIndex="1" GridPane.rowIndex="10" onAction="#handleZavrsi"/>
+      <Button fx:id="zavrsi" mnemonicParsing="false" onAction="#handleZavrsi" text="Završi" GridPane.columnIndex="1" GridPane.rowIndex="10" />
       
    </children>
    <padding>
