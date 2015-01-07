@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -73,14 +75,14 @@ public class ProfileController {
 	@FXML
 	private ListView<Umjetnina> listView;
 	private ObservableList<Umjetnina> data = FXCollections.observableArrayList();
-	
+
 	private Korisnik korisnik;
-	
+
 	@FXML
 	private void initialize() {
 		Image img = new Image(this.getClass().getClassLoader().getResource("doge.jpg").toExternalForm());
 		slika.setImage(img);
-		
+
 		mail.setGraphic(new ImageView(this.getClass().getClassLoader().getResource("mail.png").toExternalForm()));
 		chat.setGraphic(new ImageView(this.getClass().getClassLoader().getResource("chat.png").toExternalForm()));
 
@@ -90,76 +92,77 @@ public class ProfileController {
 		umjetnine.add(new Umjetnina("Super", "Tehnika", new Date(2014, 12, 25, 12, 24), null, null));
 
 		this.setList(umjetnine);
-		
-		
-		listView.setItems(data);
-		listView.setCellFactory(new Callback<ListView<Umjetnina>, ListCell<Umjetnina>>(){
-			 
-            @Override
-            public ListCell<Umjetnina> call(ListView<Umjetnina> p) {
-            	ListCell<Umjetnina> cell = new ListCell<Umjetnina>() {
-            		  @Override
-                      protected void updateItem(Umjetnina t, boolean bln) {
-                          super.updateItem(t, bln);
-                          if(t != null) {
-	           	   	        try {
-	           		   	        FXMLLoader loader = new FXMLLoader();
-	           		   	        loader.setLocation(this.getClass().getClassLoader().getResource("fxml/profile/ArtListItemLayout.fxml"));
-	           					Parent userList = (Parent) loader.load();
-	           			        ArtListItemController controller = loader.getController();
-	           			        controller.setMainApp(ProfileController.this.mainApp);
-	           			        controller.setUmjetnina(t);
-	           			        
-	           			        setGraphic(userList);
-	           				} catch (IOException e) {
-	           					e.printStackTrace();
-	           				}
-	
-	                      } 
-            		  }
-            	};
-            	cell.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
-                    @Override
-                    public void handle(MouseEvent event) {
-                    	
-                    	Umjetnina umjetnina = listView.getSelectionModel().getSelectedItem();
-                		Stage stage = new Stage();
-                		stage.setTitle(umjetnina.getIme());
-                		Scene scene = new Scene(new AnchorPane());
-            			stage.setScene(scene);
-            			stage.show();
-            			
-                    	/*try {
-                    		FXMLLoader loader = new FXMLLoader();
-                    		loader.setLocation(this.getClass().getClassLoader().getResource("fxml/profile/ProfileLayout.fxml"));
-                    		Parent profile = (Parent) loader.load();
-                    		ProfileController controller = loader.getController();
-                    		controller.setMainApp(ArtListController.this.mainApp);
-                    		profile.getStylesheets().add(this.getClass().getClassLoader().getResource("menu.css").toExternalForm());
-                    		Umjetnina umjetnina = listView.getSelectionModel().getSelectedItem();
-                    		controller.setKorisnik(korisnik);
-                    		
-                    		
-                    		
-                    	} catch (IOException e) {
-                    		e.printStackTrace();
-                    	}*/
-                    }
-                });
-            	return cell;
-            }
-        });
+		listView.setItems(data);
+		listView.setCellFactory(new Callback<ListView<Umjetnina>, ListCell<Umjetnina>>() {
+
+			@Override
+			public ListCell<Umjetnina> call(ListView<Umjetnina> p) {
+				ListCell<Umjetnina> cell = new ListCell<Umjetnina>() {
+					@Override
+					protected void updateItem(Umjetnina t, boolean bln) {
+						super.updateItem(t, bln);
+						if (t != null) {
+							try {
+								FXMLLoader loader = new FXMLLoader();
+								loader.setLocation(this.getClass().getClassLoader()
+										.getResource("fxml/profile/ArtListItemLayout.fxml"));
+								Parent userList = (Parent) loader.load();
+								ArtListItemController controller = loader.getController();
+								controller.setMainApp(ProfileController.this.mainApp);
+								controller.setUmjetnina(t);
+
+								setGraphic(userList);
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+
+						}
+					}
+				};
+//				cell.setOnMouseClicked(new EventHandler<MouseEvent>() {
+//
+//					@Override
+//					public void handle(MouseEvent event) {
+//
+//						Umjetnina umjetnina = listView.getSelectionModel().getSelectedItem();
+//						Stage stage = new Stage();
+//						stage.setTitle(umjetnina.getIme());
+//						Scene scene = new Scene(new AnchorPane());
+//						stage.setScene(scene);
+//						stage.show();
+//					}
+//				});
+				return cell;
+			}
+		});
+		
+		listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Umjetnina>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Umjetnina> observable, Umjetnina oldValue, Umjetnina newValue) {
+				if (listView.getSelectionModel().getSelectedItem() == null)
+					return;
+				Umjetnina umjetnina = listView.getSelectionModel().getSelectedItem();
+				Stage stage = new Stage();
+				stage.setTitle(umjetnina.getIme());
+				Scene scene = new Scene(new AnchorPane());
+				stage.setScene(scene);
+				stage.show();
+
+				listView.getSelectionModel().clearSelection();
+			}
+		});
 	}
-    
-    public void setList(List<Umjetnina> umjetnine) {
-    	data.clear();
-    	data.addAll(umjetnine);
-    }
-    
-    public void add(Umjetnina umjetnina) {
-    	data.add(umjetnina);
-    }
+
+	public void setList(List<Umjetnina> umjetnine) {
+		data.clear();
+		data.addAll(umjetnine);
+	}
+
+	public void add(Umjetnina umjetnina) {
+		data.add(umjetnina);
+	}
 
 	public void setKorisnickoIme(String korisnickoIme) {
 		this.korisnickoIme.setText(korisnickoIme);
@@ -184,31 +187,39 @@ public class ProfileController {
 		zvanje.setText(korisnik.getZvanje());
 		grana.setText(korisnik.getGrana().getIme());
 		podgrana.setText(korisnik.getPodgrana().getIme());
-        if(korisnik.getSlika() != null) slika.setImage(SwingFXUtils.toFXImage(korisnik.getSlika(), null));
+		if (korisnik.getSlika() != null)
+			slika.setImage(SwingFXUtils.toFXImage(korisnik.getSlika(), null));
 		setList(korisnik.getUmjetnine());
-		
+
 		refreshIcons();
 	}
-	
+
 	private void refreshIcons() {
-		if(korisnik.isOnline()) {
+		if (korisnik.isOnline()) {
 			online.setImage(new Image(this.getClass().getClassLoader().getResource("online.png").toExternalForm()));
 		} else {
 			online.setImage(new Image(this.getClass().getClassLoader().getResource("offline.png").toExternalForm()));
 		}
-		if(mainApp.isBlokiran(korisnik)) {
+		if (mainApp.isBlokiran(korisnik)) {
 			blocked.setImage(new Image(this.getClass().getClassLoader().getResource("block-mini.png").toExternalForm()));
-			block.setGraphic(new ImageView(this.getClass().getClassLoader().getResource("block-mini.png").toExternalForm()));
+			block.setGraphic(new ImageView(this.getClass().getClassLoader().getResource("block-mini.png")
+					.toExternalForm()));
 		} else {
-			blocked.setImage(new Image(this.getClass().getClassLoader().getResource("not-block-mini.png").toExternalForm()));
-			block.setGraphic(new ImageView(this.getClass().getClassLoader().getResource("not-block-mini.png").toExternalForm()));
+			blocked.setImage(new Image(this.getClass().getClassLoader().getResource("not-block-mini.png")
+					.toExternalForm()));
+			block.setGraphic(new ImageView(this.getClass().getClassLoader().getResource("not-block-mini.png")
+					.toExternalForm()));
 		}
-		if(mainApp.isOmiljen(korisnik)) {
-			favorited.setImage(new Image(this.getClass().getClassLoader().getResource("fav-mini.png").toExternalForm()));
-			favorite.setGraphic(new ImageView(this.getClass().getClassLoader().getResource("fav-mini.png").toExternalForm()));
+		if (mainApp.isOmiljen(korisnik)) {
+			favorited
+					.setImage(new Image(this.getClass().getClassLoader().getResource("fav-mini.png").toExternalForm()));
+			favorite.setGraphic(new ImageView(this.getClass().getClassLoader().getResource("fav-mini.png")
+					.toExternalForm()));
 		} else {
-			favorited.setImage(new Image(this.getClass().getClassLoader().getResource("not-fav-mini.png").toExternalForm()));
-			favorite.setGraphic(new ImageView(this.getClass().getClassLoader().getResource("not-fav-mini.png").toExternalForm()));
+			favorited.setImage(new Image(this.getClass().getClassLoader().getResource("not-fav-mini.png")
+					.toExternalForm()));
+			favorite.setGraphic(new ImageView(this.getClass().getClassLoader().getResource("not-fav-mini.png")
+					.toExternalForm()));
 		}
 	}
 
@@ -219,36 +230,36 @@ public class ProfileController {
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 	}
-	
+
 	@FXML
 	public void handleBlock() {
 		mainApp.toggleBlock(korisnik);
 		refreshIcons();
 	}
-	
+
 	@FXML
 	public void handleFavorite() {
 		mainApp.toggleFavorite(korisnik);
 		refreshIcons();
 	}
-	
+
 	@FXML
 	public void handleMail() {
-		
+
 	}
-	
+
 	@FXML
 	public void handleChat() {
-		
+
 	}
-	
+
 	private Node getNodeFromGridPane(GridPane gridPane, int col, int row) {
-	    for (Node node : gridPane.getChildren()) {
-	        if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == row) {
-	            return node;
-	        }
-	    }
-	    return null;
+		for (Node node : gridPane.getChildren()) {
+			if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == row) {
+				return node;
+			}
+		}
+		return null;
 	}
 
 }

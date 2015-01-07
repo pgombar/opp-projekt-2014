@@ -12,7 +12,7 @@
    <left>
       <VBox prefHeight="715.0" prefWidth="217.0" spacing="10.0" styleClass="tekst" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="status" onAction="#handleMakniTekst" styleClass="status" />
+            <TextField fx:id="status" onAction="#handleMakniTekst" prefHeight="30.0" styleClass="status" />
             <Button fx:id="objaviStatus" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#handleObjaviStatus" text="Objavi status" />
             <Button fx:id="mojProfil" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleMojProfil" text="Moj profil" />
             <Button fx:id="prikaziSve" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handlePrikaziSve" text="Svi umjetnici" />

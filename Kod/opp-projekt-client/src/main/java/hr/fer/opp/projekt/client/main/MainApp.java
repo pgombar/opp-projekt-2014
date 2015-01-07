@@ -294,4 +294,8 @@ public class MainApp extends Application {
 		UrediPodatkeOdgovor odgovor = channel.sendAndWait(zahtjev);
 		this.korisnik = odgovor.getKorisnik();
 	}
+
+	public void setKorisnik(Korisnik korisnik) {
+		this.korisnik = korisnik;
+	}
 }

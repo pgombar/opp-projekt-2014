@@ -58,7 +58,6 @@ public class UserListController {
             		  }
             	};
             	cell.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
                     @Override
                     public void handle(MouseEvent event) {
                     	try {
@@ -69,6 +68,7 @@ public class UserListController {
                     		controller.setMainApp(UserListController.this.mainApp);
                     		profile.getStylesheets().add(this.getClass().getClassLoader().getResource("menu.css").toExternalForm());
                     		Korisnik korisnik = listView.getSelectionModel().getSelectedItem();
+                    		if(korisnik == null) return;
                     		controller.setKorisnik(korisnik);
                     		
                     		Stage stage = new Stage();

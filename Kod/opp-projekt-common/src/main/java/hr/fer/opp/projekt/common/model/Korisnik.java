@@ -142,6 +142,7 @@ public final class Korisnik implements Serializable {
         this.telefon = korisnikZahtjev.telefon;
         this.zaporka = korisnikZahtjev.zaporka;
         this.zvanje = korisnikZahtjev.zvanje;
+        setSlika(korisnikZahtjev.getSlika());
     }
 
     public long getId() {

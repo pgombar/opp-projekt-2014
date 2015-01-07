@@ -10,6 +10,7 @@ import hr.fer.opp.projekt.common.zahtjev.DohvatiUmjetnikaZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.UkrcajFotografijuUmjetnineZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.UrediPodatkeZahtjev;
 
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,10 +20,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -34,11 +36,12 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+
+import javax.imageio.ImageIO;
 
 public class MyProfileController {
 
@@ -126,20 +129,24 @@ public class MyProfileController {
 						}
 					}
 				};
-				cell.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-					@Override
-					public void handle(MouseEvent event) {
-
-						Umjetnina umjetnina = listView.getSelectionModel().getSelectedItem();
-						Stage stage = new Stage();
-						stage.setTitle(umjetnina.getIme());
-						Scene scene = new Scene(new AnchorPane());
-						stage.setScene(scene);
-						stage.show();
-					}
-				});
 				return cell;
+			}
+		});
+
+		listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Umjetnina>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Umjetnina> observable, Umjetnina oldValue, Umjetnina newValue) {
+				if (listView.getSelectionModel().getSelectedItem() == null)
+					return;
+				Umjetnina umjetnina = listView.getSelectionModel().getSelectedItem();
+				Stage stage = new Stage();
+				stage.setTitle(umjetnina.getIme());
+				Scene scene = new Scene(new AnchorPane());
+				stage.setScene(scene);
+				stage.show();
+
+				listView.getSelectionModel().clearSelection();
 			}
 		});
 
@@ -217,9 +224,15 @@ public class MyProfileController {
 	public void handlePromijeniSliku() {
 		browseFile();
 		try {
-			Image img = new Image(new FileInputStream(file));
-			slika.setImage(img);
-		} catch (FileNotFoundException e) {
+			BufferedImage bimg = ImageIO.read(file);
+
+			korisnik.setSlika(bimg);
+			UrediPodatkeZahtjev zahtjev = new UrediPodatkeZahtjev(korisnik);
+			UrediPodatkeOdgovor odgovor = mainApp.getChannel().sendAndWait(zahtjev);
+
+			setKorisnik(odgovor.getKorisnik());
+			mainApp.setKorisnik(odgovor.getKorisnik());
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -239,7 +252,7 @@ public class MyProfileController {
 				for (int readNum; (readNum = fis.read(buf)) != -1;) {
 					bos.write(buf, 0, readNum);
 				}
-                bos.flush();
+				bos.flush();
 				byte[] umjetnina = bos.toByteArray();
 
 				// FOLNOR DEBUGIRAJ
@@ -247,13 +260,11 @@ public class MyProfileController {
 						imeUmjetnine.getText(), tehnika.getText(), new Date());
 				UkrcajFotografijuUmjetnineOdgovor odgovor = mainApp.getChannel().sendAndWait(zahtjev);
 
-//				korisnik.getUmjetnine().add(odgovor.getUmjetnina());
-//				System.out.println(odgovor.getUmjetnina());
-//				System.out.println(odgovor.getUmjetnina().getSlika());
-//
-//				UrediPodatkeZahtjev zahtjev2 = new UrediPodatkeZahtjev(korisnik);
-//				UrediPodatkeOdgovor odgovor2 = mainApp.getChannel().sendAndWait(zahtjev2);
-//				this.setKorisnik(odgovor2.getKorisnik());
+				DohvatiUmjetnikaZahtjev zahtjev2 = new DohvatiUmjetnikaZahtjev(korisnik.getId());
+				DohvatiUmjetnikaOdgovor odgovor2 = mainApp.getChannel().sendAndWait(zahtjev2);
+
+				setKorisnik(odgovor2.getUmjetnik());
+				mainApp.setKorisnik(odgovor2.getUmjetnik());
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
