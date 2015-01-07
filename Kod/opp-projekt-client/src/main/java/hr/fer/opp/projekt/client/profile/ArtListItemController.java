@@ -2,6 +2,7 @@ package hr.fer.opp.projekt.client.profile;
 
 import hr.fer.opp.projekt.client.main.MainApp;
 import hr.fer.opp.projekt.common.model.Umjetnina;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -18,17 +19,18 @@ public class ArtListItemController {
 	private Label datumNastanka;
 	@FXML
 	private ImageView slika;
-	
+
 	public ArtListItemController() {
 	}
-	
+
 	@FXML
 	private void initialize() {
-        Image img = new Image("");
-        slika.setImage(img);	
 	}
-	
+
 	public void setUmjetnina(Umjetnina umjetnina) {
+		System.out.println(umjetnina.getIme());
+		Image image = SwingFXUtils.toFXImage(umjetnina.getSlika(), null);
+		slika.setImage(image);
 		ime.setText(umjetnina.getIme());
 		tehnika.setText(umjetnina.getTehnika());
 		datumNastanka.setText(umjetnina.getDatumNastanka().toString());
@@ -38,7 +40,7 @@ public class ArtListItemController {
 		this.slika = slika;
 	}
 
-    public void setMainApp(MainApp mainApp) {
-        this.mainApp = mainApp;
-    }
+	public void setMainApp(MainApp mainApp) {
+		this.mainApp = mainApp;
+	}
 }

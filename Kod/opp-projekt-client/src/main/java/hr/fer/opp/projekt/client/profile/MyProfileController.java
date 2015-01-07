@@ -13,6 +13,7 @@ import hr.fer.opp.projekt.common.zahtjev.UrediPodatkeZahtjev;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -214,6 +215,13 @@ public class MyProfileController {
 
 	@FXML
 	public void handlePromijeniSliku() {
+		browseFile();
+		try {
+			Image img = new Image(new FileInputStream(file));
+			slika.setImage(img);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@FXML
@@ -232,13 +240,16 @@ public class MyProfileController {
 					bos.write(buf, 0, readNum);
 				}
 				byte[] umjetnina = bos.toByteArray();
-				
+
 				// FOLNOR DEBUGIRAJ
 				UkrcajFotografijuUmjetnineZahtjev zahtjev = new UkrcajFotografijuUmjetnineZahtjev(umjetnina,
-						imeUmjetnine.getText(), tehnika.getText(), null);
+						imeUmjetnine.getText(), tehnika.getText(), new Date());
 				UkrcajFotografijuUmjetnineOdgovor odgovor = mainApp.getChannel().sendAndWait(zahtjev);
-				
+
 				korisnik.getUmjetnine().add(odgovor.getUmjetnina());
+				System.out.println(odgovor.getUmjetnina());
+				System.out.println(odgovor.getUmjetnina().getSlika());
+
 				UrediPodatkeZahtjev zahtjev2 = new UrediPodatkeZahtjev(korisnik);
 				UrediPodatkeOdgovor odgovor2 = mainApp.getChannel().sendAndWait(zahtjev2);
 				this.setKorisnik(odgovor2.getKorisnik());
@@ -248,14 +259,18 @@ public class MyProfileController {
 		}
 	}
 
-	@FXML
-	public void handleBrowse() {
+	public void browseFile() {
 		Stage stage = (Stage) datoteka.getScene().getWindow();
 		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Ukrcavanje umjetnine");
+		fileChooser.setTitle("Ukrcavanje slike");
 		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Images", "*.png", "*.jpg"),
 				new FileChooser.ExtensionFilter("JPG", "*.jpg"), new FileChooser.ExtensionFilter("PNG", "*.png"));
 		this.file = fileChooser.showOpenDialog(stage);
+	}
+
+	@FXML
+	public void handleBrowse() {
+		browseFile();
 		if (file != null) {
 			try {
 				datoteka.setText(file.getCanonicalPath());

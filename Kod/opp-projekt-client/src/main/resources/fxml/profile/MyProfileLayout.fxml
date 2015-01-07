@@ -66,7 +66,7 @@
       </VBox>
       <VBox layoutX="586.0" layoutY="14.0" prefHeight="254.0" prefWidth="200.0">
          <children>
-            <ImageView fx:id="slika" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="slika" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="false">
                <VBox.margin>
                   <Insets bottom="5.0" />
                </VBox.margin></ImageView>

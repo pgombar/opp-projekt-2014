@@ -32,7 +32,7 @@ public final class Umjetnina implements Serializable {
     @Column
     @Lob
     @Basic(fetch = FetchType.EAGER)
-    private Blob slikaBlob;
+    private transient Blob slikaBlob;
 
     @ManyToOne(fetch =  FetchType.EAGER)
     private Korisnik korisnik;
