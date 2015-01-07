@@ -130,13 +130,14 @@ public class AdminApp extends MainApp {
 	public void showSettings() {
 		try {
 			Stage stage = new Stage();
+			stage.setTitle("Postavke poslužitelja");
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(this.getClass().getClassLoader().getResource("fxml/admin/SettingsLayout.fxml"));
 			AnchorPane newRoot = (AnchorPane) loader.load();
-//			mainController = loader.getController();
-//			mainController.setMainApp(this);
+			// mainController = loader.getController();
+			// mainController.setMainApp(this);
 
-//			newRoot.getStylesheets().add(this.getClass().getClassLoader().getResource("menu.css").toExternalForm());
+			// newRoot.getStylesheets().add(this.getClass().getClassLoader().getResource("menu.css").toExternalForm());
 
 			Scene scene = new Scene(newRoot);
 			stage.setScene(scene);
@@ -146,7 +147,7 @@ public class AdminApp extends MainApp {
 		}
 
 	}
-	
+
 	public void close() {
 		stage.close();
 	}

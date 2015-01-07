@@ -1,6 +1,10 @@
-- dohvati sve umjetnike
-- dohvati omiljene/blokirane umjetnike
-- dohvati sve grane/podgrane
-- grana, podgrana, zvanje, lista umjetnina u modelu korisnika? +
-- profile picture? +
-- pretraga po kategoriji
+- login za admina
+- mijenjanje skina
+- napraviti novi skin
+- popraviti tab redoslijed u registraciji
+- adminApp ponovo napraviti po uzoru na mainApp
+- vlastiti profil:
+	- prikaz vlastitog profila - maknuti buttone i dodati button za mijenjanje slike
+	- editiranje vlastitog profila - kao forma za registraciju, samo popunjena - u njoj nema mijenjanja statusa
+- upload slika (forma za to)
+- dodati textlabel za mijenjanje statusa u mainApp

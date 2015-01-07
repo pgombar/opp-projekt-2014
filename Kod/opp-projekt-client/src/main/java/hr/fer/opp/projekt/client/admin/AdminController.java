@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.stage.Stage;
 
 public class AdminController {
 
@@ -40,7 +41,8 @@ public class AdminController {
 
 	@FXML
 	private void handleOdjava() {
-		
+		Stage stage = (Stage) odjava.getScene().getWindow();
+		stage.close();
 	}
 	
 	@FXML

@@ -1,11 +1,10 @@
 package hr.fer.opp.projekt.client.admin;
 
-import java.awt.TextField;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class SettingsController {
 
@@ -40,7 +39,8 @@ public class SettingsController {
 
 	@FXML
 	private void handleOdustani() {
-		this.mainApp.close();
+		Stage stage = (Stage) odustani.getScene().getWindow();
+		stage.close();
 	}
 	
 	@FXML
