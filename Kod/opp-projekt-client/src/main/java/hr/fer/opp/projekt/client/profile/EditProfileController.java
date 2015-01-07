@@ -1,10 +1,11 @@
-package hr.fer.opp.projekt.client.login;
+package hr.fer.opp.projekt.client.profile;
 
 import hr.fer.opp.projekt.client.main.MainApp;
 import hr.fer.opp.projekt.common.model.Grana;
+import hr.fer.opp.projekt.common.model.Korisnik;
 import hr.fer.opp.projekt.common.model.Podgrana;
-import hr.fer.opp.projekt.common.odgovor.RegistracijaOdgovor;
-import hr.fer.opp.projekt.common.zahtjev.RegistracijaZahtjev;
+import hr.fer.opp.projekt.common.odgovor.UrediPodatkeOdgovor;
+import hr.fer.opp.projekt.common.zahtjev.UrediPodatkeZahtjev;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,7 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-public class RegisterController {
+public class EditProfileController {
 
 	private MainApp mainApp;
 
@@ -43,16 +44,24 @@ public class RegisterController {
 	private ComboBox<Podgrana> podgrana;
 	@FXML
 	private Button zavrsi;
+	private Korisnik korisnik;
 	
 	@FXML
 	private void initialize() {
+		korisnickoIme.setEditable(false);
 	}
 	
 	@FXML
 	private void handleZavrsi() {
-		RegistracijaOdgovor odgovor = mainApp.getChannel().sendAndWait(new RegistracijaZahtjev(ime.getText(), prezime.getText(), korisnickoIme.getText(), zaporka.getText(),
-				mail.getText(), telefon.getText(), adresa.getText(), zvanje.getText(), 
-				grana.getSelectionModel().getSelectedItem().getId(), podgrana.getSelectionModel().getSelectedItem().getId()));
+		korisnik.setIme(ime.getText());
+		korisnik.setPrezime(prezime.getText());
+		korisnik.setZvanje(zvanje.getText());
+		korisnik.setEmail(mail.getText());
+		korisnik.setAdresa(adresa.getText());
+		korisnik.setTelefon(telefon.getText());
+		korisnik.setGrana(grana.getSelectionModel().getSelectedItem());
+		korisnik.setPodgrana(podgrana.getSelectionModel().getSelectedItem());
+		UrediPodatkeOdgovor odgovor = mainApp.getChannel().sendAndWait(new UrediPodatkeZahtjev(korisnik));
 	
 		if(odgovor.getKorisnik() == null) {
 			// tu treba pravi error dialog xD koji ne radi jer verzija kurac palac
@@ -62,7 +71,6 @@ public class RegisterController {
 		    stage.setScene(new Scene(root));
 		    stage.show();
 		} else {
-			System.out.println("Uspjesna registracija korisnika");
 		    Stage stage = (Stage) zavrsi.getScene().getWindow();
 		    stage.close();		
 		}
@@ -75,7 +83,22 @@ public class RegisterController {
 		podgrana.setItems(podgrane);
 		podgrana.getSelectionModel().select(0);
 	}
-
+    
+	public void setKorisnik(Korisnik korisnik) {
+		this.korisnik = korisnik;
+		korisnickoIme.setText(korisnik.getKorisnickoIme());
+		ime.setText(korisnik.getIme());
+		prezime.setText(korisnik.getPrezime());
+		mail.setText(korisnik.getEmail());
+		telefon.setText(korisnik.getTelefon());
+		adresa.setText(korisnik.getAdresa());
+		zvanje.setText(korisnik.getZvanje());
+		grana.getSelectionModel().select(korisnik.getGrana());
+		handleOdabirGrane();
+		podgrana.getSelectionModel().select(korisnik.getPodgrana());
+		zaporka.setText(korisnik.getZaporka());
+	}
+	
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 		ObservableList<Grana> grane = FXCollections.observableArrayList();

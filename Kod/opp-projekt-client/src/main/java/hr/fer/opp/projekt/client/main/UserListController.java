@@ -67,7 +67,7 @@ public class UserListController {
                     		Parent profile = (Parent) loader.load();
                     		ProfileController controller = loader.getController();
                     		controller.setMainApp(UserListController.this.mainApp);
-                    		profile.getStylesheets().add(this.getClass().getClassLoader().getResource("menu.css").toExternalForm());
+                    		profile.getStylesheets().add(this.getClass().getClassLoader().getResource(mainApp.getSkin()).toExternalForm());
                     		Korisnik korisnik = listView.getSelectionModel().getSelectedItem();
                     		controller.setKorisnik(korisnik);
                     		

@@ -4,6 +4,7 @@ import hr.fer.opp.projekt.client.communication.EventChannel;
 import hr.fer.opp.projekt.client.communication.OcsfEventChannel;
 import hr.fer.opp.projekt.client.login.LoginController;
 import hr.fer.opp.projekt.client.login.RegisterController;
+import hr.fer.opp.projekt.client.profile.MyProfileController;
 import hr.fer.opp.projekt.common.model.Grana;
 import hr.fer.opp.projekt.common.model.Korisnik;
 import hr.fer.opp.projekt.common.model.Podgrana;
@@ -31,9 +32,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import com.lloseng.ocsf.client.ObservableClient;
@@ -52,6 +51,8 @@ public class MainApp extends Application {
 	private List<Korisnik> omiljeni = new ArrayList<Korisnik>();
 	private List<Korisnik> blokirani = new ArrayList<Korisnik>();
 	private List<Grana> grane;
+	
+	private String skin = "menu1.css";
 
 	@Override
 	public void start(Stage stage) throws Exception {
@@ -74,6 +75,10 @@ public class MainApp extends Application {
         		svi.add(k);
    }
 	
+	public String getSkin() {
+		return skin;
+	}
+	
 	private void initRootLayout() {
 		dohvatiPodatke();
         try {
@@ -83,7 +88,7 @@ public class MainApp extends Application {
 			mainController = loader.getController();
 			mainController.setMainApp(this);
 			
-			root.getStylesheets().add(this.getClass().getClassLoader().getResource("menu.css").toExternalForm());
+			root.getStylesheets().add(this.getClass().getClassLoader().getResource(skin).toExternalForm());
 
 			Scene scene = new Scene(root);
 			stage.setScene(scene);
@@ -122,8 +127,6 @@ public class MainApp extends Application {
 				Parent root = (Parent) loader.load();
 				RegisterController controller = loader.getController();
 				controller.setMainApp(this);
-				
-				//root.getStylesheets().add(this.getClass().getClassLoader().getResource("menu.css").toExternalForm());
 
 				Stage stage = new Stage();
 				Scene scene = new Scene(root);
@@ -152,11 +155,24 @@ public class MainApp extends Application {
 	}
 	
 	public void showProfile(long id) {
-	    Stage stage = new Stage();
-	    StackPane root = new StackPane();
-	    root.getChildren().add(new Label("Odabrao si korisnika koji ima id " + id));
-	    stage.setScene(new Scene(root, 300, 250));
-	    stage.show();
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(this.getClass().getClassLoader().getResource("fxml/profile/MyProfileLayout.fxml"));
+			Parent profile = (Parent) loader.load();
+
+			MyProfileController controller = loader.getController();
+			controller.setMainApp(this);
+			controller.setKorisnik(korisnik);
+			profile.getStylesheets().add(this.getClass().getClassLoader().getResource(skin).toExternalForm());
+
+			Stage stage = new Stage();
+			stage.setTitle(korisnik.getIme() + " " + korisnik.getPrezime());
+			Scene scene = new Scene(profile);
+			stage.setScene(scene);
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void showAll() {
@@ -262,5 +278,11 @@ public class MainApp extends Application {
 			DodajOmiljenogUmjetnikaOdgovor odgovor = channel.sendAndWait(zahtjev);
 			omiljeni = odgovor.getOmiljeniUmjetnici();
 		}
+	}
+
+	public void toggleSkin() {
+		if(skin.equals("menu1.css")) skin = "menu2.css"; else skin = "menu1.css";
+		root.getStylesheets().clear();
+		root.getStylesheets().add(this.getClass().getClassLoader().getResource(skin).toExternalForm());
 	}
 }

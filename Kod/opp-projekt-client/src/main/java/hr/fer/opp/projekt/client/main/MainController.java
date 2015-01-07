@@ -35,6 +35,8 @@ public class MainController {
 	private TextField pretraga;
 	@FXML
 	private Label imePrezime;
+	@FXML
+	private Button skin;
 	
 	public MainController() {
 	}
@@ -125,5 +127,10 @@ public class MainController {
 	@FXML
 	private void handleTrazi() {
 		mainApp.search(pretraga.getText());
+	}
+	
+	@FXML
+	private void handleSkin() {
+		mainApp.toggleSkin();
 	}
 }
