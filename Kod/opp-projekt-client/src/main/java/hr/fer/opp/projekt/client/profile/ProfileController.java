@@ -120,20 +120,7 @@ public class ProfileController {
 						}
 					}
 				};
-				// cell.setOnMouseClicked(new EventHandler<MouseEvent>() {
-				//
-				// @Override
-				// public void handle(MouseEvent event) {
-				//
-				// Umjetnina umjetnina =
-				// listView.getSelectionModel().getSelectedItem();
-				// Stage stage = new Stage();
-				// stage.setTitle(umjetnina.getIme());
-				// Scene scene = new Scene(new AnchorPane());
-				// stage.setScene(scene);
-				// stage.show();
-				// }
-				// });
+
 				return cell;
 			}
 		});
@@ -195,8 +182,15 @@ public class ProfileController {
 		refreshIcons();
 	}
 
+	private boolean isBlokiranOd() {
+		List<Korisnik> blokirani = korisnik.getBlokiraniUmjetnici();
+		for(Korisnik k : blokirani)
+			if(k.getId() == mainApp.getKorisnik().getId()) return true;
+		return false;
+	}
+	
 	private void refreshIcons() {
-		if (korisnik.isOnline()) {
+		if (korisnik.isOnline() && !mainApp.isBlokiran(korisnik) && !isBlokiranOd()) {
 			online.setImage(new Image(this.getClass().getClassLoader().getResource("online.png").toExternalForm()));
 		} else {
 			online.setImage(new Image(this.getClass().getClassLoader().getResource("offline.png").toExternalForm()));

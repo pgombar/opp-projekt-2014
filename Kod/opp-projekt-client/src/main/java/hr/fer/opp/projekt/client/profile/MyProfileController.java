@@ -92,8 +92,8 @@ public class MyProfileController {
 
 	@FXML
 	private void initialize() {
-		Image img = new Image(this.getClass().getClassLoader().getResource("doge.jpg").toExternalForm());
-		slika.setImage(img);
+//		Image img = new Image(this.getClass().getClassLoader().getResource("doge.jpg").toExternalForm());
+//		slika.setImage(img);
 
 		List<Umjetnina> umjetnine = new ArrayList<Umjetnina>();
 		umjetnine.add(new Umjetnina("Najbolja", "Tehnika", new Date(2014, 12, 25, 12, 24), null, null));
@@ -230,8 +230,11 @@ public class MyProfileController {
 			UrediPodatkeZahtjev zahtjev = new UrediPodatkeZahtjev(korisnik);
 			UrediPodatkeOdgovor odgovor = mainApp.getChannel().sendAndWait(zahtjev);
 
-			setKorisnik(odgovor.getKorisnik());
-			mainApp.setKorisnik(odgovor.getKorisnik());
+			DohvatiUmjetnikaZahtjev zahtjev2 = new DohvatiUmjetnikaZahtjev(korisnik.getId());
+			DohvatiUmjetnikaOdgovor odgovor2 = mainApp.getChannel().sendAndWait(zahtjev2);
+
+			setKorisnik(odgovor2.getUmjetnik());
+			mainApp.setKorisnik(odgovor2.getUmjetnik());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

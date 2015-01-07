@@ -1,8 +1,11 @@
 package hr.fer.opp.projekt.client.main;
 
 import hr.fer.opp.projekt.common.model.Korisnik;
+
+import java.util.List;
+
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -24,14 +27,13 @@ public class ListItemController {
 	private ImageView blocked;
 	@FXML
 	private ImageView favorited;
+	private Korisnik korisnik;
 
 	public ListItemController() {
 	}
 	
 	@FXML
 	private void initialize() {
-        Image img = new Image(this.getClass().getClassLoader().getResource("doge.jpg").toExternalForm());
-        slika.setImage(img);	
 	}
 
     public void setMainApp(MainApp mainApp) {
@@ -50,11 +52,19 @@ public class ListItemController {
 		this.status.setText(status);
 	}
 	
+	private boolean isBlokiranOd() {
+		List<Korisnik> blokirani = korisnik.getBlokiraniUmjetnici();
+		for(Korisnik k : blokirani)
+			if(k.getId() == mainApp.getKorisnik().getId()) return true;
+		return false;
+	}
+	
 	public void setKorisnik(Korisnik korisnik) {
+		this.korisnik = korisnik;
 		korisnickoIme.setText(korisnik.getKorisnickoIme());
 		imePrezime.setText(korisnik.getIme() + " " + korisnik.getPrezime());
 		status.setText(korisnik.getOsobniStatus());
-		if(korisnik.isOnline()) {
+		if (korisnik.isOnline() && !mainApp.isBlokiran(korisnik) && !isBlokiranOd()) {
 			online.setImage(new Image(this.getClass().getClassLoader().getResource("online.png").toExternalForm()));
 		} else {
 			online.setImage(new Image(this.getClass().getClassLoader().getResource("offline.png").toExternalForm()));
@@ -69,10 +79,8 @@ public class ListItemController {
 		} else {
 			favorited.setImage(new Image(this.getClass().getClassLoader().getResource("not-fav-mini.png").toExternalForm()));
 		}
-	}
-
-	public void setSlika(ImageView slika) {
-		this.slika = slika;
+		if (korisnik.getSlika() != null)
+			slika.setImage(SwingFXUtils.toFXImage(korisnik.getSlika(), null));
 	}
     
 }

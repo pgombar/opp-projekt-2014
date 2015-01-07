@@ -10,6 +10,7 @@ DONE- upload umjetnina (forma za to)
 DONE- dodati textlabel za mijenjanje statusa u mainApp i promijeniti status
 DONE- dodati provjeru da ne loada korisnika kada kliknes random na praznu listu (nullpointer)
 - opcenito napraviti refreshanje liste usera!!!!
-- debugirati upload nove umjetnine u galeriju korisnika, zahtjev ne dobiva odgovor
-- napraviti da ste si medjusobno uvijek offline ako je netko nekoga blokirao
-- mail
+DONE- debugirati upload nove umjetnine u galeriju korisnika, zahtjev ne dobiva odgovor
+DONE- napraviti da ste si medjusobno uvijek offline ako je netko nekoga blokirao
+DONE- mail
+DONE- mijenjanje avatara
