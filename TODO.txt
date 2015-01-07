@@ -1,10 +1,11 @@
 - login za admina
-- mijenjanje skina
-- napraviti novi skin
-- popraviti tab redoslijed u registraciji
 - adminApp ponovo napraviti po uzoru na mainApp
+DONE- mijenjanje skina
+- napraviti novi skin
+DONE- popraviti tab redoslijed u registraciji
 - vlastiti profil:
-	- prikaz vlastitog profila - maknuti buttone i dodati button za mijenjanje slike
+	DONE- prikaz vlastitog profila - maknuti buttone i dodati button za mijenjanje slike
 	- editiranje vlastitog profila - kao forma za registraciju, samo popunjena - u njoj nema mijenjanja statusa
-- upload slika (forma za to)
-- dodati textlabel za mijenjanje statusa u mainApp
+DONE- upload slika (forma za to)
+DONE- dodati textlabel za mijenjanje statusa u mainApp i promijeniti status
+- dodati provjeru da ne loada korisnika kada kliknes random na praznu listu (nullpointer)

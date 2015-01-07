@@ -10,6 +10,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
@@ -35,6 +36,8 @@ public class MainController {
 	private TextField pretraga;
 	@FXML
 	private Label imePrezime;
+	@FXML
+	private TextArea status;
 	
 	public MainController() {
 	}
@@ -66,6 +69,7 @@ public class MainController {
 	
 	@FXML
 	private void initialize() {
+		status.setText("Što vas inspirira danas?");
 		kategorije.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<Kategorija>>() {
             @Override
             public void changed(ObservableValue<? extends TreeItem<Kategorija>> observable, 
@@ -125,5 +129,16 @@ public class MainController {
 	@FXML
 	private void handleTrazi() {
 		mainApp.search(pretraga.getText());
+	}
+	
+	@FXML
+	private void handleMakniTekst() {
+		status.setText("");
+	}
+	
+	@FXML
+	private void handleObjaviStatus() {
+		String statusTekst = status.getText();
+		this.mainApp.changeStatus(statusTekst);
 	}
 }
