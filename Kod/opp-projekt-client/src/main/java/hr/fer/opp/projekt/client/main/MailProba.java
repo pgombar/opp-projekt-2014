@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MailProba {
+	
 	public static void mailto(List<String> recipients, String subject,
 	        String body) throws IOException, URISyntaxException {
 	    String uriStr = String.format("mailto:%s?subject=%s&body=%s",

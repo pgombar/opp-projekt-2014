@@ -28,7 +28,6 @@ public class ArtListItemController {
 	}
 
 	public void setUmjetnina(Umjetnina umjetnina) {
-		System.out.println(umjetnina.getIme());
 		Image image = SwingFXUtils.toFXImage(umjetnina.getSlika(), null);
 		slika.setImage(image);
 		ime.setText(umjetnina.getIme());

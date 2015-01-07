@@ -4,7 +4,10 @@ import hr.fer.opp.projekt.client.main.MainApp;
 import hr.fer.opp.projekt.common.model.Korisnik;
 import hr.fer.opp.projekt.common.model.Umjetnina;
 
+import java.awt.Desktop;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,10 +17,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -26,7 +27,6 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -120,23 +120,24 @@ public class ProfileController {
 						}
 					}
 				};
-//				cell.setOnMouseClicked(new EventHandler<MouseEvent>() {
-//
-//					@Override
-//					public void handle(MouseEvent event) {
-//
-//						Umjetnina umjetnina = listView.getSelectionModel().getSelectedItem();
-//						Stage stage = new Stage();
-//						stage.setTitle(umjetnina.getIme());
-//						Scene scene = new Scene(new AnchorPane());
-//						stage.setScene(scene);
-//						stage.show();
-//					}
-//				});
+				// cell.setOnMouseClicked(new EventHandler<MouseEvent>() {
+				//
+				// @Override
+				// public void handle(MouseEvent event) {
+				//
+				// Umjetnina umjetnina =
+				// listView.getSelectionModel().getSelectedItem();
+				// Stage stage = new Stage();
+				// stage.setTitle(umjetnina.getIme());
+				// Scene scene = new Scene(new AnchorPane());
+				// stage.setScene(scene);
+				// stage.show();
+				// }
+				// });
 				return cell;
 			}
 		});
-		
+
 		listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Umjetnina>() {
 
 			@Override
@@ -245,21 +246,20 @@ public class ProfileController {
 
 	@FXML
 	public void handleMail() {
-
+		String recipient = korisnik.getEmail();
+		String uriStr = String.format("mailto:%s", recipient);
+		try {
+			Desktop.getDesktop().browse(new URI(uriStr));
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@FXML
 	public void handleChat() {
 
-	}
-
-	private Node getNodeFromGridPane(GridPane gridPane, int col, int row) {
-		for (Node node : gridPane.getChildren()) {
-			if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == row) {
-				return node;
-			}
-		}
-		return null;
 	}
 
 }
