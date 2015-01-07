@@ -15,7 +15,7 @@ Clanovi tima:
 Setup projekta
 --------------
 
-1. korak - ako vec nemate Javu, instalirajte je (minimalno Java 7)
+1. korak - ako vec nemate Javu, instalirajte je (minimalno Java 7, obavezno JDK, a ne JRE)
 2. korak - ako vec nemate Eclipse, skinuti ga (Kepler ili novije)
 3. korak - dodati update site `http://download.eclipse.org/technology/m2e/releases` i instalirati `m2e - Maven Integration for Eclipse`
   - restartati Eclipse nakon instalacije
@@ -30,7 +30,7 @@ Setup projekta
 
 (podlozno promjenama)\\
 Server: hr.fer.opp.projekt.server.Application
-Client: hr.fer.opp.projekt.client.Main
+Client: hr.fer.opp.projekt.client.main.MainApp
 
 Oboje mozete pokrenuti kao normalne java aplikacije (desni klik -> run as -> java application, ili krace `alt+shift+x j`)
 
