@@ -7,16 +7,17 @@ import hr.fer.opp.projekt.client.login.RegisterController;
 import hr.fer.opp.projekt.common.model.Grana;
 import hr.fer.opp.projekt.common.model.Korisnik;
 import hr.fer.opp.projekt.common.model.Podgrana;
-import hr.fer.opp.projekt.common.model.Umjetnina;
 import hr.fer.opp.projekt.common.odgovor.DodajBlokiranogUmjetnikaOdgovor;
 import hr.fer.opp.projekt.common.odgovor.DodajOmiljenogUmjetnikaOdgovor;
+import hr.fer.opp.projekt.common.odgovor.DohvatiSifrarnikeOdgovor;
 import hr.fer.opp.projekt.common.odgovor.ObrisiBlokiranogUmjetnikaOdgovor;
 import hr.fer.opp.projekt.common.odgovor.ObrisiOmiljenogUmjetnikaOdgovor;
 import hr.fer.opp.projekt.common.odgovor.PopisUmjetnikaOdgovor;
 import hr.fer.opp.projekt.common.odgovor.PretragaUmjetnikaOdgovor;
-import hr.fer.opp.projekt.common.zahtjev.LogoutZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.DodajBlokiranogUmjetnikaZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.DodajOmiljenogUmjetnikaZahtjev;
+import hr.fer.opp.projekt.common.zahtjev.DohvatiSifrarnikeZahtjev;
+import hr.fer.opp.projekt.common.zahtjev.LogoutZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.ObrisiBlokiranogUmjetnikaZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.ObrisiOmiljenogUmjetnikaZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.PopisUmjetnikaZahtjev;
@@ -24,8 +25,6 @@ import hr.fer.opp.projekt.common.zahtjev.PretragaUmjetnikaZahtjev;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import javafx.application.Application;
@@ -52,21 +51,15 @@ public class MainApp extends Application {
 	private List<Korisnik> svi;
 	private List<Korisnik> omiljeni = new ArrayList<Korisnik>();
 	private List<Korisnik> blokirani = new ArrayList<Korisnik>();
+	private List<Grana> grane;
 
 	@Override
 	public void start(Stage stage) throws Exception {
         final ObservableClient client = new ObservableClient("0.0.0.0", 5000);
         client.openConnection();
-
         this.channel = new OcsfEventChannel(client);
-
+        
 		this.stage = stage;
-
-		Umjetnina umjetnina1 = new Umjetnina("Najbolja", "Tehnika", new Date(2014, 12, 25, 12, 24), null, null);
-		Umjetnina umjetnina2 = new Umjetnina("Superiska", "Tehnikalija", new Date(2013, 12, 25, 12, 24), null, null);
-
-		List<Umjetnina> umjetnine = Arrays.asList(umjetnina1, umjetnina2);
-
 		this.stage.setTitle("Umjetnine");
 
 		showLogin();
@@ -172,11 +165,11 @@ public class MainApp extends Application {
 	}
 	
 	public void showBlocked() {
-		userListController.setList(korisnik.getBlokiraniUmjetnici());
+		userListController.setList(blokirani);
 	}
 	
 	public void showFavorite() {
-		userListController.setList(korisnik.getOmiljeniUmjetnici());
+		userListController.setList(omiljeni);
 	}
 	
 	public void search(String search) {
@@ -184,10 +177,19 @@ public class MainApp extends Application {
 		 userListController.setList(odgovor.getRezultati());
 	}
 	
-	public void searchGrana(String grana) {
+	public void searchGrana(Grana grana) {
 		List<Korisnik> search = new ArrayList<>();
 		for(Korisnik k : svi) {
-			if(k.getGrana().equals(grana) || k.getPodgrana().equals(grana))
+			if(k.getGrana().getId() == grana.getId())
+				search.add(k);
+		}
+		userListController.setList(search);
+	}
+	
+	public void searchPodgrana(Podgrana podgrana) {
+		List<Korisnik> search = new ArrayList<>();
+		for(Korisnik k : svi) {
+			if(k.getPodgrana().getId() == podgrana.getId())
 				search.add(k);
 		}
 		userListController.setList(search);
@@ -198,28 +200,23 @@ public class MainApp extends Application {
 	}
 	
 	public List<Grana> getGrane() {
-		List<Grana> grane = Arrays.asList(new Grana("slikarstvo"), new Grana("kiparstvo"), new Grana("grafika"));
+		if(grane == null) {
+			DohvatiSifrarnikeOdgovor odgovor = channel.sendAndWait(DohvatiSifrarnikeZahtjev.INSTANCE);
+			grane = odgovor.getGrane();
+		}
 		return grane;
 	}
 	
 	public boolean isBlokiran(Korisnik korisnik) {
-		dohvatiPodatke();
 		for(Korisnik k : blokirani)
 			if(k.getId() == korisnik.getId()) return true;
 		return false;
 	}
 	
 	public boolean isOmiljen(Korisnik korisnik) {
-		dohvatiPodatke();
 		for(Korisnik k : omiljeni)
 			if(k.getId() == korisnik.getId()) return true;
 		return false;	
-	}
-	
-	public List<List<Podgrana>> getPodgrane() {
-		List<Podgrana> podgrane = Arrays.asList(new Podgrana(new Grana("slikarstvo"), "podgrana 1"), new Podgrana(new Grana("slikarstvo"), "podgrana 2"));
-		List<List<Podgrana>> ret = Arrays.asList(podgrane, podgrane, podgrane);
-		return ret;
 	}
 	
 	public Korisnik getKorisnik() {

@@ -49,5 +49,9 @@ public final class Grana implements Serializable {
     public String toString() {
         return ime;
     }
+    
+    public List<Podgrana> getPodgrane() {
+    	return podgrane;
+    }
 
 }

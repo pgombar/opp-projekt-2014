@@ -73,7 +73,7 @@ public class RegisterController {
 	@FXML
 	private void handleOdabirGrane() {
 		ObservableList<Podgrana> podgrane = FXCollections.observableArrayList();
-		podgrane.addAll(mainApp.getPodgrane().get(grana.getSelectionModel().getSelectedIndex()));
+		podgrane.addAll(grana.getSelectionModel().getSelectedItem().getPodgrane());
 		podgrana.setItems(podgrane);
 		podgrana.getSelectionModel().select(0);
 	}
@@ -82,7 +82,6 @@ public class RegisterController {
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 		ObservableList<Grana> grane = FXCollections.observableArrayList();
-		System.out.println(mainApp);
 		grane.addAll(mainApp.getGrane());
 		grana.setItems(grane);
 		grana.getSelectionModel().select(0);

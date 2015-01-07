@@ -28,7 +28,7 @@ public class MainController {
 	@FXML
 	private Button odjava;
 	@FXML
-	private TreeView<String> kategorije;
+	private TreeView<Kategorija> kategorije;
 	@FXML
 	private Button trazi;
 	@FXML
@@ -39,13 +39,43 @@ public class MainController {
 	public MainController() {
 	}
 	
+	private static class Kategorija {
+		public Grana grana;
+		public Podgrana podgrana;
+		public String string;
+		
+		public Kategorija(Grana grana) {
+			this.grana = grana;
+		}
+		
+		public Kategorija(String string) {
+			this.string = string;
+		}
+		
+		public Kategorija(Podgrana podgrana) {
+			this.podgrana = podgrana;
+		}
+		
+		@Override
+		public String toString() {
+			if(grana != null) return grana.toString();
+			if(podgrana != null) return podgrana.toString();
+			return string;
+		}
+	}
+	
 	@FXML
 	private void initialize() {
-		kategorije.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<String>>() {
+		kategorije.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<Kategorija>>() {
             @Override
-            public void changed(ObservableValue<? extends TreeItem<String>> observable, 
-            		TreeItem<String> old_val, TreeItem<String> new_val) {
-            		if(new_val.getParent() != null) mainApp.searchGrana(new_val.getValue());
+            public void changed(ObservableValue<? extends TreeItem<Kategorija>> observable, 
+            		TreeItem<Kategorija> old_val, TreeItem<Kategorija> new_val) {
+            	if(new_val.getValue().grana != null) 
+            		mainApp.searchGrana(new_val.getValue().grana);
+            	else if(new_val.getValue().podgrana != null)
+            		mainApp.searchPodgrana(new_val.getValue().podgrana);
+            	else
+            		mainApp.showAll();
             }
 
         });
@@ -56,14 +86,13 @@ public class MainController {
     }
     
     public void inicijaliziraj() {
-		TreeItem<String> root = new TreeItem<>("Grane umjetnosti");
+		TreeItem<Kategorija> root = new TreeItem<>(new Kategorija("Pretraga po granama"));
 		kategorije.setRoot(root);
 		List<Grana> grane = mainApp.getGrane();
-		List<List<Podgrana>> podgrane = mainApp.getPodgrane();
 		for(int i = 0; i < grane.size(); ++i) {
-			root.getChildren().add(new TreeItem<>(grane.get(i).getIme()));
-			for(int j = 0; j < podgrane.get(i).size(); ++j)
-				root.getChildren().get(i).getChildren().add(new TreeItem<>(podgrane.get(i).get(j).getIme()));
+			root.getChildren().add(new TreeItem<>(new Kategorija(grane.get(i))));
+			for(int j = 0; j < grane.get(i).getPodgrane().size(); ++j)
+				root.getChildren().get(i).getChildren().add(new TreeItem<>(new Kategorija(grane.get(i).getPodgrane().get(j))));
 		}
 		imePrezime.setText(mainApp.getKorisnik().getIme() + " " + mainApp.getKorisnik().getPrezime());
     }
@@ -92,12 +121,7 @@ public class MainController {
 	private void handleOdjava() {
 		mainApp.logout();
 	}
-	
-	@FXML
-	private void handleKategorija() {
-		
-	}
-	
+
 	@FXML
 	private void handleTrazi() {
 		mainApp.search(pretraga.getText());
