@@ -184,6 +184,7 @@ public class MyProfileController {
 				FXMLLoader loader = new FXMLLoader();
 				loader.setLocation(this.getClass().getClassLoader().getResource("fxml/profile/EditProfileLayout.fxml"));
 				Parent root = (Parent) loader.load();
+				root.getStylesheets().add(this.getClass().getClassLoader().getResource(mainApp.getSkin()).toExternalForm());
 				EditProfileController controller = loader.getController();
 				controller.setMainApp(this.mainApp);
 				controller.setKorisnik(korisnik);

@@ -39,7 +39,9 @@ public class MainController {
 	@FXML
 	private Button skin;
 	@FXML
-	private TextArea status;
+	private TextField status;
+	
+	private final String pocetniStatus = "Što vas danas inspirira?";
 	
 	public MainController() {
 	}
@@ -84,6 +86,18 @@ public class MainController {
             }
 
         });
+		status.focusedProperty().addListener(new ChangeListener<Boolean>() {
+				    @Override
+				    public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+				        if (newPropertyValue) {
+				        	handleMakniTekst();
+				        } else {
+				        	if(status.getText().equals(""))
+				        		status.setText(pocetniStatus);
+				        }
+				    }
+				});
+		status.setText(pocetniStatus);
 	}
 
     public void setMainApp(MainApp mainApp) {
@@ -140,11 +154,13 @@ public class MainController {
 	@FXML
 	private void handleObjaviStatus() {
 		String statusTekst = status.getText();
+		if(statusTekst.equals(pocetniStatus)) return;
 		this.mainApp.changeStatus(statusTekst);
+		status.setText(pocetniStatus);
 	}
 	
 	@FXML
 	private void handleMakniTekst() {
-		status.setText("");
+		if(status.getText().equals(pocetniStatus)) status.setText("");
 	}
 }
