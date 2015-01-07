@@ -25,7 +25,9 @@ public class OcsfEventChannel implements EventChannel, Observer {
         System.out.println("Odgovor: ");
         System.out.println(arg);
 
-        results.add((Odgovor) arg);
+        if (arg instanceof Odgovor) {
+            results.add((Odgovor) arg);
+        }
     }
 
     @Override
