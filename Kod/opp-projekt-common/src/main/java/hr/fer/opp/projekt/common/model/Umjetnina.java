@@ -3,6 +3,9 @@ package hr.fer.opp.projekt.common.model;
 import hr.fer.opp.projekt.common.util.ImageUtil;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.sql.Blob;
 import java.sql.SQLException;
@@ -32,7 +35,7 @@ public final class Umjetnina implements Serializable {
     @Column
     @Lob
     @Basic(fetch = FetchType.EAGER)
-    private transient Blob slikaBlob;
+    private Blob slikaBlob;
 
     @ManyToOne(fetch =  FetchType.EAGER)
     private Korisnik korisnik;
@@ -117,5 +120,23 @@ public final class Umjetnina implements Serializable {
             this.slikaBlob = new SerialBlob(this.slika);
         } catch (SQLException e) {
         }
+    }
+
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.writeLong(id);
+        out.writeObject(ime);
+        out.writeObject(tehnika);
+        out.writeObject(datumNastanka);
+        out.writeObject(korisnik);
+        out.writeObject(slika);
+    }
+
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        id = in.readLong();
+        ime = (String) in.readObject();
+        tehnika = (String) in.readObject();
+        datumNastanka = (Date) in.readObject();
+        korisnik = (Korisnik) in.readObject();
+        slika = (byte[]) in.readObject();
     }
 }

@@ -62,7 +62,7 @@ public final class Korisnik implements Serializable {
     @Column
     @Lob
     @Basic(fetch = FetchType.EAGER)
-    private transient Blob slikaBlob;
+    private Blob slikaBlob;
 
     @Column
     private boolean online;
@@ -310,5 +310,50 @@ public final class Korisnik implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hashCode(id);
+    }
+
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.writeLong(id);
+        out.writeObject(ime);
+        out.writeObject(prezime);
+        out.writeObject(korisnickoIme);
+        out.writeObject(zaporka);
+        out.writeObject(email);
+        out.writeObject(telefon);
+        out.writeObject(adresa);
+        out.writeObject(osobniStatus);
+        out.writeObject(zvanje);
+        out.writeObject(grana);
+        out.writeObject(podgrana);
+        out.writeObject(umjetnine);
+        out.writeBoolean(online);
+        out.writeObject(zadnjiPutAktivan);
+        out.writeObject(slika);
+        out.writeBoolean(admin);
+        out.writeObject(omiljeniUmjetnici);
+        out.writeObject(blokiraniUmjetnici);
+    }
+
+    @SuppressWarnings(value = "unchecked")
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        id = in.readLong();
+        ime = (String) in.readObject();
+        prezime = (String) in.readObject();
+        korisnickoIme = (String) in.readObject();
+        zaporka = (String) in.readObject();
+        email = (String) in.readObject();
+        telefon = (String) in.readObject();
+        adresa = (String) in.readObject();
+        osobniStatus = (String) in.readObject();
+        zvanje = (String) in.readObject();
+        grana = (Grana) in.readObject();
+        podgrana = (Podgrana) in.readObject();
+        umjetnine = (List<Umjetnina>) in.readObject();
+        online = in.readBoolean();
+        zadnjiPutAktivan = (Date) in.readObject();
+        slika = (byte[]) in.readObject();
+        admin = in.readBoolean();
+        omiljeniUmjetnici = (List<Korisnik>) in.readObject();
+        blokiraniUmjetnici = (List<Korisnik>) in.readObject();
     }
 }

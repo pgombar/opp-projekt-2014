@@ -239,6 +239,7 @@ public class MyProfileController {
 				for (int readNum; (readNum = fis.read(buf)) != -1;) {
 					bos.write(buf, 0, readNum);
 				}
+                bos.flush();
 				byte[] umjetnina = bos.toByteArray();
 
 				// FOLNOR DEBUGIRAJ
@@ -246,13 +247,13 @@ public class MyProfileController {
 						imeUmjetnine.getText(), tehnika.getText(), new Date());
 				UkrcajFotografijuUmjetnineOdgovor odgovor = mainApp.getChannel().sendAndWait(zahtjev);
 
-				korisnik.getUmjetnine().add(odgovor.getUmjetnina());
-				System.out.println(odgovor.getUmjetnina());
-				System.out.println(odgovor.getUmjetnina().getSlika());
-
-				UrediPodatkeZahtjev zahtjev2 = new UrediPodatkeZahtjev(korisnik);
-				UrediPodatkeOdgovor odgovor2 = mainApp.getChannel().sendAndWait(zahtjev2);
-				this.setKorisnik(odgovor2.getKorisnik());
+//				korisnik.getUmjetnine().add(odgovor.getUmjetnina());
+//				System.out.println(odgovor.getUmjetnina());
+//				System.out.println(odgovor.getUmjetnina().getSlika());
+//
+//				UrediPodatkeZahtjev zahtjev2 = new UrediPodatkeZahtjev(korisnik);
+//				UrediPodatkeOdgovor odgovor2 = mainApp.getChannel().sendAndWait(zahtjev2);
+//				this.setKorisnik(odgovor2.getKorisnik());
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
