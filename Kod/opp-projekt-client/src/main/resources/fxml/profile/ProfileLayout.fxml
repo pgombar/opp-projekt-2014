@@ -14,7 +14,7 @@
          <children>
             <HBox prefHeight="12.0" prefWidth="500.0">
                <children>
-                  <Label fx:id="korisnickoIme" text="Korisničko ime" />
+                  <Label fx:id="korisnickoIme" prefHeight="21.0" prefWidth="137.0" text="Korisničko ime" />
                   <HBox alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="420.0" spacing="5.0">
                      <children>
                         <ImageView fx:id="online" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" />
@@ -76,10 +76,10 @@
             <ImageView fx:id="slika" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="5.0">
                <children>
-                  <Button fx:id="mail" contentDisplay="CENTER" mnemonicParsing="false" styleClass="icon" onAction="#handleMail" />
-                  <Button fx:id="chat" contentDisplay="CENTER" mnemonicParsing="false" styleClass="icon" onAction="#handleChat" />
-                  <Button fx:id="block" contentDisplay="CENTER" mnemonicParsing="false" styleClass="icon" onAction="#handleBlock" />
-                  <Button fx:id="favorite" contentDisplay="CENTER" mnemonicParsing="false" styleClass="icon" onAction="#handleFavorite" />
+                  <Button fx:id="mail" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleMail" styleClass="icon" />
+                  <Button fx:id="chat" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleChat" styleClass="icon" />
+                  <Button fx:id="block" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleBlock" styleClass="icon" />
+                  <Button fx:id="favorite" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleFavorite" styleClass="icon" />
                </children>
             </HBox>
          </children>

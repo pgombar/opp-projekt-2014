@@ -43,16 +43,18 @@ public class EditProfileController {
 	@FXML
 	private ComboBox<Podgrana> podgrana;
 	@FXML
-	private Button zavrsi;
+	private Button spremi;
+	@FXML
+	private Button odustani;
 	private Korisnik korisnik;
-	
+
 	@FXML
 	private void initialize() {
 		korisnickoIme.setEditable(false);
 	}
-	
+
 	@FXML
-	private void handleZavrsi() {
+	private void handleSpremi() {
 		korisnik.setIme(ime.getText());
 		korisnik.setPrezime(prezime.getText());
 		korisnik.setZvanje(zvanje.getText());
@@ -62,20 +64,27 @@ public class EditProfileController {
 		korisnik.setGrana(grana.getSelectionModel().getSelectedItem());
 		korisnik.setPodgrana(podgrana.getSelectionModel().getSelectedItem());
 		UrediPodatkeOdgovor odgovor = mainApp.getChannel().sendAndWait(new UrediPodatkeZahtjev(korisnik));
-	
-		if(odgovor.getKorisnik() == null) {
-			// tu treba pravi error dialog xD koji ne radi jer verzija kurac palac
-		    Stage stage = new Stage();
-		    StackPane root = new StackPane();
-		    root.getChildren().add(new Label(odgovor.getGreske().get(0)));
-		    stage.setScene(new Scene(root));
-		    stage.show();
+
+		if (odgovor.getKorisnik() == null) {
+			// tu treba pravi error dialog xD koji ne radi jer verzija kurac
+			// palac
+			Stage stage = new Stage();
+			StackPane root = new StackPane();
+			root.getChildren().add(new Label(odgovor.getGreske().get(0)));
+			stage.setScene(new Scene(root));
+			stage.show();
 		} else {
-		    Stage stage = (Stage) zavrsi.getScene().getWindow();
-		    stage.close();		
+			Stage stage = (Stage) spremi.getScene().getWindow();
+			stage.close();
 		}
 	}
-	
+
+	@FXML
+	private void handleOdustani() {
+		Stage stage = (Stage) spremi.getScene().getWindow();
+		stage.close();
+	}
+
 	@FXML
 	private void handleOdabirGrane() {
 		ObservableList<Podgrana> podgrane = FXCollections.observableArrayList();
@@ -83,7 +92,7 @@ public class EditProfileController {
 		podgrana.setItems(podgrane);
 		podgrana.getSelectionModel().select(0);
 	}
-    
+
 	public void setKorisnik(Korisnik korisnik) {
 		this.korisnik = korisnik;
 		korisnickoIme.setText(korisnik.getKorisnickoIme());
@@ -98,7 +107,7 @@ public class EditProfileController {
 		podgrana.getSelectionModel().select(korisnik.getPodgrana());
 		zaporka.setText(korisnik.getZaporka());
 	}
-	
+
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 		ObservableList<Grana> grane = FXCollections.observableArrayList();

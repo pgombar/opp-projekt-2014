@@ -28,7 +28,7 @@
    <top>
       <AnchorPane prefHeight="57.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="TOP_RIGHT" prefHeight="57.0" prefWidth="1024.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <HBox alignment="CENTER_RIGHT" prefHeight="57.0" prefWidth="1024.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Label id="ime" fx:id="imePrezime" alignment="CENTER" styleClass="ime" text="Ime Prezime" />
                   <Button fx:id="odjava" mnemonicParsing="false" onAction="#handleOdjava" styleClass="tekst" text="Odjavi se" />

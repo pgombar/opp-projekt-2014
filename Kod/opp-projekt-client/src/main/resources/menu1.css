@@ -9,6 +9,11 @@
     -fx-opacity: 0.6;
 }
 
+.greska {
+    -fx-text-fill: red;
+    -fx-font-weight: bold;
+}
+
 .ime {
 	-fx-font-size: 20pt;
     -fx-font-family: "Segoe UI Semibold";

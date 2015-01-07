@@ -1,11 +1,13 @@
 - login za admina
 - adminApp ponovo napraviti po uzoru na mainApp
-DONE- mijenjanje skina
+DONE- mijenjanje skina omoguciti
 - napraviti novi skin
 DONE- popraviti tab redoslijed u registraciji
-- vlastiti profil:
+DONE- vlastiti profil:
 	DONE- prikaz vlastitog profila - maknuti buttone i dodati button za mijenjanje slike
-	- editiranje vlastitog profila - kao forma za registraciju, samo popunjena - u njoj nema mijenjanja statusa
-DONE- upload slika (forma za to)
+	DONE- editiranje vlastitog profila - kao forma za registraciju, samo popunjena - u njoj nema mijenjanja statusa
+DONE- upload umjetnina (forma za to)
 DONE- dodati textlabel za mijenjanje statusa u mainApp i promijeniti status
 - dodati provjeru da ne loada korisnika kada kliknes random na praznu listu (nullpointer)
+- osvjeziti listu usera kad se zatvori neki window koji je napravio promjene (npr favoritanje nekog)
+- debugirati upload nove umjetnine u galeriju korisnika, zahtjev ne dobiva odgovor
