@@ -81,6 +81,8 @@ public class ListItemController {
 		}
 		if (korisnik.getSlika() != null)
 			slika.setImage(SwingFXUtils.toFXImage(korisnik.getSlika(), null));
+		else
+			slika.setImage(new Image(this.getClass().getClassLoader().getResource("default.jpg").toExternalForm()));
 	}
     
 }

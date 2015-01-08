@@ -86,13 +86,6 @@ public class ProfileController {
 		mail.setGraphic(new ImageView(this.getClass().getClassLoader().getResource("mail.png").toExternalForm()));
 		chat.setGraphic(new ImageView(this.getClass().getClassLoader().getResource("chat.png").toExternalForm()));
 
-		List<Umjetnina> umjetnine = new ArrayList<Umjetnina>();
-		umjetnine.add(new Umjetnina("Najbolja", "Tehnika", new Date(2014, 12, 25, 12, 24), null, null));
-		umjetnine.add(new Umjetnina("Jos bolja", "Tehnika", new Date(2014, 12, 25, 12, 24), null, null));
-		umjetnine.add(new Umjetnina("Super", "Tehnika", new Date(2014, 12, 25, 12, 24), null, null));
-
-		this.setList(umjetnine);
-
 		listView.setItems(data);
 		listView.setCellFactory(new Callback<ListView<Umjetnina>, ListCell<Umjetnina>>() {
 
@@ -177,6 +170,8 @@ public class ProfileController {
 		podgrana.setText(korisnik.getPodgrana().getIme());
 		if (korisnik.getSlika() != null)
 			slika.setImage(SwingFXUtils.toFXImage(korisnik.getSlika(), null));
+		else
+			slika.setImage(new Image(this.getClass().getClassLoader().getResource("default.jpg").toExternalForm()));
 		setList(korisnik.getUmjetnine());
 
 		refreshIcons();

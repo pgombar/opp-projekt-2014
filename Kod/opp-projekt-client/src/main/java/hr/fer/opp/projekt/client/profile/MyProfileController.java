@@ -72,11 +72,11 @@ public class MyProfileController {
 	@FXML
 	private Button promijeniSliku;
 	@FXML
+	private Button obrisiSliku;
+	@FXML
 	private TextField imeUmjetnine;
 	@FXML
 	private TextField tehnika;
-	@FXML
-	private TextField datumNastanka;
 	@FXML
 	private TextField datoteka;
 	@FXML
@@ -92,15 +92,6 @@ public class MyProfileController {
 
 	@FXML
 	private void initialize() {
-//		Image img = new Image(this.getClass().getClassLoader().getResource("doge.jpg").toExternalForm());
-//		slika.setImage(img);
-
-		List<Umjetnina> umjetnine = new ArrayList<Umjetnina>();
-		umjetnine.add(new Umjetnina("Najbolja", "Tehnika", new Date(2014, 12, 25, 12, 24), null, null));
-		umjetnine.add(new Umjetnina("Jos bolja", "Tehnika", new Date(2014, 12, 25, 12, 24), null, null));
-		umjetnine.add(new Umjetnina("Super", "Tehnika", new Date(2014, 12, 25, 12, 24), null, null));
-
-		this.setList(umjetnine);
 
 		listView.setItems(data);
 		listView.setCellFactory(new Callback<ListView<Umjetnina>, ListCell<Umjetnina>>() {
@@ -187,6 +178,8 @@ public class MyProfileController {
 		podgrana.setText(korisnik.getPodgrana().getIme());
 		if (korisnik.getSlika() != null)
 			slika.setImage(SwingFXUtils.toFXImage(korisnik.getSlika(), null));
+		else
+			slika.setImage(new Image(this.getClass().getClassLoader().getResource("default.jpg").toExternalForm()));
 		setList(korisnik.getUmjetnine());
 	}
 
@@ -219,16 +212,12 @@ public class MyProfileController {
 				new DohvatiUmjetnikaZahtjev(korisnik.getId()));
 		setKorisnik(odgovor.getUmjetnik());
 	}
-
-	@FXML
-	public void handlePromijeniSliku() {
-		browseFile();
+	
+	private void promijeniSliku(BufferedImage image) {
 		try {
-			BufferedImage bimg = ImageIO.read(file);
-
-			korisnik.setSlika(bimg);
+			korisnik.setSlika(image);
 			UrediPodatkeZahtjev zahtjev = new UrediPodatkeZahtjev(korisnik);
-			UrediPodatkeOdgovor odgovor = mainApp.getChannel().sendAndWait(zahtjev);
+			mainApp.getChannel().sendAndWait(zahtjev);
 
 			DohvatiUmjetnikaZahtjev zahtjev2 = new DohvatiUmjetnikaZahtjev(korisnik.getId());
 			DohvatiUmjetnikaOdgovor odgovor2 = mainApp.getChannel().sendAndWait(zahtjev2);
@@ -241,10 +230,25 @@ public class MyProfileController {
 	}
 
 	@FXML
+	public void handlePromijeniSliku() {
+		browseFile();
+		try {
+			if(file != null)
+				promijeniSliku(ImageIO.read(file));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	public void handleObrisiSliku() {
+		promijeniSliku(null);
+	}
+
+	@FXML
 	public void handleUkrcaj() {
 		greska.setText("");
-		if (imeUmjetnine.getText().equals("") || tehnika.getText().equals("") || datumNastanka.getText().equals("")
-				|| datoteka.getText().equals("")) {
+		if (imeUmjetnine.getText().equals("") || tehnika.getText().equals("") || datoteka.getText().equals("")) {
 			greska.setText("Sva polja moraju biti popunjena!");
 		} else {
 			try {
@@ -258,16 +262,19 @@ public class MyProfileController {
 				bos.flush();
 				byte[] umjetnina = bos.toByteArray();
 
-				// FOLNOR DEBUGIRAJ
 				UkrcajFotografijuUmjetnineZahtjev zahtjev = new UkrcajFotografijuUmjetnineZahtjev(umjetnina,
 						imeUmjetnine.getText(), tehnika.getText(), new Date());
-				UkrcajFotografijuUmjetnineOdgovor odgovor = mainApp.getChannel().sendAndWait(zahtjev);
+				mainApp.getChannel().sendAndWait(zahtjev);
 
 				DohvatiUmjetnikaZahtjev zahtjev2 = new DohvatiUmjetnikaZahtjev(korisnik.getId());
 				DohvatiUmjetnikaOdgovor odgovor2 = mainApp.getChannel().sendAndWait(zahtjev2);
 
 				setKorisnik(odgovor2.getUmjetnik());
 				mainApp.setKorisnik(odgovor2.getUmjetnik());
+				
+				imeUmjetnine.setText("");
+				tehnika.setText("");
+				datoteka.setText("");
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
