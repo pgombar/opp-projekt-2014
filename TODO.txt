@@ -16,3 +16,13 @@ DONE- mail
 DONE- mijenjanje avatara
 - brisanje slike - postavljanje na null nije moguce
 - ispitivanje validnosti (?) registracije i ispis gresaka
+
+
+*napomena: ako pri isprobavanju aplikacije naletite na neku nepravilnost, zabilježite je ovdje ako netko drugi nije istu stvar veæ napisao. Dio ekipe koji kodira neka procijeni može li se/treba/isplati mijenjati ili popravljati...
+
+--Bugovi-- 
+
+-Kad se skin promijeni na bijelo ne vidi se ime korisnika (uz button Odjavi se)
+-Resizanje login screena - slika ostaje iste velièine i centrira se, a sve ostalo je priljepljeno lijevo gore
+-Resizanje nakon logina - ako se prozor previše smanji neke stvari se ne vide (npr. button Odjavi se)
+-"Ukrcala" sam sliku, kad na nju kliknem u galeriji otvori se novi prozor, ali ne prikazuje ništa + ako zatvorim taj prozor i pokušam ponovno kliknuti na sliku ne dogodi se ništa
