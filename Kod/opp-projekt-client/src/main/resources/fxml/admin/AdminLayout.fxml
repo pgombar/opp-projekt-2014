@@ -12,9 +12,9 @@
    <left>
       <VBox prefHeight="715.0" prefWidth="217.0" spacing="10.0" styleClass="tekst" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="postavke" mnemonicParsing="false" onAction="#handlePostavke" text="Postavke poslužitelja" />
-            <Button fx:id="dodajNovog" mnemonicParsing="false" onAction="#handleDodaj" text="Dodaj novog korisnika" />
-            <Button fx:id="obrisi" mnemonicParsing="false" onAction="#handleObrisi" text="Obriši korisnika" />
+            <Button fx:id="settings" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleSettings" text="Postavke poslužitelja" />
+            <Button fx:id="dodajKorisnika" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleDodajKorisnika" text="Dodaj korisnika" />
+            <Button fx:id="obrisiKorisnika" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleObrisiKorisnika" text="Obriši korisnika" />
             <TreeView fx:id="kategorije" />
          </children>
          <padding>
@@ -27,8 +27,8 @@
          <children>
             <HBox alignment="CENTER_RIGHT" prefHeight="57.0" prefWidth="1024.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Label id="ime" alignment="CENTER" styleClass="ime" text="Administrator" />
-                  <Button fx:id="odjava" mnemonicParsing="false" onAction="#handleOdjava" styleClass="tekst" text="Završi" />
+                  <Label id="ime" fx:id="imePrezime" alignment="CENTER" styleClass="ime" text="Administrator" />
+                  <Button fx:id="odjava" mnemonicParsing="false" onAction="#handleOdjava" styleClass="tekst" text="Kraj rada" />
                </children>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -36,9 +36,9 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="589.0" spacing="10.0">
                <children>
-                  <Button mnemonicParsing="false" text="Promijeni izgled sučelja" />
-                  <TextField />
-                  <Button mnemonicParsing="false" text="Traži" />
+                  <Button mnemonicParsing="false" onAction="#handleSkin" text="Promijeni izgled sučelja" />
+                  <TextField fx:id="pretraga" />
+                  <Button fx:id="trazi" mnemonicParsing="false" onAction="#handleTrazi" text="Traži" />
                </children>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

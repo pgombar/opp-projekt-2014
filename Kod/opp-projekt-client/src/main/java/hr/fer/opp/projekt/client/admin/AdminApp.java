@@ -3,24 +3,24 @@ package hr.fer.opp.projekt.client.admin;
 import hr.fer.opp.projekt.client.communication.EventChannel;
 import hr.fer.opp.projekt.client.communication.OcsfEventChannel;
 import hr.fer.opp.projekt.client.main.MainApp;
-import hr.fer.opp.projekt.client.profile.ProfileController;
-import hr.fer.opp.projekt.common.model.*;
+import hr.fer.opp.projekt.common.model.Grana;
+import hr.fer.opp.projekt.common.model.Korisnik;
+import hr.fer.opp.projekt.common.model.Podgrana;
+import hr.fer.opp.projekt.common.odgovor.DohvatiSifrarnikeOdgovor;
+import hr.fer.opp.projekt.common.odgovor.PopisUmjetnikaOdgovor;
+import hr.fer.opp.projekt.common.odgovor.PretragaUmjetnikaOdgovor;
+import hr.fer.opp.projekt.common.zahtjev.DohvatiSifrarnikeZahtjev;
+import hr.fer.opp.projekt.common.zahtjev.PopisUmjetnikaZahtjev;
+import hr.fer.opp.projekt.common.zahtjev.PretragaUmjetnikaZahtjev;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
-import hr.fer.opp.projekt.common.model.Umjetnina;
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import com.lloseng.ocsf.client.ObservableClient;
@@ -34,51 +34,44 @@ public class AdminApp extends MainApp {
 	private AdminController mainController;
 	private UserListController userListController;
 
-	private List<Korisnik> svi = new ArrayList<Korisnik>();
+	public UserListController getUserListController() {
+		return userListController;
+	}
+
+	private List<Korisnik> svi;
 	private List<Korisnik> omiljeni = new ArrayList<Korisnik>();
 	private List<Korisnik> blokirani = new ArrayList<Korisnik>();
+	private List<Grana> grane;
+
+	private String skin = "menu1.css";
 
 	@Override
 	public void start(Stage stage) throws Exception {
 		final ObservableClient client = new ObservableClient("0.0.0.0", 5000);
 		client.openConnection();
-
 		this.channel = new OcsfEventChannel(client);
 
 		this.stage = stage;
-
-		Umjetnina umjetnina1 = new Umjetnina("Najbolja", "Tehnika", new Date(2014, 12, 25, 12, 24), null, null);
-		Umjetnina umjetnina2 = new Umjetnina("Superiska", "Tehnikalija", new Date(2013, 12, 25, 12, 24), null, null);
-
-		List<Umjetnina> umjetnine = Arrays.asList(umjetnina1, umjetnina2);
-
-		this.stage.setTitle("Umjetnine");
-
-		Grana slikarstvo = new Grana("Slikarstvo");
-		Podgrana slikarenje = new Podgrana(slikarstvo, "Slikarenje");
-		svi.add(new Korisnik("Pero", "Peric", "pperic", "pero", "pero@peric.com", "123-456-789", "Adresa 1",
-				"Moj osobni status", "mehanicar", slikarstvo, slikarenje, umjetnine, null, true));
-
-		svi.add(new Korisnik("Perica", "Peric", "pperic", "pero", "pero@peric.com", "123-456-789", "Adresa 1",
-				"Moj osobni status", "mehanicar", slikarstvo, slikarenje, umjetnine, null, true));
-
-		blokirani.add(new Korisnik("Bosko", "Peric", "pperic", "pero", "pero@peric.com", "123-456-789", "Adresa 1",
-				"Moj osobni status", "mehanicar", slikarstvo, slikarenje, umjetnine, null, true));
-
-		blokirani.add(new Korisnik("Blokic", "Peric", "pperic", "pero", "pero@peric.com", "123-456-789", "Adresa 1",
-				"Moj osobni status", "mehanicar", slikarstvo, slikarenje, umjetnine, null, true));
-
-		omiljeni.add(new Korisnik("Omiljko", "Peric", "pperic", "pero", "pero@peric.com", "123-456-789", "Adresa 1",
-				"Moj osobni status", "mehanicar", slikarstvo, slikarenje, umjetnine, null, true));
-
-		omiljeni.add(new Korisnik("Omiljac", "Peric", "pperic", "pero", "pero@peric.com", "123-456-789", "Adresa 1",
-				"Moj osobni status", "mehanicar", slikarstvo, slikarenje, umjetnine, null, true));
+		this.stage.setTitle("Administratorska aplikacija");
 
 		initRootLayout();
+	}
 
+	private void dohvatiPodatke() {
+		PopisUmjetnikaOdgovor odgovor = channel.sendAndWait(PopisUmjetnikaZahtjev.INSTANCE);
+		svi = new ArrayList<Korisnik>();
+		List<Korisnik> korisnici = odgovor.getRezultati();
+		for (Korisnik k : korisnici) {
+			svi.add(k);
+		}
+	}
+
+	public String getSkin() {
+		return skin;
 	}
 
 	private void initRootLayout() {
+		dohvatiPodatke();
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(this.getClass().getClassLoader().getResource("fxml/admin/AdminLayout.fxml"));
@@ -86,13 +79,14 @@ public class AdminApp extends MainApp {
 			mainController = loader.getController();
 			mainController.setMainApp(this);
 
-			root.getStylesheets().add(this.getClass().getClassLoader().getResource("menu.css").toExternalForm());
+			root.getStylesheets().add(this.getClass().getClassLoader().getResource(skin).toExternalForm());
 
 			Scene scene = new Scene(root);
 			stage.setScene(scene);
 			stage.show();
 
 			showUserList();
+			mainController.inicijaliziraj();
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -101,15 +95,12 @@ public class AdminApp extends MainApp {
 
 	private void showUserList() {
 		try {
-			// Load person overview.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(this.getClass().getClassLoader().getResource("fxml/admin/UserListLayout.fxml"));
 			Parent userList = (Parent) loader.load();
 
-			// Set person overview into the center of root layout.
 			root.setCenter(userList);
 
-			// Give the controller access to the main app.
 			userListController = loader.getController();
 			userListController.setMainApp(this);
 			showAll();
@@ -119,49 +110,129 @@ public class AdminApp extends MainApp {
 		}
 	}
 
-	public void showProfile(long id) {
-		Stage stage = new Stage();
-		StackPane root = new StackPane();
-		root.getChildren().add(new Label("Odabrao si korisnika koji ima id " + id));
-		stage.setScene(new Scene(root, 300, 250));
-		stage.show();
-	}
-
-	public void showSettings() {
-		try {
-			Stage stage = new Stage();
-			stage.setTitle("Postavke poslužitelja");
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(this.getClass().getClassLoader().getResource("fxml/admin/SettingsLayout.fxml"));
-			AnchorPane newRoot = (AnchorPane) loader.load();
-			// mainController = loader.getController();
-			// mainController.setMainApp(this);
-
-			// newRoot.getStylesheets().add(this.getClass().getClassLoader().getResource("menu.css").toExternalForm());
-
-			Scene scene = new Scene(newRoot);
-			stage.setScene(scene);
-			stage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	public void close() {
-		stage.close();
-	}
-
 	public void showAll() {
+		dohvatiPodatke();
 		userListController.setList(svi);
+	}
+
+	public void search(String search) {
+		PretragaUmjetnikaOdgovor odgovor = channel.sendAndWait(new PretragaUmjetnikaZahtjev(search, search, search));
+		userListController.setList(odgovor.getRezultati());
+	}
+
+	public void searchGrana(Grana grana) {
+		List<Korisnik> search = new ArrayList<>();
+		for (Korisnik k : svi) {
+			if (k.getGrana().getId() == grana.getId())
+				search.add(k);
+		}
+		userListController.setList(search);
+	}
+
+	public void searchPodgrana(Podgrana podgrana) {
+		List<Korisnik> search = new ArrayList<>();
+		for (Korisnik k : svi) {
+			if (k.getPodgrana().getId() == podgrana.getId())
+				search.add(k);
+		}
+		userListController.setList(search);
 	}
 
 	public EventChannel getChannel() {
 		return channel;
 	}
 
+	public List<Grana> getGrane() {
+		if (grane == null) {
+			DohvatiSifrarnikeOdgovor odgovor = channel.sendAndWait(DohvatiSifrarnikeZahtjev.INSTANCE);
+			grane = odgovor.getGrane();
+		}
+		return grane;
+	}
+
+	public boolean isBlokiran(Korisnik korisnik) {
+		for (Korisnik k : blokirani)
+			if (k.getId() == korisnik.getId())
+				return true;
+		return false;
+	}
+
+	public boolean isOmiljen(Korisnik korisnik) {
+		for (Korisnik k : omiljeni)
+			if (k.getId() == korisnik.getId())
+				return true;
+		return false;
+	}
+
 	public static void main(String[] args) {
 		launch(args);
+	}
+
+	public void toggleBlock(Korisnik korisnik) {
+		// if(isOmiljen(korisnik)) return;
+		// if(isBlokiran(korisnik)) {
+		// ObrisiBlokiranogUmjetnikaZahtjev zahtjev = new
+		// ObrisiBlokiranogUmjetnikaZahtjev(this.korisnik.getId(),
+		// korisnik.getId());
+		// ObrisiBlokiranogUmjetnikaOdgovor odgovor =
+		// channel.sendAndWait(zahtjev);
+		// blokirani = odgovor.getBlokiraniUmjetnici();
+		// } else {
+		// DodajBlokiranogUmjetnikaZahtjev zahtjev = new
+		// DodajBlokiranogUmjetnikaZahtjev(this.korisnik.getId(),
+		// korisnik.getId());
+		// DodajBlokiranogUmjetnikaOdgovor odgovor =
+		// channel.sendAndWait(zahtjev);
+		// blokirani = odgovor.getBlokiraniUmjetnici();
+		// }
+	}
+
+	public void toggleFavorite(Korisnik korisnik) {
+		// if(isBlokiran(korisnik)) return;
+		// if(isOmiljen(korisnik)) {
+		// ObrisiOmiljenogUmjetnikaZahtjev zahtjev = new
+		// ObrisiOmiljenogUmjetnikaZahtjev(this.korisnik.getId(),
+		// korisnik.getId());
+		// ObrisiOmiljenogUmjetnikaOdgovor odgovor =
+		// channel.sendAndWait(zahtjev);
+		// omiljeni = odgovor.getOmiljeniUmjetnici();
+		// } else {
+		// DodajOmiljenogUmjetnikaZahtjev zahtjev = new
+		// DodajOmiljenogUmjetnikaZahtjev(this.korisnik.getId(),
+		// korisnik.getId());
+		// DodajOmiljenogUmjetnikaOdgovor odgovor =
+		// channel.sendAndWait(zahtjev);
+		// omiljeni = odgovor.getOmiljeniUmjetnici();
+		// }
+	}
+
+	public void toggleSkin() {
+		if (skin.equals("menu1.css"))
+			skin = "menu2.css";
+		else
+			skin = "menu1.css";
+		root.getStylesheets().clear();
+		root.getStylesheets().add(this.getClass().getClassLoader().getResource(skin).toExternalForm());
+	}
+
+	public void showSettings() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(this.getClass().getClassLoader().getResource("fxml/admin/SettingsLayout.fxml"));
+			Parent profile = (Parent) loader.load();
+
+			SettingsController controller = loader.getController();
+			controller.setMainApp(this);
+			profile.getStylesheets().add(this.getClass().getClassLoader().getResource(skin).toExternalForm());
+
+			Stage stage = new Stage();
+			stage.setTitle("Postavke poslužitelja");
+			Scene scene = new Scene(profile);
+			stage.setScene(scene);
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

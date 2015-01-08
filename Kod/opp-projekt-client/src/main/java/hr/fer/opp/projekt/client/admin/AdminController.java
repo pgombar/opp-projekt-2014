@@ -1,7 +1,16 @@
 package hr.fer.opp.projekt.client.admin;
 
+import hr.fer.opp.projekt.common.model.Grana;
+import hr.fer.opp.projekt.common.model.Podgrana;
+
+import java.util.List;
+
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.stage.Stage;
@@ -9,54 +18,118 @@ import javafx.stage.Stage;
 public class AdminController {
 
 	private AdminApp mainApp;
-	@FXML
-	private Button mojProfil;
-	@FXML
-	private Button prikaziSve;
-	@FXML
-	private Button prikaziOmiljene;
-	@FXML
-	private Button prikaziBlokirane;
+	private UserListController userListController;
 	@FXML
 	private Button odjava;
 	@FXML
-	private TreeView<String> kategorije;
-	
+	private TreeView<Kategorija> kategorije;
+	@FXML
+	private Button trazi;
+	@FXML
+	private TextField pretraga;
+	@FXML
+	private Label imePrezime;
+	@FXML
+	private Button settings;
+	@FXML
+	private Button dodajKorisnika;
+	@FXML
+	private Button obrisiKorisnika;
+	@FXML
+	private Button skin;
+
 	public AdminController() {
 	}
-	
-	@FXML
-	private void initialize() {
-		TreeItem<String> root = new TreeItem<String>("Kategorije");
-		kategorije.setRoot(root);
-		root.getChildren().add(new TreeItem<String>("slikarstvo"));
-		root.getChildren().add(new TreeItem<String>("kiparstvo"));
-		root.getChildren().add(new TreeItem<String>("sta jos postoji"));
-		root.getChildren().add(new TreeItem<String>("neznam"));
+
+	private static class Kategorija {
+		public Grana grana;
+		public Podgrana podgrana;
+		public String string;
+
+		public Kategorija(Grana grana) {
+			this.grana = grana;
+		}
+
+		public Kategorija(String string) {
+			this.string = string;
+		}
+
+		public Kategorija(Podgrana podgrana) {
+			this.podgrana = podgrana;
+		}
+
+		@Override
+		public String toString() {
+			if (grana != null)
+				return grana.toString();
+			if (podgrana != null)
+				return podgrana.toString();
+			return string;
+		}
 	}
 
-    public void setMainApp(AdminApp adminApp) {
-        this.mainApp = adminApp;
-    }
+	@FXML
+	private void initialize() {
+		kategorije.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<Kategorija>>() {
+			@Override
+			public void changed(ObservableValue<? extends TreeItem<Kategorija>> observable,
+					TreeItem<Kategorija> old_val, TreeItem<Kategorija> new_val) {
+				if (new_val.getValue().grana != null)
+					mainApp.searchGrana(new_val.getValue().grana);
+				else if (new_val.getValue().podgrana != null)
+					mainApp.searchPodgrana(new_val.getValue().podgrana);
+				else
+					mainApp.showAll();
+			}
+
+		});
+	}
+
+	public void setMainApp(AdminApp mainApp) {
+		this.mainApp = mainApp;
+		this.userListController = mainApp.getUserListController();
+	}
+
+	public void inicijaliziraj() {
+		TreeItem<Kategorija> root = new TreeItem<>(new Kategorija("Pretraga po granama"));
+		kategorije.setRoot(root);
+		List<Grana> grane = mainApp.getGrane();
+		for (int i = 0; i < grane.size(); ++i) {
+			root.getChildren().add(new TreeItem<>(new Kategorija(grane.get(i))));
+			for (int j = 0; j < grane.get(i).getPodgrane().size(); ++j)
+				root.getChildren().get(i).getChildren()
+						.add(new TreeItem<>(new Kategorija(grane.get(i).getPodgrane().get(j))));
+		}
+		imePrezime.setText("Administrator");
+	}
+
+	@FXML
+	private void handleTrazi() {
+		mainApp.search(pretraga.getText());
+	}
 
 	@FXML
 	private void handleOdjava() {
 		Stage stage = (Stage) odjava.getScene().getWindow();
 		stage.close();
 	}
-	
+
 	@FXML
-	private void handlePostavke() {
-		mainApp.showSettings();
+	private void handleSettings() {
+		this.mainApp.showSettings();
 	}
-	
+
 	@FXML
-	private void handleObrisi() {
-		
+	private void handleSkin() {
+		mainApp.toggleSkin();
 	}
-	
+
 	@FXML
-	private void handleDodaj() {
-		
+	private void handleDodajKorisnika() {
+	}
+
+	@FXML
+	private void handleObrisiKorisnika() {
+		trazi.setText(userListController.getList().getSelectionModel().getSelectedItem().getIme());
 	}
 }
