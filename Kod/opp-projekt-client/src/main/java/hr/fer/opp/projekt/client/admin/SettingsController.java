@@ -1,6 +1,9 @@
 package hr.fer.opp.projekt.client.admin;
 
-import java.util.regex.Pattern;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -30,12 +33,6 @@ public class SettingsController {
 	@FXML
 	private void initialize() {
 		greska.setText("");
-		// TreeItem<String> root = new TreeItem<String>("Kategorije");
-		// kategorije.setRoot(root);
-		// root.getChildren().add(new TreeItem<String>("slikarstvo"));
-		// root.getChildren().add(new TreeItem<String>("kiparstvo"));
-		// root.getChildren().add(new TreeItem<String>("sta jos postoji"));
-		// root.getChildren().add(new TreeItem<String>("neznam"));
 	}
 
 	public void setMainApp(AdminApp adminApp) {
@@ -67,9 +64,21 @@ public class SettingsController {
 			return;
 		}
 		greska.setText("Uspjelo!");
-		
-		// ispisi u fajl
-		
+
+		try {
+			String content = "ip=" + ip.getText() + "\n" + "port=" + port.getText() + "\n" + "maxUsers="
+					+ brojKorisnika.getText();
+			File config = new File(this.getClass().getClassLoader().getResource("config.txt").getFile());
+
+			FileWriter fw = new FileWriter(config);
+			BufferedWriter bw = new BufferedWriter(fw);
+			bw.write(content);
+			bw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Stage stage = (Stage) odustani.getScene().getWindow();
+		stage.close();
 	}
 
 	private boolean checkIp() {

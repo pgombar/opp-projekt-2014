@@ -1,7 +1,10 @@
 package hr.fer.opp.projekt.client.admin;
 
 import hr.fer.opp.projekt.common.model.Grana;
+import hr.fer.opp.projekt.common.model.Korisnik;
 import hr.fer.opp.projekt.common.model.Podgrana;
+import hr.fer.opp.projekt.common.odgovor.AdminUkloniKorisnikaOdgovor;
+import hr.fer.opp.projekt.common.zahtjev.AdminUkloniKorisnikaZahtjev;
 
 import java.util.List;
 
@@ -19,6 +22,11 @@ public class AdminController {
 
 	private AdminApp mainApp;
 	private UserListController userListController;
+
+	public void setUserListController(UserListController userListController) {
+		this.userListController = userListController;
+	}
+
 	@FXML
 	private Button odjava;
 	@FXML
@@ -87,7 +95,6 @@ public class AdminController {
 
 	public void setMainApp(AdminApp mainApp) {
 		this.mainApp = mainApp;
-		this.userListController = mainApp.getUserListController();
 	}
 
 	public void inicijaliziraj() {
@@ -126,10 +133,15 @@ public class AdminController {
 
 	@FXML
 	private void handleDodajKorisnika() {
+		this.mainApp.dodajKorisnika();
 	}
 
 	@FXML
 	private void handleObrisiKorisnika() {
-		trazi.setText(userListController.getList().getSelectionModel().getSelectedItem().getIme());
+		Korisnik korisnik = userListController.getList().getSelectionModel().getSelectedItem();
+		if (korisnik == null)
+			return;
+		AdminUkloniKorisnikaZahtjev zahtjev = new AdminUkloniKorisnikaZahtjev(korisnik.getId());
+		AdminUkloniKorisnikaOdgovor odg = mainApp.getChannel().sendAndWait(zahtjev);
 	}
 }

@@ -202,6 +202,7 @@ public class MyProfileController {
 			controller.setMainApp(this.mainApp);
 			controller.setKorisnik(korisnik);
 			Stage stage = new Stage();
+			stage.setTitle("Uređivanje profila");
 			Scene scene = new Scene(root);
 			stage.setScene(scene);
 			stage.showAndWait();

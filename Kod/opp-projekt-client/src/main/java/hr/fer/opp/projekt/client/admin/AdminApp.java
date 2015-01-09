@@ -103,6 +103,7 @@ public class AdminApp extends MainApp {
 
 			userListController = loader.getController();
 			userListController.setMainApp(this);
+			mainController.setUserListController(userListController);
 			showAll();
 
 		} catch (IOException e) {
@@ -227,6 +228,26 @@ public class AdminApp extends MainApp {
 
 			Stage stage = new Stage();
 			stage.setTitle("Postavke poslužitelja");
+			Scene scene = new Scene(profile);
+			stage.setScene(scene);
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void dodajKorisnika() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(this.getClass().getClassLoader().getResource("fxml/admin/AddUserLayout.fxml"));
+			Parent profile = (Parent) loader.load();
+
+			AddUserController controller = loader.getController();
+			controller.setMainApp(this);
+			profile.getStylesheets().add(this.getClass().getClassLoader().getResource(skin).toExternalForm());
+
+			Stage stage = new Stage();
+			stage.setTitle("Novi korisnik");
 			Scene scene = new Scene(profile);
 			stage.setScene(scene);
 			stage.show();
