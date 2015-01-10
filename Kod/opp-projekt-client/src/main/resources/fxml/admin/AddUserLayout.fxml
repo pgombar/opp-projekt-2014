@@ -35,10 +35,7 @@
             </GridPane>
             <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0">
                <children>
-                  <Label fx:id="greska" styleClass="greska" text="Greska">
-                     <padding>
-                        <Insets bottom="5.0" />
-                     </padding></Label>
+                  <Label fx:id="greska" styleClass="greska" text="Greska" />
                   <HBox alignment="CENTER_RIGHT" spacing="10.0">
                      <children>
                         <Button fx:id="odustani" mnemonicParsing="false" onAction="#handleOdustani" text="Odustani" />

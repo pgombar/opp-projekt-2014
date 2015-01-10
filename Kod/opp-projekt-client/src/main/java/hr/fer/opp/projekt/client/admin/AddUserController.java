@@ -31,27 +31,19 @@ public class AddUserController {
 	@FXML
 	private void initialize() {
 		greska.setText("");
+		korisnickoIme.setText("");
+		zaporka.setText("");
+		mail.setText("");
 	}
 
 	@FXML
 	private void handleSpremi() {
-		if(korisnickoIme.getText().equals("") || zaporka.getText().equals("") || mail.getText().equals("")) {
-			greska.setText("Sva polja moraju biti popunjena!");
-			return;
-		}
-		
 		AdminDodajKorisnikaZahtjev zahtjev = new AdminDodajKorisnikaZahtjev(korisnickoIme.getText(), zaporka.getText(),
 				mail.getText());
 		AdminDodajKorisnikaOdgovor odgovor = mainApp.getChannel().sendAndWait(zahtjev);
-
-		if (odgovor.getKorisnik() == null) {
-			// tu treba pravi error dialog xD koji ne radi jer verzija kurac
-			// palac
-			Stage stage = new Stage();
-			StackPane root = new StackPane();
-			root.getChildren().add(new Label(odgovor.getGreske().get(0)));
-			stage.setScene(new Scene(root));
-			stage.show();
+		
+		if (!odgovor.getGreske().isEmpty()) {
+			greska.setText(odgovor.getGreske().get(0));
 		} else {
 			Stage stage = (Stage) spremi.getScene().getWindow();
 			stage.close();
