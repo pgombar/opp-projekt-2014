@@ -27,12 +27,13 @@ Setup projekta
   - desni klik na opp-projekt-client -> properties
   - java build path -> libraries -> add external JARs
   - nadete direktorij gdje vam je Java i odaberete `jre/lib/jfxrt.jar` ili `lib/jfxrt.jar`, i dodate to
+6. korak - podesiti Eclipse da vam automatski refreshea datoteke kada pullate:
+  - Ukljuciti Window -> Preferences -> General -> Workspace -> Refresh using native hooks or polling
 
-(podlozno promjenama)\\
-Server: hr.fer.opp.projekt.server.Application
-Client: hr.fer.opp.projekt.client.main.MainApp
+- Server: hr.fer.opp.projekt.server.Application
+- Client: hr.fer.opp.projekt.client.main.MainApp
 
-Oboje mozete pokrenuti kao normalne java aplikacije (desni klik -> run as -> java application, ili krace `alt+shift+x j`)
+Oboje mozete pokrenuti kao normalne java aplikacije (desni klik -> run as -> java application, ili krace `alt+shift+x j`).
 
 Instalacija
 -----------

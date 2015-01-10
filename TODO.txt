@@ -14,7 +14,7 @@ DONE- debugirati upload nove umjetnine u galeriju korisnika, zahtjev ne dobiva o
 DONE- napraviti da ste si medjusobno uvijek offline ako je netko nekoga blokirao
 DONE- mail
 DONE- mijenjanje avatara
-- brisanje slike - postavljanje na null nije moguce
+DONE- brisanje slike - postavljanje na null nije moguce
 - ispitivanje validnosti (?) registracije i ispis gresaka
 - fiksirati sve prozore
 - ubiti proces kad se prozor zatvori

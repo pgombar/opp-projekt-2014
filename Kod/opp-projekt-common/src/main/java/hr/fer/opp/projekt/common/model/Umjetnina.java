@@ -53,9 +53,7 @@ public final class Umjetnina implements Serializable {
         this.datumNastanka = datumNastanka;
         this.korisnik = korisnik;
 
-        if (slika != null) {
-            setSlika(slika);
-        }
+        setSlika(slika);
     }
 
     @PostLoad
@@ -114,11 +112,18 @@ public final class Umjetnina implements Serializable {
     }
 
     public void setSlika(BufferedImage slika) {
-        this.slika = ImageUtil.imageToByteArray(slika);
+        if (slika == null) {
+            this.slika = null;
+            this.slikaBlob = null;
+        } else {
+            this.slika = ImageUtil.imageToByteArray(slika);
 
-        try {
-            this.slikaBlob = new SerialBlob(this.slika);
-        } catch (SQLException e) {
+            try {
+                this.slikaBlob = new SerialBlob(this.slika);
+            } catch (SQLException e) {
+                this.slikaBlob = null;
+                this.slika = null;
+            }
         }
     }
 
