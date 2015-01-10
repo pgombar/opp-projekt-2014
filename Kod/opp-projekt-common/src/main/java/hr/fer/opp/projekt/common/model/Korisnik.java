@@ -9,10 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.sql.Blob;
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 public final class Korisnik implements Serializable {
@@ -118,6 +115,31 @@ public final class Korisnik implements Serializable {
         this.admin = admin;
 
         setSlika(slika);
+    }
+
+    public Korisnik(Korisnik other) {
+        this.id = other.id;
+        this.ime = other.ime;
+        this.prezime = other.prezime;
+        this.korisnickoIme = other.korisnickoIme;
+        this.zaporka = other.zaporka;
+        this.email = other.email;
+        this.telefon = other.telefon;
+        this.adresa = other.adresa;
+        this.osobniStatus = other.osobniStatus;
+        this.zvanje = other.zvanje;
+        this.grana = other.grana;
+        this.podgrana = other.podgrana;
+        this.umjetnine = new ArrayList<>(other.umjetnine);
+        this.admin = other.admin;
+        System.arraycopy(other.slika, 0, this.slika, 0, other.slika.length);
+        this.slikaBlob = other.slikaBlob;
+        this.online = other.online;
+        this.zadnjiPutAktivan = other.zadnjiPutAktivan;
+        this.omiljeniUmjetnici = new ArrayList<>(other.omiljeniUmjetnici);
+        this.omiljeniUmjetniciOd = new ArrayList<>(other.omiljeniUmjetniciOd);
+        this.blokiraniUmjetnici = new ArrayList<>(other.blokiraniUmjetnici);
+        this.blokiraniUmjetniciOd = new ArrayList<>(other.blokiraniUmjetniciOd);
     }
 
     @PostLoad
