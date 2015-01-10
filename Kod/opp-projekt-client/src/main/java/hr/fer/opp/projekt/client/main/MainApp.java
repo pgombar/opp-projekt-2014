@@ -8,8 +8,10 @@ import hr.fer.opp.projekt.client.profile.MyProfileController;
 import hr.fer.opp.projekt.common.model.Grana;
 import hr.fer.opp.projekt.common.model.Korisnik;
 import hr.fer.opp.projekt.common.model.Podgrana;
+import hr.fer.opp.projekt.common.model.Poruka;
 import hr.fer.opp.projekt.common.odgovor.DodajBlokiranogUmjetnikaOdgovor;
 import hr.fer.opp.projekt.common.odgovor.DodajOmiljenogUmjetnikaOdgovor;
+import hr.fer.opp.projekt.common.odgovor.DohvatiPorukeOdgovor;
 import hr.fer.opp.projekt.common.odgovor.DohvatiSifrarnikeOdgovor;
 import hr.fer.opp.projekt.common.odgovor.ObrisiBlokiranogUmjetnikaOdgovor;
 import hr.fer.opp.projekt.common.odgovor.ObrisiOmiljenogUmjetnikaOdgovor;
@@ -18,6 +20,7 @@ import hr.fer.opp.projekt.common.odgovor.PretragaUmjetnikaOdgovor;
 import hr.fer.opp.projekt.common.odgovor.UrediPodatkeOdgovor;
 import hr.fer.opp.projekt.common.zahtjev.DodajBlokiranogUmjetnikaZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.DodajOmiljenogUmjetnikaZahtjev;
+import hr.fer.opp.projekt.common.zahtjev.DohvatiPorukeZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.DohvatiSifrarnikeZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.LogoutZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.ObrisiBlokiranogUmjetnikaZahtjev;
@@ -29,6 +32,10 @@ import hr.fer.opp.projekt.common.zahtjev.UrediPodatkeZahtjev;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.TreeMap;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -44,6 +51,7 @@ import com.lloseng.ocsf.client.ObservableClient;
 
 public class MainApp extends Application {
 
+	private static final int REFRESH_RATE = 3000;
 	private Stage stage;
 	private BorderPane root;
 	private EventChannel channel;
@@ -56,6 +64,8 @@ public class MainApp extends Application {
 	private List<Korisnik> omiljeni = new ArrayList<Korisnik>();
 	private List<Korisnik> blokirani = new ArrayList<Korisnik>();
 	private List<Grana> grane;
+	private long idZadnjePoruke = -1;
+	private Map<Long, ChatController> otvorenChat = new TreeMap<>();
 	
 	private String skin = "menu1.css";
 
@@ -109,11 +119,70 @@ public class MainApp extends Application {
 			showUserList();
 			mainController.inicijaliziraj();
 
+			primajChatPoruke();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
+	private void primajChatPoruke() {
+		Timer t = new Timer();
+
+		t.scheduleAtFixedRate(
+				new TimerTask() {
+					public void run() {
+						DohvatiPorukeZahtjev zahtjev = new DohvatiPorukeZahtjev(MainApp.this.korisnik, MainApp.this.idZadnjePoruke);
+						DohvatiPorukeOdgovor odgovor = channel.sendAndWait(zahtjev);
+						if(!odgovor.getPoruke().isEmpty()) {
+							List<Poruka> poruke = odgovor.getPoruke();
+							for(final Poruka p : poruke) {
+					            Platform.runLater(new Runnable() {
+					                public void run() {
+					                	chat(p.getKorisnikOd(), p.getPoruka());
+					                }
+					            });
+								if(p.getId() > idZadnjePoruke) idZadnjePoruke = p.getId();
+							}
+						}
+					}
+				}, 0, REFRESH_RATE);
+	}
+	
+	public void chat(Korisnik korisnik, String poruka) {
+		ChatController chatController = otvorenChat.get(korisnik.getId());
+		if(chatController != null) {
+			if(!poruka.equals("")) {
+				if(!chatController.getStage().isShowing()) {
+					chatController.getStage().show();
+				}
+				chatController.addPoruka(poruka);
+			}		
+		} else {
+			try {
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(this.getClass().getClassLoader().getResource("fxml/chat/ChatLayout.fxml"));
+				Parent root = (Parent) loader.load();
+				ChatController newChatController = loader.getController();
+				newChatController.setMainApp(this);
+				newChatController.setKorisnik(korisnik);
+				
+				otvorenChat.put(korisnik.getId(), newChatController);
+				if(!poruka.equals("")) {
+						newChatController.addPoruka(poruka);
+				}
+
+				Stage stage = new Stage();
+				newChatController.setStage(stage);
+				stage.setScene(new Scene(root));
+				stage.setResizable(false);
+				stage.setTitle("Chat s " + korisnik.getKorisnickoIme());
+				stage.show();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 	private void showLogin() {
 	       try {
 				FXMLLoader loader = new FXMLLoader();
@@ -264,6 +333,13 @@ public class MainApp extends Application {
 
 	public void logout() {
         channel.sendAndWait(LogoutZahtjev.INSTANCE);
+
+        korisnik = null;
+    	omiljeni = new ArrayList<Korisnik>();
+    	blokirani = new ArrayList<Korisnik>();
+    	idZadnjePoruke = -1;
+    	otvorenChat = new TreeMap<>();
+    	skin = "menu1.css";
 
 		showLogin();
 	}

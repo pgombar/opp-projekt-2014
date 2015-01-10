@@ -1,21 +1,16 @@
 package hr.fer.opp.projekt.common.model;
 
-import hr.fer.opp.projekt.common.util.ImageUtil;
-
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.sql.Blob;
-import java.sql.SQLException;
-import java.util.Date;
 
-import javax.persistence.*;
-import javax.sql.rowset.serial.SerialBlob;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public final class Poruka implements Serializable {
+	
 	private static final long serialVersionUID = 8387986578686041475L;
 
 	@Id
@@ -25,11 +20,9 @@ public final class Poruka implements Serializable {
     @Column(nullable = false)
     private String poruka;
 
-    @Column(nullable = false)
     @ManyToOne
     private Korisnik korisnikOd;
 
-    @Column(nullable = false)
     @ManyToOne
     private Korisnik korisnikDo;
 

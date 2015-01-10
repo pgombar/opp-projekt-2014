@@ -7,18 +7,17 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="283.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="287.0" prefWidth="283.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hr.fer.opp.projekt.client.main.ChatController">
    <children>
-      <ListView prefHeight="307.0" prefWidth="283.0" />
-      <HBox alignment="CENTER" prefHeight="140.0" prefWidth="283.0" spacing="10.0">
+      <TextArea fx:id="pristiglePoruke" editable="false" prefHeight="181.0" prefWidth="283.0" wrapText="true" />
+      <HBox alignment="CENTER" layoutY="189.0" prefHeight="96.0" prefWidth="283.0" spacing="10.0">
          <children>
-            <TextArea maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="57.0" prefWidth="187.0" />
-            <Button mnemonicParsing="false" text="Pošalji" />
+            <TextArea fx:id="poruka" prefHeight="74.0" prefWidth="205.0" wrapText="true" />
+            <Button fx:id="posalji" mnemonicParsing="false" onAction="#handlePosalji" text="Pošalji" />
          </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </HBox>
    </children>
-</VBox>
+</AnchorPane>

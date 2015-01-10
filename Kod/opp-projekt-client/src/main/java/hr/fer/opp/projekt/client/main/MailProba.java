@@ -6,8 +6,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MailProba {
 	
@@ -38,7 +39,16 @@ public class MailProba {
 	}
 
 	public static void main(String[] args) throws IOException, URISyntaxException {
-	    mailto(Arrays.asList("john@example.com", "jane@example.com"), "Hello!",
-	            "This is\nan automatically sent email!\n");
-	}
+		Timer t = new Timer();
+
+		t.scheduleAtFixedRate(
+		    new TimerTask()
+		    {
+		        public void run()
+		        {
+		            System.out.println("3 seconds passed");
+		        }
+		    },
+		    0,      // run first occurrence immediately
+		    3000);	}
 }
