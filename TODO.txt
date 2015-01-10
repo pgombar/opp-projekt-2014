@@ -1,5 +1,6 @@
 + adminApp ponovo napraviti po uzoru na mainApp
 	*ne radi dodavanje usera iz nekog razloga
+	*app se rusi (?)
 + mijenjanje skina omoguciti
 - napraviti novi skin
 + popraviti tab redoslijed u registraciji
@@ -16,10 +17,11 @@
 + mijenjanje avatara
 + brisanje slike - postavljanje na null nije moguce
 + ispitivanje validnosti (?) registracije
-- ispis gresaka kod registracije i ostalih formi
++ ispis gresaka kod registracije i ostalih formi
 + fiksirati sve prozore
 - ubiti proces kad se prozor zatvori
 + uvecani prikaz slike (kad se klikne u galeriji)
+- POPUNJAVANJE BAZE
 
 *napomena: ako pri isprobavanju aplikacije naletite na neku nepravilnost, zabilježite je ovdje ako netko drugi nije istu stvar veæ napisao. Dio ekipe koji kodira neka procijeni može li se/treba/isplati mijenjati ili popravljati...
 

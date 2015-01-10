@@ -1,6 +1,9 @@
 package hr.fer.opp.projekt.client.login;
 
+import java.io.IOException;
+
 import hr.fer.opp.projekt.client.main.MainApp;
+import hr.fer.opp.projekt.client.profile.MyProfileController;
 import hr.fer.opp.projekt.common.model.Grana;
 import hr.fer.opp.projekt.common.model.Podgrana;
 import hr.fer.opp.projekt.common.odgovor.RegistracijaOdgovor;
@@ -8,13 +11,15 @@ import hr.fer.opp.projekt.common.zahtjev.RegistracijaZahtjev;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class RegisterController {
@@ -54,17 +59,32 @@ public class RegisterController {
 				mail.getText(), telefon.getText(), adresa.getText(), zvanje.getText(), 
 				grana.getSelectionModel().getSelectedItem().getId(), podgrana.getSelectionModel().getSelectedItem().getId()));
 	
-		if(odgovor.getKorisnik() == null) {
-			// tu treba pravi error dialog xD koji ne radi jer verzija kurac palac
-		    Stage stage = new Stage();
-		    StackPane root = new StackPane();
-		    root.getChildren().add(new Label(odgovor.getGreske().get(0)));
-		    stage.setScene(new Scene(root));
-		    stage.show();
+		if(!odgovor.getGreske().isEmpty()) {
+			String greske = "";
+			for(String greska : odgovor.getGreske()) {
+				greske = greske + greska + "\n";
+			}
+			try {
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(this.getClass().getClassLoader().getResource("fxml/register/ErrorLayout.fxml"));
+				Parent root = (Parent) loader.load();
+
+				ErrorController controller = loader.getController();
+				controller.setMainApp(this.mainApp);
+				controller.setText(greske);
+
+				Stage stage = new Stage();
+				stage.setResizable(false);
+				stage.setTitle("Pogreška");
+				Scene scene = new Scene(root);
+				stage.setScene(scene);
+				stage.show();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}		
 		} else {
-			System.out.println("Uspjesna registracija korisnika");
-		    Stage stage = (Stage) zavrsi.getScene().getWindow();
-		    stage.close();		
+			Stage stage = (Stage) zavrsi.getScene().getWindow();
+			stage.close();		
 		}
 	}
 	
