@@ -61,6 +61,7 @@ public class MainApp extends Application {
         final ObservableClient client = new ObservableClient("0.0.0.0", 5000);
         client.openConnection();
         this.channel = new OcsfEventChannel(client);
+        stage.setResizable(false);
         
 		this.stage = stage;
 		this.stage.setTitle("Umjetnine");
@@ -131,6 +132,7 @@ public class MainApp extends Application {
 				controller.setMainApp(this);
 
 				Stage stage = new Stage();
+		        stage.setResizable(false);
 				Scene scene = new Scene(root);
 				stage.setScene(scene);
 				stage.showAndWait();
@@ -156,7 +158,7 @@ public class MainApp extends Application {
 	    }
 	}
 	
-	public void showProfile(long id) {
+	public void showProfile() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(this.getClass().getClassLoader().getResource("fxml/profile/MyProfileLayout.fxml"));
@@ -168,6 +170,7 @@ public class MainApp extends Application {
 			profile.getStylesheets().add(this.getClass().getClassLoader().getResource(skin).toExternalForm());
 
 			Stage stage = new Stage();
+	        stage.setResizable(false);
 			stage.setTitle(korisnik.getIme() + " " + korisnik.getPrezime());
 			Scene scene = new Scene(profile);
 			stage.setScene(scene);

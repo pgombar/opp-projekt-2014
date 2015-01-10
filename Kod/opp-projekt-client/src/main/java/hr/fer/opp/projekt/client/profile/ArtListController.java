@@ -1,23 +1,24 @@
 package hr.fer.opp.projekt.client.profile;
 
 import hr.fer.opp.projekt.client.main.MainApp;
-import hr.fer.opp.projekt.common.model.Korisnik;
 import hr.fer.opp.projekt.common.model.Umjetnina;
 
 import java.io.IOException;
 import java.util.List;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -59,38 +60,29 @@ public class ArtListController {
 	                      } 
             		  }
             	};
-            	cell.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
-                    @Override
-                    public void handle(MouseEvent event) {
-                    	
-                    	Umjetnina umjetnina = listView.getSelectionModel().getSelectedItem();
-                		Stage stage = new Stage();
-                		stage.setTitle(umjetnina.getIme());
-                		Scene scene = new Scene(new AnchorPane());
-            			stage.setScene(scene);
-            			stage.show();
-            			
-                    	/*try {
-                    		FXMLLoader loader = new FXMLLoader();
-                    		loader.setLocation(this.getClass().getClassLoader().getResource("fxml/profile/ProfileLayout.fxml"));
-                    		Parent profile = (Parent) loader.load();
-                    		ProfileController controller = loader.getController();
-                    		controller.setMainApp(ArtListController.this.mainApp);
-                    		profile.getStylesheets().add(this.getClass().getClassLoader().getResource("menu.css").toExternalForm());
-                    		Umjetnina umjetnina = listView.getSelectionModel().getSelectedItem();
-                    		controller.setKorisnik(korisnik);
-                    		
-                    		
-                    		
-                    	} catch (IOException e) {
-                    		e.printStackTrace();
-                    	}*/
-                    }
-                });
             	return cell;
             }
         });
+		
+		listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Umjetnina>() {
+
+		    @Override
+		    public void changed(ObservableValue<? extends Umjetnina> observable, Umjetnina oldValue, Umjetnina newValue) {
+		    		Umjetnina umjetnina = listView.getSelectionModel().getSelectedItem();
+	    			if(umjetnina == null) return;
+
+            		Stage stage = new Stage();
+            		stage.setResizable(false);
+            		stage.setTitle(umjetnina.getIme());
+            		StackPane root = new StackPane();
+            		root.getChildren().add(new ImageView(SwingFXUtils.toFXImage(umjetnina.getSlika(), null)));
+
+        			stage.setScene(new Scene(root));
+        			stage.show();
+		    		listView.getSelectionModel().clearSelection();
+		    }
+		});
 	}
 	
     public void setMainApp(MainApp mainApp) {

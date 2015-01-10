@@ -1,25 +1,27 @@
-DONE- adminApp ponovo napraviti po uzoru na mainApp
++ adminApp ponovo napraviti po uzoru na mainApp
 	*ne radi dodavanje usera iz nekog razloga
-DONE- mijenjanje skina omoguciti
+	*app se rusi (?)
++ mijenjanje skina omoguciti
 - napraviti novi skin
-DONE- popraviti tab redoslijed u registraciji
-DONE- vlastiti profil:
-	DONE- prikaz vlastitog profila - maknuti buttone i dodati button za mijenjanje slike
-	DONE- editiranje vlastitog profila - kao forma za registraciju, samo popunjena - u njoj nema mijenjanja statusa
-DONE- upload umjetnina (forma za to)
-DONE- dodati textlabel za mijenjanje statusa u mainApp i promijeniti status
-DONE- dodati provjeru da ne loada korisnika kada kliknes random na praznu listu (nullpointer)
++ popraviti tab redoslijed u registraciji
++ vlastiti profil:
+	+ prikaz vlastitog profila - maknuti buttone i dodati button za mijenjanje slike
+	+ editiranje vlastitog profila - kao forma za registraciju, samo popunjena - u njoj nema mijenjanja statusa
++ upload umjetnina (forma za to)
++ dodati textlabel za mijenjanje statusa u mainApp i promijeniti status
++ dodati provjeru da ne loada korisnika kada kliknes random na praznu listu (nullpointer)
 - opcenito napraviti refreshanje liste usera!!!!
-DONE- debugirati upload nove umjetnine u galeriju korisnika, zahtjev ne dobiva odgovor
-DONE- napraviti da ste si medjusobno uvijek offline ako je netko nekoga blokirao
-DONE- mail
-DONE- mijenjanje avatara
-DONE- brisanje slike - postavljanje na null nije moguce
-DONE- ispitivanje validnosti (?) registracije
-- ispis gresaka kod registracije i ostalih formi
-- fiksirati sve prozore
++ debugirati upload nove umjetnine u galeriju korisnika, zahtjev ne dobiva odgovor
++ napraviti da ste si medjusobno uvijek offline ako je netko nekoga blokirao
++ mail
++ mijenjanje avatara
++ brisanje slike - postavljanje na null nije moguce
++ ispitivanje validnosti (?) registracije
++ ispis gresaka kod registracije i ostalih formi
++ fiksirati sve prozore
 - ubiti proces kad se prozor zatvori
-- uvecani prikaz slike (kad se klikne u galeriji)
++ uvecani prikaz slike (kad se klikne u galeriji)
+- POPUNJAVANJE BAZE
 
 *napomena: ako pri isprobavanju aplikacije naletite na neku nepravilnost, zabilježite je ovdje ako netko drugi nije istu stvar veæ napisao. Dio ekipe koji kodira neka procijeni može li se/treba/isplati mijenjati ili popravljati...
 
