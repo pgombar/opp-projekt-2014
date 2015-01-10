@@ -31,11 +31,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import com.lloseng.ocsf.client.ObservableClient;
 
@@ -64,6 +67,12 @@ public class MainApp extends Application {
         stage.setResizable(false);
         
 		this.stage = stage;
+		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+		    @Override
+		    public void handle(WindowEvent event) {
+		        System.exit(0);
+		    }
+		});
 		this.stage.setTitle("Umjetnine");
 
 		showLogin();

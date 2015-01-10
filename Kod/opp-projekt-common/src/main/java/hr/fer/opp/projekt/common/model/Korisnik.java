@@ -2,14 +2,36 @@ package hr.fer.opp.projekt.common.model;
 
 import hr.fer.opp.projekt.common.util.ImageUtil;
 
-import javax.imageio.ImageIO;
-import javax.persistence.*;
-import javax.sql.rowset.serial.SerialBlob;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.sql.Blob;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
+
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.PostLoad;
+import javax.persistence.Transient;
+import javax.sql.rowset.serial.SerialBlob;
+
+import com.google.common.collect.Lists;
 
 @Entity
 public final class Korisnik implements Serializable {
@@ -132,14 +154,14 @@ public final class Korisnik implements Serializable {
         this.podgrana = other.podgrana;
         this.umjetnine = new ArrayList<>(other.umjetnine);
         this.admin = other.admin;
-        System.arraycopy(other.slika, 0, this.slika, 0, other.slika.length);
+        this.slika = other.slika;
         this.slikaBlob = other.slikaBlob;
         this.online = other.online;
         this.zadnjiPutAktivan = other.zadnjiPutAktivan;
-        this.omiljeniUmjetnici = new ArrayList<>(other.omiljeniUmjetnici);
-        this.omiljeniUmjetniciOd = new ArrayList<>(other.omiljeniUmjetniciOd);
-        this.blokiraniUmjetnici = new ArrayList<>(other.blokiraniUmjetnici);
-        this.blokiraniUmjetniciOd = new ArrayList<>(other.blokiraniUmjetniciOd);
+        this.omiljeniUmjetnici = other.omiljeniUmjetnici == null ? new ArrayList<Korisnik>() : new ArrayList<>(other.omiljeniUmjetnici);
+        this.omiljeniUmjetniciOd = other.omiljeniUmjetniciOd == null ? new ArrayList<Korisnik>() : new ArrayList<>(other.omiljeniUmjetniciOd);
+        this.blokiraniUmjetnici = other.blokiraniUmjetnici == null ? new ArrayList<Korisnik>() : new ArrayList<>(other.blokiraniUmjetnici);
+        this.blokiraniUmjetniciOd = other.blokiraniUmjetniciOd == null ? new ArrayList<Korisnik>() : new ArrayList<>(other.blokiraniUmjetniciOd);
     }
 
     @PostLoad

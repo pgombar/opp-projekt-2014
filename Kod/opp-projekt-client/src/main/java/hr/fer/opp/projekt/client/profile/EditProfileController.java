@@ -61,10 +61,7 @@ public class EditProfileController {
 
 	@FXML
 	private void handleSpremi() {
-		Korisnik promjena = new Korisnik(korisnik.getIme(), korisnik.getPrezime(), korisnik.getKorisnickoIme(), korisnik.getZaporka(), 
-					korisnik.getEmail(), korisnik.getTelefon(), korisnik.getAdresa(), korisnik.getOsobniStatus(), korisnik.getZvanje(), 
-					korisnik.getGrana(), korisnik.getPodgrana(), korisnik.getUmjetnine(), korisnik.getSlika(), korisnik.isAdmin());
-		promjena.setId(korisnik.getId());
+		Korisnik promjena = new Korisnik(korisnik);
 		promjena.setIme(ime.getText());
 		promjena.setPrezime(prezime.getText());
 		promjena.setZvanje(zvanje.getText());

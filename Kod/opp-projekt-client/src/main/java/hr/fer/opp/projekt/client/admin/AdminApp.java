@@ -17,11 +17,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import com.lloseng.ocsf.client.ObservableClient;
 
@@ -228,6 +230,12 @@ public class AdminApp extends MainApp {
 
 			Stage stage = new Stage();
 			stage.setTitle("Postavke poslužitelja");
+			stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			    @Override
+			    public void handle(WindowEvent event) {
+			        System.exit(0);
+			    }
+			});
 			Scene scene = new Scene(profile);
 			stage.setScene(scene);
 			stage.show();

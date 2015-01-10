@@ -19,7 +19,7 @@
 + ispitivanje validnosti (?) registracije
 + ispis gresaka kod registracije i ostalih formi
 + fiksirati sve prozore
-- ubiti proces kad se prozor zatvori
++ ubiti proces kad se prozor zatvori
 + uvecani prikaz slike (kad se klikne u galeriji)
 - POPUNJAVANJE BAZE
 
