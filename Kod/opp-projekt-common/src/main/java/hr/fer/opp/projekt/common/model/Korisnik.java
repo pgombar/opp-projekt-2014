@@ -23,10 +23,10 @@ public final class Korisnik implements Serializable {
     @GeneratedValue
     private long id;
 
-    @Column(nullable = false)
+    @Column
     private String ime;
 
-    @Column(nullable = false)
+    @Column
     private String prezime;
 
     @Column(nullable = false, unique = true)

@@ -15,7 +15,8 @@ DONE- napraviti da ste si medjusobno uvijek offline ako je netko nekoga blokirao
 DONE- mail
 DONE- mijenjanje avatara
 DONE- brisanje slike - postavljanje na null nije moguce
-- ispitivanje validnosti (?) registracije i ispis gresaka
+DONE- ispitivanje validnosti (?) registracije
+- ispis gresaka kod registracije i ostalih formi
 - fiksirati sve prozore
 - ubiti proces kad se prozor zatvori
 - uvecani prikaz slike (kad se klikne u galeriji)
