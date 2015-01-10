@@ -151,19 +151,19 @@ public class AdminApp extends MainApp {
 		return grane;
 	}
 
-	public boolean isBlokiran(Korisnik korisnik) {
-		for (Korisnik k : blokirani)
-			if (k.getId() == korisnik.getId())
-				return true;
-		return false;
-	}
+//	public boolean isBlokiran(Korisnik korisnik) {
+//		for (Korisnik k : blokirani)
+//			if (k.getId() == korisnik.getId())
+//				return true;
+//		return false;
+//	}
 
-	public boolean isOmiljen(Korisnik korisnik) {
-		for (Korisnik k : omiljeni)
-			if (k.getId() == korisnik.getId())
-				return true;
-		return false;
-	}
+//	public boolean isOmiljen(Korisnik korisnik) {
+//		for (Korisnik k : omiljeni)
+//			if (k.getId() == korisnik.getId())
+//				return true;
+//		return false;
+//	}
 
 	public static void main(String[] args) {
 		launch(args);

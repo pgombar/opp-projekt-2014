@@ -31,14 +31,14 @@ public class ListItemController {
 
 	public ListItemController() {
 	}
-	
+
 	@FXML
 	private void initialize() {
 	}
 
-    public void setMainApp(AdminApp mainApp) {
-        this.mainApp = mainApp;
-    }
+	public void setMainApp(AdminApp mainApp) {
+		this.mainApp = mainApp;
+	}
 
 	public void setKorisnickoIme(String korisnickoIme) {
 		this.korisnickoIme.setText(korisnickoIme);
@@ -51,38 +51,45 @@ public class ListItemController {
 	public void setStatus(String status) {
 		this.status.setText(status);
 	}
-	
-	private boolean isBlokiranOd() {
-		List<Korisnik> blokirani = korisnik.getBlokiraniUmjetnici();
-		for(Korisnik k : blokirani)
-			if(k.getId() == mainApp.getKorisnik().getId()) return true;
-		return false;
-	}
-	
+
+	// ovo nam ne treba u adminAppu jer adminApp nema "korisnik", nema logina
+	// private boolean isBlokiranOd() {
+	// List<Korisnik> blokirani = korisnik.getBlokiraniUmjetnici();
+	// for(Korisnik k : blokirani)
+	// if(k.getId() == mainApp.getKorisnik().getId()) return true;
+	// return false;
+	// }
+
 	public void setKorisnik(Korisnik korisnik) {
 		this.korisnik = korisnik;
 		korisnickoIme.setText(korisnik.getKorisnickoIme());
 		imePrezime.setText(korisnik.getIme() + " " + korisnik.getPrezime());
 		status.setText(korisnik.getOsobniStatus());
-		if (korisnik.isOnline() && !mainApp.isBlokiran(korisnik) && !isBlokiranOd()) {
+		// if (korisnik.isOnline() && !mainApp.isBlokiran(korisnik) &&
+		// !isBlokiranOd()) {
+		if (korisnik.isOnline()) {
 			online.setImage(new Image(this.getClass().getClassLoader().getResource("online.png").toExternalForm()));
 		} else {
 			online.setImage(new Image(this.getClass().getClassLoader().getResource("offline.png").toExternalForm()));
 		}
-//		if(mainApp.isBlokiran(korisnik)) {
-//			blocked.setImage(new Image(this.getClass().getClassLoader().getResource("block-mini.png").toExternalForm()));
-//		} else {
-//			blocked.setImage(new Image(this.getClass().getClassLoader().getResource("not-block-mini.png").toExternalForm()));
-//		}
-//		if(mainApp.isOmiljen(korisnik)) {
-//			favorited.setImage(new Image(this.getClass().getClassLoader().getResource("fav-mini.png").toExternalForm()));
-//		} else {
-//			favorited.setImage(new Image(this.getClass().getClassLoader().getResource("not-fav-mini.png").toExternalForm()));
-//		}
+		// if(mainApp.isBlokiran(korisnik)) {
+		// blocked.setImage(new
+		// Image(this.getClass().getClassLoader().getResource("block-mini.png").toExternalForm()));
+		// } else {
+		// blocked.setImage(new
+		// Image(this.getClass().getClassLoader().getResource("not-block-mini.png").toExternalForm()));
+		// }
+		// if(mainApp.isOmiljen(korisnik)) {
+		// favorited.setImage(new
+		// Image(this.getClass().getClassLoader().getResource("fav-mini.png").toExternalForm()));
+		// } else {
+		// favorited.setImage(new
+		// Image(this.getClass().getClassLoader().getResource("not-fav-mini.png").toExternalForm()));
+		// }
 		if (korisnik.getSlika() != null)
 			slika.setImage(SwingFXUtils.toFXImage(korisnik.getSlika(), null));
 		else
 			slika.setImage(new Image(this.getClass().getClassLoader().getResource("default.jpg").toExternalForm()));
 	}
-    
+
 }
