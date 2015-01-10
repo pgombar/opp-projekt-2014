@@ -118,7 +118,7 @@ public class MainController {
 
 	@FXML
 	private void handleMojProfil() {
-		mainApp.showProfile(0);
+		mainApp.showProfile();
 	}
 	
 	@FXML

@@ -77,6 +77,7 @@ public class UserListController {
             		controller.setKorisnik(korisnik);
             		
             		Stage stage = new Stage();
+            		stage.setResizable(false);
             		stage.setTitle(korisnik.getIme() + " " + korisnik.getPrezime());
             		Scene scene = new Scene(profile);
         			stage.setScene(scene);

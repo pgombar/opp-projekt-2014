@@ -37,6 +37,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -128,16 +129,18 @@ public class MyProfileController {
 
 			@Override
 			public void changed(ObservableValue<? extends Umjetnina> observable, Umjetnina oldValue, Umjetnina newValue) {
-				if (listView.getSelectionModel().getSelectedItem() == null)
-					return;
-				Umjetnina umjetnina = listView.getSelectionModel().getSelectedItem();
-				Stage stage = new Stage();
-				stage.setTitle(umjetnina.getIme());
-				Scene scene = new Scene(new AnchorPane());
-				stage.setScene(scene);
-				stage.show();
+	    		Umjetnina umjetnina = listView.getSelectionModel().getSelectedItem();
+    			if(umjetnina == null) return;
 
-				listView.getSelectionModel().clearSelection();
+        		Stage stage = new Stage();
+        		stage.setResizable(false);
+        		stage.setTitle(umjetnina.getIme());
+        		StackPane root = new StackPane();
+        		root.getChildren().add(new ImageView(SwingFXUtils.toFXImage(umjetnina.getSlika(), null)));
+
+    			stage.setScene(new Scene(root));
+    			stage.show();
+	    		listView.getSelectionModel().clearSelection();
 			}
 		});
 
@@ -202,6 +205,7 @@ public class MyProfileController {
 			controller.setMainApp(this.mainApp);
 			controller.setKorisnik(korisnik);
 			Stage stage = new Stage();
+			stage.setResizable(false);
 			stage.setTitle("Uređivanje profila");
 			Scene scene = new Scene(root);
 			stage.setScene(scene);
