@@ -66,8 +66,8 @@ public class SettingsController {
 
 		try {
 			String content = "application.host=" + ip.getText() + "\n" + "application.port=" + port.getText() + "\n"
-					+ "application.maxUsers" + brojKorisnika.getText();
-			File config = new File(this.getClass().getClassLoader().getResource("application.properties").getFile());
+					+ "application.maxUsers=" + brojKorisnika.getText();
+			File config = new File("application.properties");
 
 			// application.properties u opp-projekt-server resources oblika
 			// application.host=localhost

@@ -13,8 +13,11 @@ import hr.fer.opp.projekt.common.zahtjev.DohvatiSifrarnikeZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.PopisUmjetnikaZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.PretragaUmjetnikaZahtjev;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -49,24 +52,29 @@ public class AdminApp extends MainApp {
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		String appFile = this.getClass().getClassLoader().getResource("application.properties").getFile();
+		String defaultAppFile = this.getClass().getClassLoader().getResource("application.properties").getFile();
+		String appFile = "./application.properties";
+
+		String ip = "";
+		int port = 0;
+
+		if (!Files.exists(Paths.get(appFile))) {
+			appFile = defaultAppFile;
+		}
 
 		try (FileReader reader = new FileReader(appFile)) {
 			Properties properties = new Properties();
 			properties.load(reader);
-			String ip = properties.getProperty("application.host");
-			String portTemp = properties.getProperty("application.port");
-			int port = Integer.parseInt(portTemp);
-			
-			System.out.println(ip + " " + port);
-
-			final ObservableClient client = new ObservableClient(ip, port);
-			client.openConnection();
-			this.channel = new OcsfEventChannel(client);
-
+			ip = properties.getProperty("application.host");
+			port = Integer.parseInt(properties.getProperty("application.port"));
 		} catch (IOException e) {
-			e.printStackTrace();
 		}
+
+		System.out.println(ip + " " + port);
+
+		final ObservableClient client = new ObservableClient(ip, port);
+		client.openConnection();
+		this.channel = new OcsfEventChannel(client);
 
 		this.stage = stage;
 		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {

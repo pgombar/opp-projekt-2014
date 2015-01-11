@@ -5,3 +5,5 @@ target
 .settings
 .classpath
 h2
+/application.properties
+/opp-projekt-client/application.properties
