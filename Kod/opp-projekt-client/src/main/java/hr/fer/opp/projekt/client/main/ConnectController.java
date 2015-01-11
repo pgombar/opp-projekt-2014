@@ -32,6 +32,8 @@ public class ConnectController {
 	@FXML
 	private void initialize() {
 		greska.setText("");
+		ip.setText("0.0.0.0");
+		port.setText("5000");
 	}
 
 	public void setMainApp(MainApp mainApp) {
