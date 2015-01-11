@@ -4,8 +4,6 @@ import hr.fer.opp.projekt.client.main.MainApp;
 import hr.fer.opp.projekt.common.model.Korisnik;
 import hr.fer.opp.projekt.common.model.Umjetnina;
 import hr.fer.opp.projekt.common.odgovor.DohvatiUmjetnikaOdgovor;
-import hr.fer.opp.projekt.common.odgovor.UkrcajFotografijuUmjetnineOdgovor;
-import hr.fer.opp.projekt.common.odgovor.UrediPodatkeOdgovor;
 import hr.fer.opp.projekt.common.zahtjev.DohvatiUmjetnikaZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.UkrcajFotografijuUmjetnineZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.UrediPodatkeZahtjev;
@@ -14,9 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -36,8 +32,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -80,6 +76,8 @@ public class MyProfileController {
 	private TextField tehnika;
 	@FXML
 	private TextField datoteka;
+	@FXML
+	private TextField direktorij;
 	@FXML
 	private Button ukrcaj;
 	@FXML
@@ -145,6 +143,7 @@ public class MyProfileController {
 		});
 
 		datoteka.setEditable(false);
+		direktorij.setEditable(false);
 	}
 
 	public void setList(List<Umjetnina> umjetnine) {
@@ -184,6 +183,13 @@ public class MyProfileController {
 		else
 			slika.setImage(new Image(this.getClass().getClassLoader().getResource("default.jpg").toExternalForm()));
 		setList(korisnik.getUmjetnine());
+		
+		if(mainApp.getFolder() != null)
+			try {
+				direktorij.setText(mainApp.getFolder().getCanonicalPath());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 	}
 
 	public void setSlika(ImageView slika) {
@@ -289,6 +295,7 @@ public class MyProfileController {
 	public void browseFile() {
 		Stage stage = (Stage) datoteka.getScene().getWindow();
 		FileChooser fileChooser = new FileChooser();
+		if(mainApp.getFolder() != null) fileChooser.setInitialDirectory(mainApp.getFolder());
 		fileChooser.setTitle("Ukrcavanje slike");
 		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Images", "*.png", "*.jpg"),
 				new FileChooser.ExtensionFilter("JPG", "*.jpg"), new FileChooser.ExtensionFilter("PNG", "*.png"));
@@ -301,6 +308,23 @@ public class MyProfileController {
 		if (file != null) {
 			try {
 				datoteka.setText(file.getCanonicalPath());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	@FXML
+	public void handleFolder() {
+		Stage stage = (Stage) datoteka.getScene().getWindow();
+		DirectoryChooser chooser = new DirectoryChooser();
+		chooser.setTitle("Odabir direktorija");
+		File direktorij = chooser.showDialog(stage);
+
+		if(direktorij != null) {
+			try {
+				this.direktorij.setText(direktorij.getCanonicalPath());
+				mainApp.setFolder(direktorij);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
