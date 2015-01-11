@@ -66,8 +66,7 @@ public class SettingsController {
 		greska.setText("Uspjelo!");
 
 		try {
-			String content = "ip=" + ip.getText() + "\n" + "port=" + port.getText() + "\n" + "maxUsers="
-					+ brojKorisnika.getText();
+			String content = ip.getText() + "\n" + port.getText() + "\n" + brojKorisnika.getText();
 			File config = new File(this.getClass().getClassLoader().getResource("config.txt").getFile());
 
 			FileWriter fw = new FileWriter(config);

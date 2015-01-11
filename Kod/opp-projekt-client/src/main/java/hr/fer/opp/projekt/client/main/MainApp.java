@@ -58,10 +58,14 @@ public class MainApp extends Application {
 	private Stage stage;
 	private BorderPane root;
 	private EventChannel channel;
-	
+
+	public void setChannel(EventChannel channel) {
+		this.channel = channel;
+	}
+
 	private MainController mainController;
 	private UserListController userListController;
-	
+
 	private Korisnik korisnik;
 	private List<Korisnik> svi = new ArrayList<Korisnik>();
 	private List<Korisnik> omiljeni = new ArrayList<Korisnik>();
@@ -69,57 +73,83 @@ public class MainApp extends Application {
 	private List<Grana> grane;
 	private long idZadnjePoruke = -1;
 	private Map<Long, ChatController> otvorenChat = new TreeMap<>();
-	
+
 	private String skin = "menu1.css";
 
 	@Override
 	public void start(Stage stage) throws Exception {
-        final ObservableClient client = new ObservableClient("0.0.0.0", 5000);
-        client.openConnection();
-        this.channel = new OcsfEventChannel(client);
-        stage.setResizable(false);
-        
 		this.stage = stage;
+		showConnect();
+	}
+
+	private void showConnect() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(this.getClass().getClassLoader().getResource("fxml/welcome/ConnectLayout.fxml"));
+			Parent root = (Parent) loader.load();
+			ConnectController controller = loader.getController();
+			controller.setMainApp(this);
+
+			// root.getStylesheets().add(this.getClass().getClassLoader().getResource("welcome.css").toExternalForm());
+
+			Stage stage = new Stage();
+			Scene scene = new Scene(root);
+			stage.setScene(scene);
+			stage.setTitle("Spajanje");
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void showMain() {
+		// final ObservableClient client = new ObservableClient("0.0.0.0",
+		// 5000);
+		// client.openConnection();
+		// this.channel = new OcsfEventChannel(client);
+		stage.setResizable(false);
+
 		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-		    @Override
-		    public void handle(WindowEvent event) {
-		    	if(korisnik != null) logout();
-		        System.exit(0);
-		    }
+			@Override
+			public void handle(WindowEvent event) {
+				if (korisnik != null)
+					logout();
+				System.exit(0);
+			}
 		});
 		this.stage.setTitle("Umjetnine");
 
 		showLogin();
 	}
-	
+
 	private void dohvatiPodatke() {
-        PopisUmjetnikaOdgovor odgovor = channel.sendAndWait(PopisUmjetnikaZahtjev.INSTANCE);
-        svi.clear();
-        List<Korisnik> korisnici = odgovor.getRezultati();
-        for(Korisnik k : korisnici)
-        	if(k.getId() != korisnik.getId())
-        		svi.add(k);
-   }
-	
+		PopisUmjetnikaOdgovor odgovor = channel.sendAndWait(PopisUmjetnikaZahtjev.INSTANCE);
+		svi.clear();
+		List<Korisnik> korisnici = odgovor.getRezultati();
+		for (Korisnik k : korisnici)
+			if (k.getId() != korisnik.getId())
+				svi.add(k);
+	}
+
 	public String getSkin() {
 		return skin;
 	}
-	
+
 	private void initRootLayout() {
 		dohvatiPodatke();
-        try {
+		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(this.getClass().getClassLoader().getResource("fxml/main/MainLayout.fxml"));
 			root = (BorderPane) loader.load();
 			mainController = loader.getController();
 			mainController.setMainApp(this);
-			
+
 			root.getStylesheets().add(this.getClass().getClassLoader().getResource(skin).toExternalForm());
 
 			Scene scene = new Scene(root);
 			stage.setScene(scene);
 			stage.show();
-			
+
 			showUserList();
 			mainController.inicijaliziraj();
 
@@ -128,47 +158,49 @@ public class MainApp extends Application {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private void primajChatPoruke() {
 		Timer t = new Timer();
 
-		t.scheduleAtFixedRate(
-				new TimerTask() {
-					public void run() {
-						DohvatiPorukeZahtjev zahtjev = new DohvatiPorukeZahtjev(MainApp.this.korisnik, MainApp.this.idZadnjePoruke);
-						DohvatiPorukeOdgovor odgovor = channel.sendAndWait(zahtjev);
-						if(!odgovor.getPoruke().isEmpty()) {
-							List<Poruka> poruke = odgovor.getPoruke();
-							for(final Poruka p : poruke) {
-					            Platform.runLater(new Runnable() {
-					                public void run() {
-					                	chat(p.getKorisnikOd(), p.getPoruka());
-					                }
-					            });
-								if(p.getId() > idZadnjePoruke) idZadnjePoruke = p.getId();
+		t.scheduleAtFixedRate(new TimerTask() {
+			public void run() {
+				DohvatiPorukeZahtjev zahtjev = new DohvatiPorukeZahtjev(MainApp.this.korisnik,
+						MainApp.this.idZadnjePoruke);
+				DohvatiPorukeOdgovor odgovor = channel.sendAndWait(zahtjev);
+				if (!odgovor.getPoruke().isEmpty()) {
+					List<Poruka> poruke = odgovor.getPoruke();
+					for (final Poruka p : poruke) {
+						Platform.runLater(new Runnable() {
+							public void run() {
+								chat(p.getKorisnikOd(), p.getPoruka());
 							}
-						}
-						List<Long> chatovi = new ArrayList<>(otvorenChat.keySet());
-						for(Long c : chatovi) {
-							DohvatiUmjetnikaZahtjev zahtjev1 = new DohvatiUmjetnikaZahtjev(c);
-							DohvatiUmjetnikaOdgovor odgovor1 = channel.sendAndWait(zahtjev1);
-							System.out.println(odgovor1.getUmjetnik().getKorisnickoIme() + " je " + odgovor1.getUmjetnik().isOnline());
-							if(!odgovor1.getUmjetnik().isOnline()) {
-								otvorenChat.get(c).addOdjava();
-								otvorenChat.remove(c);
-							}
-						}
+						});
+						if (p.getId() > idZadnjePoruke)
+							idZadnjePoruke = p.getId();
 					}
-				}, 0, REFRESH_RATE);
+				}
+				List<Long> chatovi = new ArrayList<>(otvorenChat.keySet());
+				for (Long c : chatovi) {
+					DohvatiUmjetnikaZahtjev zahtjev1 = new DohvatiUmjetnikaZahtjev(c);
+					DohvatiUmjetnikaOdgovor odgovor1 = channel.sendAndWait(zahtjev1);
+					System.out.println(odgovor1.getUmjetnik().getKorisnickoIme() + " je "
+							+ odgovor1.getUmjetnik().isOnline());
+					if (!odgovor1.getUmjetnik().isOnline()) {
+						otvorenChat.get(c).addOdjava();
+						otvorenChat.remove(c);
+					}
+				}
+			}
+		}, 0, REFRESH_RATE);
 	}
-	
+
 	public void chat(final Korisnik korisnik, String poruka) {
 		ChatController chatController = otvorenChat.get(korisnik.getId());
-		if(chatController != null) {
-			if(!chatController.getStage().isShowing()) {
+		if (chatController != null) {
+			if (!chatController.getStage().isShowing()) {
 				chatController.getStage().show();
 			}
-			if(poruka.equals("")) {
+			if (poruka.equals("")) {
 				chatController.komunikacijaObustavljena();
 				otvorenChat.remove(korisnik.getId());
 				return;
@@ -183,19 +215,20 @@ public class MainApp extends Application {
 				final ChatController newChatController = loader.getController();
 				newChatController.setMainApp(this);
 				newChatController.setKorisnik(korisnik);
-				
+
 				otvorenChat.put(korisnik.getId(), newChatController);
-				if(!poruka.equals("")) newChatController.addPoruka(poruka);
-				
+				if (!poruka.equals(""))
+					newChatController.addPoruka(poruka);
+
 				Stage stage = new Stage();
 				stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-				    @Override
-				    public void handle(WindowEvent event) {
-				    	if(otvorenChat.get(korisnik.getId()) != null) {
-					        newChatController.obustavaKomunikacije();
-					        otvorenChat.remove(korisnik.getId());
-				    	}
-				    }
+					@Override
+					public void handle(WindowEvent event) {
+						if (otvorenChat.get(korisnik.getId()) != null) {
+							newChatController.obustavaKomunikacije();
+							otvorenChat.remove(korisnik.getId());
+						}
+					}
 				});
 				newChatController.setStage(stage);
 				stage.setScene(new Scene(root));
@@ -210,58 +243,58 @@ public class MainApp extends Application {
 	}
 
 	private void showLogin() {
-	       try {
-				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(this.getClass().getClassLoader().getResource("fxml/welcome/WelcomeLayout.fxml"));
-				Parent root = (Parent) loader.load();
-				LoginController controller = loader.getController();
-				controller.setMainApp(this);
-				
-				root.getStylesheets().add(this.getClass().getClassLoader().getResource("welcome.css").toExternalForm());
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(this.getClass().getClassLoader().getResource("fxml/welcome/WelcomeLayout.fxml"));
+			Parent root = (Parent) loader.load();
+			LoginController controller = loader.getController();
+			controller.setMainApp(this);
 
-				Scene scene = new Scene(root);
-				stage.setScene(scene);
-				stage.show();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			root.getStylesheets().add(this.getClass().getClassLoader().getResource("welcome.css").toExternalForm());
+
+			Scene scene = new Scene(root);
+			stage.setScene(scene);
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
-	
+
 	public void showRegistration() {
-	       try {
-				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(this.getClass().getClassLoader().getResource("fxml/register/RegisterLayout.fxml"));
-				Parent root = (Parent) loader.load();
-				RegisterController controller = loader.getController();
-				controller.setMainApp(this);
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(this.getClass().getClassLoader().getResource("fxml/register/RegisterLayout.fxml"));
+			Parent root = (Parent) loader.load();
+			RegisterController controller = loader.getController();
+			controller.setMainApp(this);
 
-				Stage stage = new Stage();
-		        stage.setResizable(false);
-				Scene scene = new Scene(root);
-				stage.setScene(scene);
-				stage.showAndWait();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			Stage stage = new Stage();
+			stage.setResizable(false);
+			Scene scene = new Scene(root);
+			stage.setScene(scene);
+			stage.showAndWait();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
-	
+
 	private void showUserList() {
-	    try {
-	        FXMLLoader loader = new FXMLLoader();
-	        loader.setLocation(this.getClass().getClassLoader().getResource("fxml/main/UserListLayout.fxml"));
-	        Parent userList = (Parent) loader.load();
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(this.getClass().getClassLoader().getResource("fxml/main/UserListLayout.fxml"));
+			Parent userList = (Parent) loader.load();
 
-	        root.setCenter(userList);
+			root.setCenter(userList);
 
-	        userListController = loader.getController();
-	        userListController.setMainApp(this);
-	        showAll();
-	        
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	    }
+			userListController = loader.getController();
+			userListController.setMainApp(this);
+			showAll();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
-	
+
 	public void showProfile() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -274,7 +307,7 @@ public class MainApp extends Application {
 			profile.getStylesheets().add(this.getClass().getClassLoader().getResource(skin).toExternalForm());
 
 			Stage stage = new Stage();
-	        stage.setResizable(false);
+			stage.setResizable(false);
 			stage.setTitle(korisnik.getIme() + " " + korisnik.getPrezime());
 			Scene scene = new Scene(profile);
 			stage.setScene(scene);
@@ -283,71 +316,73 @@ public class MainApp extends Application {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void showAll() {
 		dohvatiPodatke();
-        userListController.setList(svi);
+		userListController.setList(svi);
 	}
-	
+
 	public void showBlocked() {
 		userListController.setList(blokirani);
 	}
-	
+
 	public void showFavorite() {
 		userListController.setList(omiljeni);
 	}
-	
+
 	public void search(String search) {
-		 PretragaUmjetnikaOdgovor odgovor = channel.sendAndWait(new PretragaUmjetnikaZahtjev(search, search, search));
-		 userListController.setList(odgovor.getRezultati());
+		PretragaUmjetnikaOdgovor odgovor = channel.sendAndWait(new PretragaUmjetnikaZahtjev(search, search, search));
+		userListController.setList(odgovor.getRezultati());
 	}
-	
+
 	public void searchGrana(Grana grana) {
 		List<Korisnik> search = new ArrayList<>();
-		for(Korisnik k : svi) {
-			if(k.getGrana() != null && k.getGrana().getId() == grana.getId())
+		for (Korisnik k : svi) {
+			if (k.getGrana() != null && k.getGrana().getId() == grana.getId())
 				search.add(k);
 		}
 		userListController.setList(search);
 	}
-	
+
 	public void searchPodgrana(Podgrana podgrana) {
 		List<Korisnik> search = new ArrayList<>();
-		for(Korisnik k : svi) {
-			if(k.getPodgrana() != null && k.getPodgrana().getId() == podgrana.getId())
+		for (Korisnik k : svi) {
+			if (k.getPodgrana() != null && k.getPodgrana().getId() == podgrana.getId())
 				search.add(k);
 		}
 		userListController.setList(search);
 	}
-	
+
 	public EventChannel getChannel() {
 		return channel;
 	}
-	
+
 	public List<Grana> getGrane() {
-		if(grane == null) {
+		if (grane == null) {
 			DohvatiSifrarnikeOdgovor odgovor = channel.sendAndWait(DohvatiSifrarnikeZahtjev.INSTANCE);
 			grane = odgovor.getGrane();
 		}
 		return grane;
 	}
-	
+
 	public boolean isBlokiran(Korisnik korisnik) {
-		for(Korisnik k : blokirani)
-			if(k.getId() == korisnik.getId()) return true;
+		for (Korisnik k : blokirani)
+			if (k.getId() == korisnik.getId())
+				return true;
 		return false;
 	}
-	
+
 	public boolean isOmiljen(Korisnik korisnik) {
-		for(Korisnik k : omiljeni)
-			if(k.getId() == korisnik.getId()) return true;
-		return false;	
+		for (Korisnik k : omiljeni)
+			if (k.getId() == korisnik.getId())
+				return true;
+		return false;
 	}
-	
+
 	public Korisnik getKorisnik() {
 		return korisnik;
 	}
-	
+
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -359,19 +394,22 @@ public class MainApp extends Application {
 
 	public void logout() {
 		channel.sendAndWait(new UkloniPorukeKorisnikaZahtjev(korisnik));
-        channel.sendAndWait(LogoutZahtjev.INSTANCE);
-        System.exit(0);
+		channel.sendAndWait(LogoutZahtjev.INSTANCE);
+		System.exit(0);
 	}
 
 	public void toggleBlock(Korisnik korisnik) {
-		if(isOmiljen(korisnik)) return;
-		if(isBlokiran(korisnik)) { 
-			ObrisiBlokiranogUmjetnikaZahtjev zahtjev = new ObrisiBlokiranogUmjetnikaZahtjev(this.korisnik.getId(), korisnik.getId());
+		if (isOmiljen(korisnik))
+			return;
+		if (isBlokiran(korisnik)) {
+			ObrisiBlokiranogUmjetnikaZahtjev zahtjev = new ObrisiBlokiranogUmjetnikaZahtjev(this.korisnik.getId(),
+					korisnik.getId());
 			ObrisiBlokiranogUmjetnikaOdgovor odgovor = channel.sendAndWait(zahtjev);
 			blokirani.clear();
 			blokirani.addAll(odgovor.getBlokiraniUmjetnici());
 		} else {
-			DodajBlokiranogUmjetnikaZahtjev zahtjev = new DodajBlokiranogUmjetnikaZahtjev(this.korisnik.getId(), korisnik.getId());
+			DodajBlokiranogUmjetnikaZahtjev zahtjev = new DodajBlokiranogUmjetnikaZahtjev(this.korisnik.getId(),
+					korisnik.getId());
 			DodajBlokiranogUmjetnikaOdgovor odgovor = channel.sendAndWait(zahtjev);
 			blokirani.clear();
 			blokirani.addAll(odgovor.getBlokiraniUmjetnici());
@@ -380,40 +418,46 @@ public class MainApp extends Application {
 	}
 
 	public void toggleFavorite(Korisnik korisnik) {
-		if(isBlokiran(korisnik)) return;
-		if(isOmiljen(korisnik)) { 
-			ObrisiOmiljenogUmjetnikaZahtjev zahtjev = new ObrisiOmiljenogUmjetnikaZahtjev(this.korisnik.getId(), korisnik.getId());
+		if (isBlokiran(korisnik))
+			return;
+		if (isOmiljen(korisnik)) {
+			ObrisiOmiljenogUmjetnikaZahtjev zahtjev = new ObrisiOmiljenogUmjetnikaZahtjev(this.korisnik.getId(),
+					korisnik.getId());
 			ObrisiOmiljenogUmjetnikaOdgovor odgovor = channel.sendAndWait(zahtjev);
 			omiljeni.clear();
 			omiljeni.addAll(odgovor.getOmiljeniUmjetnici());
 		} else {
-			DodajOmiljenogUmjetnikaZahtjev zahtjev = new DodajOmiljenogUmjetnikaZahtjev(this.korisnik.getId(), korisnik.getId());
+			DodajOmiljenogUmjetnikaZahtjev zahtjev = new DodajOmiljenogUmjetnikaZahtjev(this.korisnik.getId(),
+					korisnik.getId());
 			DodajOmiljenogUmjetnikaOdgovor odgovor = channel.sendAndWait(zahtjev);
 			omiljeni.clear();
 			omiljeni.addAll(odgovor.getOmiljeniUmjetnici());
 		}
 		refresh();
 	}
-	
+
 	private void refresh() {
 		dohvatiPodatke();
-		if(userListController.getPrikaz() == svi) {
+		if (userListController.getPrikaz() == svi) {
 			userListController.setList(svi);
 		}
-		if(userListController.getPrikaz() == omiljeni) {
+		if (userListController.getPrikaz() == omiljeni) {
 			userListController.setList(omiljeni);
 		}
-		if(userListController.getPrikaz() == blokirani) {
+		if (userListController.getPrikaz() == blokirani) {
 			userListController.setList(blokirani);
 		}
 	}
 
 	public void toggleSkin() {
-		if(skin.equals("menu1.css")) skin = "menu2.css"; else skin = "menu1.css";
+		if (skin.equals("menu1.css"))
+			skin = "menu2.css";
+		else
+			skin = "menu1.css";
 		root.getStylesheets().clear();
 		root.getStylesheets().add(this.getClass().getClassLoader().getResource(skin).toExternalForm());
 	}
-	
+
 	public void changeStatus(String osobniStatus) {
 		this.korisnik.setOsobniStatus(osobniStatus);
 		UrediPodatkeZahtjev zahtjev = new UrediPodatkeZahtjev(korisnik);
