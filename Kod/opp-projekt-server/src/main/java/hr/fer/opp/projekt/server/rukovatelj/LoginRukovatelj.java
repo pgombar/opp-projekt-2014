@@ -29,7 +29,7 @@ public class LoginRukovatelj implements RukovateljZahtjevom<LoginZahtjev, LoginO
             if (eventServer.setKorisnik(client, korisnik)) {
                 return LoginOdgovor.success(korisnik);
             } else {
-                return LoginOdgovor.fail("Prekoračen maksimalni broj korisnika. Molimo, pokušajte kasnije.");
+                return LoginOdgovor.fail("Prekoračen maksimalan broj korisnika. Molimo pokušajte kasnije.");
             }
         } else {
             return LoginOdgovor.fail("Pogrešno korisničko ime i/ili zaporka.");
