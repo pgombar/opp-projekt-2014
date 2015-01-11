@@ -26,8 +26,11 @@ public class LoginRukovatelj implements RukovateljZahtjevom<LoginZahtjev, LoginO
         Korisnik korisnik = korisnikRepository.findByKorisnickoIme(zahtjev.getKorisnickoIme());
 
         if (korisnik != null && korisnik.getZaporka().equals(zahtjev.getZaporka())) {
-            eventServer.setKorisnik(client, korisnik);
-            return LoginOdgovor.success(korisnik);
+            if (eventServer.setKorisnik(client, korisnik)) {
+                return LoginOdgovor.success(korisnik);
+            } else {
+                return LoginOdgovor.fail("Prekoračen maksimalni broj korisnika. Molimo, pokušajte kasnije.");
+            }
         } else {
             return LoginOdgovor.fail("Pogrešno korisničko ime i/ili zaporka.");
         }

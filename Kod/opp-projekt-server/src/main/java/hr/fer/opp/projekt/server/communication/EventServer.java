@@ -20,21 +20,28 @@ import javax.transaction.Transactional;
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Component
 public class EventServer extends AbstractServer implements ApplicationContextAware {
     private static final Logger LOGGER = LoggerFactory.getLogger(EventServer.class);
 
+    private final int maxUsers;
+
     private final KorisnikRepository korisnikRepository;
 
     private final Map<Long, Connection> connections;
 
+    private final AtomicInteger userCount = new AtomicInteger();
+
     private ApplicationContext applicationContext;
 
     @Autowired
-    public EventServer(@Value("${application.port}") int port, KorisnikRepository korisnikRepository) {
+    public EventServer(@Value("${application.host}") String host, @Value("${application.port}") int port,
+                       @Value("${application.maxUsers}") int maxUsers, KorisnikRepository korisnikRepository) {
         super(port);
 
+        this.maxUsers = maxUsers;
         this.korisnikRepository = korisnikRepository;
         this.connections = new HashMap<>();
     }
@@ -112,19 +119,26 @@ public class EventServer extends AbstractServer implements ApplicationContextAwa
         }
     }
 
-    public void setKorisnik(ConnectionToClient client, Korisnik korisnik) {
-        connections.get(client.getId()).korisnik = korisnik;
+    public boolean setKorisnik(ConnectionToClient client, Korisnik korisnik) {
+        if (userCount.incrementAndGet() > maxUsers) {
+            userCount.decrementAndGet();
+            return false;
+        } else {
+            connections.get(client.getId()).korisnik = korisnik;
+            return true;
+        }
     }
 
     public void removeKorisnik(ConnectionToClient client) {
         Korisnik korisnik = connections.get(client.getId()).korisnik;
         korisnikRepository.setOnlineToFalseFor(korisnik.getId());
 
+        userCount.decrementAndGet();
         connections.get(client.getId()).korisnik = null;
     }
 
     private RukovateljZahtjevom<Zahtjev, ?> findRukovatelj(Zahtjev zahtjev) {
-        for(RukovateljZahtjevom rukovatelj : applicationContext.getBeansOfType(RukovateljZahtjevom.class).values()) {
+        for (RukovateljZahtjevom rukovatelj : applicationContext.getBeansOfType(RukovateljZahtjevom.class).values()) {
             ParameterizedType genericSuperclass = (ParameterizedType) rukovatelj.getClass().getGenericInterfaces()[0];
             Class<?> clazz = (Class<?>) genericSuperclass.getActualTypeArguments()[0];
 
