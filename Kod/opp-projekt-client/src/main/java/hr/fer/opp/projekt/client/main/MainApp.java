@@ -29,6 +29,7 @@ import hr.fer.opp.projekt.common.zahtjev.ObrisiBlokiranogUmjetnikaZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.ObrisiOmiljenogUmjetnikaZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.PopisUmjetnikaZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.PretragaUmjetnikaZahtjev;
+import hr.fer.opp.projekt.common.zahtjev.UkloniPorukeKorisnikaZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.UrediPodatkeZahtjev;
 
 import java.io.IOException;
@@ -82,6 +83,7 @@ public class MainApp extends Application {
 		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 		    @Override
 		    public void handle(WindowEvent event) {
+		    	if(korisnik != null) logout();
 		        System.exit(0);
 		    }
 		});
@@ -356,6 +358,7 @@ public class MainApp extends Application {
 	}
 
 	public void logout() {
+		channel.sendAndWait(new UkloniPorukeKorisnikaZahtjev(korisnik));
         channel.sendAndWait(LogoutZahtjev.INSTANCE);
         System.exit(0);
 	}
