@@ -13,6 +13,11 @@
     <artifactId>opp-projekt-client</artifactId>
 
     <dependencies>
+    	<dependency>
+               <groupId>hr.fer.opp</groupId>
+               <artifactId>opp-projekt-server</artifactId>
+               <version>${project.version}</version>
+        </dependency>
         <dependency>
             <groupId>hr.fer.opp</groupId>
             <artifactId>opp-projekt-common</artifactId>

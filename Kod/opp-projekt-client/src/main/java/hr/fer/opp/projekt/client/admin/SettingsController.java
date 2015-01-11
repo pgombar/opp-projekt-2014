@@ -63,11 +63,15 @@ public class SettingsController {
 			greska.setText("Nevaljan broj korisnika.");
 			return;
 		}
-		greska.setText("Uspjelo!");
 
 		try {
-			String content = ip.getText() + "\n" + port.getText() + "\n" + brojKorisnika.getText();
-			File config = new File(this.getClass().getClassLoader().getResource("config.txt").getFile());
+			String content = "application.host=" + ip.getText() + "\n" + "application.port=" + port.getText() + "\n"
+					+ "application.maxUsers" + brojKorisnika.getText();
+			File config = new File(this.getClass().getClassLoader().getResource("application.properties").getFile());
+
+			// application.properties u opp-projekt-server resources oblika
+			// application.host=localhost
+			// application.port=4242
 
 			FileWriter fw = new FileWriter(config);
 			BufferedWriter bw = new BufferedWriter(fw);

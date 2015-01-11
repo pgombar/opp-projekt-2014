@@ -13,9 +13,11 @@ import hr.fer.opp.projekt.common.zahtjev.DohvatiSifrarnikeZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.PopisUmjetnikaZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.PretragaUmjetnikaZahtjev;
 
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -41,24 +43,37 @@ public class AdminApp extends MainApp {
 	}
 
 	private List<Korisnik> svi;
-	private List<Korisnik> omiljeni = new ArrayList<Korisnik>();
-	private List<Korisnik> blokirani = new ArrayList<Korisnik>();
 	private List<Grana> grane;
 
 	private String skin = "menu1.css";
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		final ObservableClient client = new ObservableClient("0.0.0.0", 5000);
-		client.openConnection();
-		this.channel = new OcsfEventChannel(client);
+		String appFile = this.getClass().getClassLoader().getResource("application.properties").getFile();
+
+		try (FileReader reader = new FileReader(appFile)) {
+			Properties properties = new Properties();
+			properties.load(reader);
+			String ip = properties.getProperty("application.host");
+			String portTemp = properties.getProperty("application.port");
+			int port = Integer.parseInt(portTemp);
+			
+			System.out.println(ip + " " + port);
+
+			final ObservableClient client = new ObservableClient(ip, port);
+			client.openConnection();
+			this.channel = new OcsfEventChannel(client);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 		this.stage = stage;
 		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-		    @Override
-		    public void handle(WindowEvent event) {
-		        System.exit(0);
-		    }
+			@Override
+			public void handle(WindowEvent event) {
+				System.exit(0);
+			}
 		});
 		this.stage.setTitle("Administratorska aplikacija");
 
@@ -159,60 +174,8 @@ public class AdminApp extends MainApp {
 		return grane;
 	}
 
-//	public boolean isBlokiran(Korisnik korisnik) {
-//		for (Korisnik k : blokirani)
-//			if (k.getId() == korisnik.getId())
-//				return true;
-//		return false;
-//	}
-
-//	public boolean isOmiljen(Korisnik korisnik) {
-//		for (Korisnik k : omiljeni)
-//			if (k.getId() == korisnik.getId())
-//				return true;
-//		return false;
-//	}
-
 	public static void main(String[] args) {
 		launch(args);
-	}
-
-	public void toggleBlock(Korisnik korisnik) {
-		// if(isOmiljen(korisnik)) return;
-		// if(isBlokiran(korisnik)) {
-		// ObrisiBlokiranogUmjetnikaZahtjev zahtjev = new
-		// ObrisiBlokiranogUmjetnikaZahtjev(this.korisnik.getId(),
-		// korisnik.getId());
-		// ObrisiBlokiranogUmjetnikaOdgovor odgovor =
-		// channel.sendAndWait(zahtjev);
-		// blokirani = odgovor.getBlokiraniUmjetnici();
-		// } else {
-		// DodajBlokiranogUmjetnikaZahtjev zahtjev = new
-		// DodajBlokiranogUmjetnikaZahtjev(this.korisnik.getId(),
-		// korisnik.getId());
-		// DodajBlokiranogUmjetnikaOdgovor odgovor =
-		// channel.sendAndWait(zahtjev);
-		// blokirani = odgovor.getBlokiraniUmjetnici();
-		// }
-	}
-
-	public void toggleFavorite(Korisnik korisnik) {
-		// if(isBlokiran(korisnik)) return;
-		// if(isOmiljen(korisnik)) {
-		// ObrisiOmiljenogUmjetnikaZahtjev zahtjev = new
-		// ObrisiOmiljenogUmjetnikaZahtjev(this.korisnik.getId(),
-		// korisnik.getId());
-		// ObrisiOmiljenogUmjetnikaOdgovor odgovor =
-		// channel.sendAndWait(zahtjev);
-		// omiljeni = odgovor.getOmiljeniUmjetnici();
-		// } else {
-		// DodajOmiljenogUmjetnikaZahtjev zahtjev = new
-		// DodajOmiljenogUmjetnikaZahtjev(this.korisnik.getId(),
-		// korisnik.getId());
-		// DodajOmiljenogUmjetnikaOdgovor odgovor =
-		// channel.sendAndWait(zahtjev);
-		// omiljeni = odgovor.getOmiljeniUmjetnici();
-		// }
 	}
 
 	public void toggleSkin() {
@@ -237,10 +200,10 @@ public class AdminApp extends MainApp {
 			Stage stage = new Stage();
 			stage.setTitle("Postavke poslužitelja");
 			stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-			    @Override
-			    public void handle(WindowEvent event) {
-			        System.exit(0);
-			    }
+				@Override
+				public void handle(WindowEvent event) {
+					System.exit(0);
+				}
 			});
 			Scene scene = new Scene(profile);
 			stage.setScene(scene);
