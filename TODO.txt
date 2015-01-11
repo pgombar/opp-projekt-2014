@@ -24,6 +24,7 @@
 - POPUNJAVANJE BAZE
 - mijenjanje porta i adrese na klijentu
 - mijenjanje porta i adrese na serveru
+- defaultni folder za umjetnine
 
 *****manje bitno*****
 - srediti malo layout MyProfile (ruzno je, margine i tak)
