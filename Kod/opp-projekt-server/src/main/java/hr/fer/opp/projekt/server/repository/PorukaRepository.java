@@ -10,11 +10,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import javax.transaction.Transactional;
+
+@Transactional
 public interface PorukaRepository extends CrudRepository<Poruka, Long> {
-	@Query("select u from Poruka u where u.korisnikDo = :korisnik and u.id > :id")
+	@Query("select p from Poruka p where p.korisnikDo = :korisnik and p.id > :id")
     List<Poruka> getPoruke(@Param("korisnik") Korisnik korisnik, @Param("id") long id);
 
 	@Modifying
-	@Query("delete from Poruka u where u.korisnikDo = :korisnik")
+	@Query("delete from Poruka p where p.korisnikDo = :korisnik")
     void clearPoruke(@Param("korisnik") Korisnik korisnik);
 }
