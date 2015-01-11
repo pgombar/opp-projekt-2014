@@ -1,7 +1,6 @@
 package hr.fer.opp.projekt.client.main;
 
 import hr.fer.opp.projekt.client.communication.EventChannel;
-import hr.fer.opp.projekt.client.communication.OcsfEventChannel;
 import hr.fer.opp.projekt.client.login.LoginController;
 import hr.fer.opp.projekt.client.login.RegisterController;
 import hr.fer.opp.projekt.client.profile.MyProfileController;
@@ -32,6 +31,7 @@ import hr.fer.opp.projekt.common.zahtjev.PretragaUmjetnikaZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.UkloniPorukeKorisnikaZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.UrediPodatkeZahtjev;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,8 +49,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-
-import com.lloseng.ocsf.client.ObservableClient;
 
 public class MainApp extends Application {
 
@@ -73,6 +71,7 @@ public class MainApp extends Application {
 	private List<Grana> grane;
 	private long idZadnjePoruke = -1;
 	private Map<Long, ChatController> otvorenChat = new TreeMap<>();
+	private File folder;
 
 	private String skin = "menu1.css";
 
@@ -133,6 +132,14 @@ public class MainApp extends Application {
 
 	public String getSkin() {
 		return skin;
+	}
+
+	public File getFolder() {
+		return folder;
+	}
+
+	public void setFolder(File folder) {
+		this.folder = folder;
 	}
 
 	private void initRootLayout() {
