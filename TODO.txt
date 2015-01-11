@@ -2,7 +2,7 @@
 	*ne radi dodavanje usera iz nekog razloga
 	*app se rusi (?)
 + mijenjanje skina omoguciti
-- napraviti novi skin
++ napraviti novi skin
 + popraviti tab redoslijed u registraciji
 + vlastiti profil:
 	+ prikaz vlastitog profila - maknuti buttone i dodati button za mijenjanje slike
@@ -22,6 +22,8 @@
 + ubiti proces kad se prozor zatvori
 + uvecani prikaz slike (kad se klikne u galeriji)
 - POPUNJAVANJE BAZE
+- mijenjanje porta i adrese na klijentu
+- mijenjanje porta i adrese na serveru
 
 *napomena: ako pri isprobavanju aplikacije naletite na neku nepravilnost, zabilježite je ovdje ako netko drugi nije istu stvar veæ napisao. Dio ekipe koji kodira neka procijeni može li se/treba/isplati mijenjati ili popravljati...
 
