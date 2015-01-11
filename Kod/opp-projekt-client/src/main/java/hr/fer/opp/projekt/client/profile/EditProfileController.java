@@ -113,7 +113,7 @@ public class EditProfileController {
 		podgrane.clear();
 		podgrane.addAll(grana.getSelectionModel().getSelectedItem().getPodgrane());
 		podgrana.setItems(podgrane);
-		podgrana.getSelectionModel().select(0);
+		podgrana.getSelectionModel().clearSelection();
 	}
 
 	public void setKorisnik(Korisnik korisnik) {
@@ -130,14 +130,16 @@ public class EditProfileController {
 	}
 	
 	private void selectGrana() {
+		if(korisnik.getGrana() == null) return;
 		for(Grana g : grane) {
 			if(g.getId() == korisnik.getGrana().getId()) {
 				grana.getSelectionModel().select(g);
-				return;
+				break;
 			}
 		}
 		handleOdabirGrane();
-		for(Podgrana g : podgrane ) {
+		if(korisnik.getPodgrana() == null) return;
+		for(Podgrana g : podgrane) {
 			if(g.getId() == korisnik.getPodgrana().getId()) {
 				podgrana.getSelectionModel().select(g);
 				return;

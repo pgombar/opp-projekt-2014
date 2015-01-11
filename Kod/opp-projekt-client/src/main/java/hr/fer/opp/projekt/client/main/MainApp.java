@@ -63,7 +63,7 @@ public class MainApp extends Application {
 	private UserListController userListController;
 	
 	private Korisnik korisnik;
-	private List<Korisnik> svi;
+	private List<Korisnik> svi = new ArrayList<Korisnik>();
 	private List<Korisnik> omiljeni = new ArrayList<Korisnik>();
 	private List<Korisnik> blokirani = new ArrayList<Korisnik>();
 	private List<Grana> grane;
@@ -94,7 +94,7 @@ public class MainApp extends Application {
 	
 	private void dohvatiPodatke() {
         PopisUmjetnikaOdgovor odgovor = channel.sendAndWait(PopisUmjetnikaZahtjev.INSTANCE);
-        svi = new ArrayList<Korisnik>();
+        svi.clear();
         List<Korisnik> korisnici = odgovor.getRezultati();
         for(Korisnik k : korisnici)
         	if(k.getId() != korisnik.getId())
@@ -305,7 +305,7 @@ public class MainApp extends Application {
 	public void searchGrana(Grana grana) {
 		List<Korisnik> search = new ArrayList<>();
 		for(Korisnik k : svi) {
-			if(k.getGrana().getId() == grana.getId())
+			if(k.getGrana() != null && k.getGrana().getId() == grana.getId())
 				search.add(k);
 		}
 		userListController.setList(search);
@@ -314,7 +314,7 @@ public class MainApp extends Application {
 	public void searchPodgrana(Podgrana podgrana) {
 		List<Korisnik> search = new ArrayList<>();
 		for(Korisnik k : svi) {
-			if(k.getPodgrana().getId() == podgrana.getId())
+			if(k.getPodgrana() != null && k.getPodgrana().getId() == podgrana.getId())
 				search.add(k);
 		}
 		userListController.setList(search);
@@ -368,12 +368,15 @@ public class MainApp extends Application {
 		if(isBlokiran(korisnik)) { 
 			ObrisiBlokiranogUmjetnikaZahtjev zahtjev = new ObrisiBlokiranogUmjetnikaZahtjev(this.korisnik.getId(), korisnik.getId());
 			ObrisiBlokiranogUmjetnikaOdgovor odgovor = channel.sendAndWait(zahtjev);
-			blokirani = odgovor.getBlokiraniUmjetnici();
+			blokirani.clear();
+			blokirani.addAll(odgovor.getBlokiraniUmjetnici());
 		} else {
 			DodajBlokiranogUmjetnikaZahtjev zahtjev = new DodajBlokiranogUmjetnikaZahtjev(this.korisnik.getId(), korisnik.getId());
 			DodajBlokiranogUmjetnikaOdgovor odgovor = channel.sendAndWait(zahtjev);
-			blokirani = odgovor.getBlokiraniUmjetnici();
+			blokirani.clear();
+			blokirani.addAll(odgovor.getBlokiraniUmjetnici());
 		}
+		refresh();
 	}
 
 	public void toggleFavorite(Korisnik korisnik) {
@@ -381,11 +384,27 @@ public class MainApp extends Application {
 		if(isOmiljen(korisnik)) { 
 			ObrisiOmiljenogUmjetnikaZahtjev zahtjev = new ObrisiOmiljenogUmjetnikaZahtjev(this.korisnik.getId(), korisnik.getId());
 			ObrisiOmiljenogUmjetnikaOdgovor odgovor = channel.sendAndWait(zahtjev);
-			omiljeni = odgovor.getOmiljeniUmjetnici();
+			omiljeni.clear();
+			omiljeni.addAll(odgovor.getOmiljeniUmjetnici());
 		} else {
 			DodajOmiljenogUmjetnikaZahtjev zahtjev = new DodajOmiljenogUmjetnikaZahtjev(this.korisnik.getId(), korisnik.getId());
 			DodajOmiljenogUmjetnikaOdgovor odgovor = channel.sendAndWait(zahtjev);
-			omiljeni = odgovor.getOmiljeniUmjetnici();
+			omiljeni.clear();
+			omiljeni.addAll(odgovor.getOmiljeniUmjetnici());
+		}
+		refresh();
+	}
+	
+	private void refresh() {
+		dohvatiPodatke();
+		if(userListController.getPrikaz() == svi) {
+			userListController.setList(svi);
+		}
+		if(userListController.getPrikaz() == omiljeni) {
+			userListController.setList(omiljeni);
+		}
+		if(userListController.getPrikaz() == blokirani) {
+			userListController.setList(blokirani);
 		}
 	}
 

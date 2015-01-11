@@ -77,6 +77,7 @@ public class MainController {
             @Override
             public void changed(ObservableValue<? extends TreeItem<Kategorija>> observable, 
             		TreeItem<Kategorija> old_val, TreeItem<Kategorija> new_val) {
+            	if(new_val.getValue() == null) return;
             	if(new_val.getValue().grana != null) 
             		mainApp.searchGrana(new_val.getValue().grana);
             	else if(new_val.getValue().podgrana != null)

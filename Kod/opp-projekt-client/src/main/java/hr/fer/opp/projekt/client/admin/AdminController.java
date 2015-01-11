@@ -117,8 +117,7 @@ public class AdminController {
 
 	@FXML
 	private void handleOdjava() {
-		Stage stage = (Stage) odjava.getScene().getWindow();
-		stage.close();
+		System.exit(0);
 	}
 
 	@FXML

@@ -177,8 +177,8 @@ public class MyProfileController {
 		telefon.setText(korisnik.getTelefon());
 		adresa.setText(korisnik.getAdresa());
 		zvanje.setText(korisnik.getZvanje());
-		grana.setText(korisnik.getGrana().getIme());
-		podgrana.setText(korisnik.getPodgrana().getIme());
+		if(korisnik.getGrana() != null) grana.setText(korisnik.getGrana().getIme());
+		if(korisnik.getPodgrana() != null) podgrana.setText(korisnik.getPodgrana().getIme());
 		if (korisnik.getSlika() != null)
 			slika.setImage(SwingFXUtils.toFXImage(korisnik.getSlika(), null));
 		else

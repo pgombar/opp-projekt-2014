@@ -54,6 +54,12 @@ public class AdminApp extends MainApp {
 		this.channel = new OcsfEventChannel(client);
 
 		this.stage = stage;
+		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+		    @Override
+		    public void handle(WindowEvent event) {
+		        System.exit(0);
+		    }
+		});
 		this.stage.setTitle("Administratorska aplikacija");
 
 		initRootLayout();

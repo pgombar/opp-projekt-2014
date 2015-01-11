@@ -24,6 +24,7 @@ public class UserListController {
 	private MainApp mainApp;
 	@FXML
 	private ListView<Korisnik> listView;
+	private List<Korisnik> prikaz;
 	private ObservableList<Korisnik> data = FXCollections.observableArrayList();
 	
 	public UserListController() {
@@ -96,8 +97,13 @@ public class UserListController {
     }
     
     public void setList(List<Korisnik> korisnici) {
+    	prikaz = korisnici;
     	data.clear();
     	data.addAll(korisnici);
+    }
+    
+    public List<Korisnik> getPrikaz() {
+    	return prikaz;
     }
     
     public void add(Korisnik korisnik) {
