@@ -13,6 +13,7 @@ import hr.fer.opp.projekt.common.odgovor.DodajBlokiranogUmjetnikaOdgovor;
 import hr.fer.opp.projekt.common.odgovor.DodajOmiljenogUmjetnikaOdgovor;
 import hr.fer.opp.projekt.common.odgovor.DohvatiPorukeOdgovor;
 import hr.fer.opp.projekt.common.odgovor.DohvatiSifrarnikeOdgovor;
+import hr.fer.opp.projekt.common.odgovor.DohvatiUmjetnikaOdgovor;
 import hr.fer.opp.projekt.common.odgovor.ObrisiBlokiranogUmjetnikaOdgovor;
 import hr.fer.opp.projekt.common.odgovor.ObrisiOmiljenogUmjetnikaOdgovor;
 import hr.fer.opp.projekt.common.odgovor.PopisUmjetnikaOdgovor;
@@ -22,6 +23,7 @@ import hr.fer.opp.projekt.common.zahtjev.DodajBlokiranogUmjetnikaZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.DodajOmiljenogUmjetnikaZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.DohvatiPorukeZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.DohvatiSifrarnikeZahtjev;
+import hr.fer.opp.projekt.common.zahtjev.DohvatiUmjetnikaZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.LogoutZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.ObrisiBlokiranogUmjetnikaZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.ObrisiOmiljenogUmjetnikaZahtjev;
@@ -144,37 +146,59 @@ public class MainApp extends Application {
 								if(p.getId() > idZadnjePoruke) idZadnjePoruke = p.getId();
 							}
 						}
+						List<Long> chatovi = new ArrayList<>(otvorenChat.keySet());
+						for(Long c : chatovi) {
+							DohvatiUmjetnikaZahtjev zahtjev1 = new DohvatiUmjetnikaZahtjev(c);
+							DohvatiUmjetnikaOdgovor odgovor1 = channel.sendAndWait(zahtjev1);
+							System.out.println(odgovor1.getUmjetnik().getKorisnickoIme() + " je " + odgovor1.getUmjetnik().isOnline());
+							if(!odgovor1.getUmjetnik().isOnline()) {
+								otvorenChat.get(c).addOdjava();
+								otvorenChat.remove(c);
+							}
+						}
 					}
 				}, 0, REFRESH_RATE);
 	}
 	
-	public void chat(Korisnik korisnik, String poruka) {
+	public void chat(final Korisnik korisnik, String poruka) {
 		ChatController chatController = otvorenChat.get(korisnik.getId());
 		if(chatController != null) {
-			if(!poruka.equals("")) {
-				if(!chatController.getStage().isShowing()) {
-					chatController.getStage().show();
-				}
+			if(!chatController.getStage().isShowing()) {
+				chatController.getStage().show();
+			}
+			if(poruka.equals("")) {
+				chatController.komunikacijaObustavljena();
+				otvorenChat.remove(korisnik.getId());
+				return;
+			} else {
 				chatController.addPoruka(poruka);
-			}		
+			}
 		} else {
 			try {
 				FXMLLoader loader = new FXMLLoader();
 				loader.setLocation(this.getClass().getClassLoader().getResource("fxml/chat/ChatLayout.fxml"));
 				Parent root = (Parent) loader.load();
-				ChatController newChatController = loader.getController();
+				final ChatController newChatController = loader.getController();
 				newChatController.setMainApp(this);
 				newChatController.setKorisnik(korisnik);
 				
 				otvorenChat.put(korisnik.getId(), newChatController);
-				if(!poruka.equals("")) {
-						newChatController.addPoruka(poruka);
-				}
-
+				if(!poruka.equals("")) newChatController.addPoruka(poruka);
+				
 				Stage stage = new Stage();
+				stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+				    @Override
+				    public void handle(WindowEvent event) {
+				    	if(otvorenChat.get(korisnik.getId()) != null) {
+					        newChatController.obustavaKomunikacije();
+					        otvorenChat.remove(korisnik.getId());
+				    	}
+				    }
+				});
 				newChatController.setStage(stage);
 				stage.setScene(new Scene(root));
 				stage.setResizable(false);
+
 				stage.setTitle("Chat s " + korisnik.getKorisnickoIme());
 				stage.show();
 			} catch (IOException e) {
@@ -333,15 +357,7 @@ public class MainApp extends Application {
 
 	public void logout() {
         channel.sendAndWait(LogoutZahtjev.INSTANCE);
-
-        korisnik = null;
-    	omiljeni = new ArrayList<Korisnik>();
-    	blokirani = new ArrayList<Korisnik>();
-    	idZadnjePoruke = -1;
-    	otvorenChat = new TreeMap<>();
-    	skin = "menu1.css";
-
-		showLogin();
+        System.exit(0);
 	}
 
 	public void toggleBlock(Korisnik korisnik) {

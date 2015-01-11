@@ -37,9 +37,9 @@ public class ChatController {
     
     @FXML
     private void handlePosalji() {
+    	if(poruka.getText().equals("")) return;
     	PosaljiPorukuZahtjev zahtjev = new PosaljiPorukuZahtjev(korisnik, poruka.getText());
     	mainApp.getChannel().sendAndWait(zahtjev);
-    	System.out.println("poslao zahtjev");
     	addMojaPoruka(poruka.getText());
     	poruka.setText("");
     }
@@ -66,5 +66,29 @@ public class ChatController {
 
 	public Stage getStage() {
 		return stage;
+	}
+
+	public void addOdjava() {
+    	String text = pristiglePoruke.getText();
+    	text = text + "---------- Korisnik " + korisnik.getKorisnickoIme() + " se odjavio. ----------\n";
+    	pristiglePoruke.setText(text);
+    	poruka.setText("Nije moguće poslati poruku.");
+    	poruka.setEditable(false);
+    	posalji.setDisable(true);
+	}
+	
+	public void obustavaKomunikacije() {
+		if(pristiglePoruke.getText().equals("")) return;
+    	PosaljiPorukuZahtjev zahtjev = new PosaljiPorukuZahtjev(korisnik, "");
+    	mainApp.getChannel().sendAndWait(zahtjev);
+   	}
+
+	public void komunikacijaObustavljena() {
+    	String text = pristiglePoruke.getText();
+    	text = text + "-------- Korisnik " + korisnik.getKorisnickoIme() + " je obustavio komunikaciju. --------\n";
+    	pristiglePoruke.setText(text);
+    	poruka.setText("Nije moguće poslati poruku.");
+    	poruka.setEditable(false);
+    	posalji.setDisable(true);
 	}
 }

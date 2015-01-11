@@ -17,7 +17,7 @@ public final class Poruka implements Serializable {
     @GeneratedValue
     private long id;
 
-    @Column(nullable = false)
+    @Column
     private String poruka;
 
     @ManyToOne
