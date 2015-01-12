@@ -2,7 +2,7 @@ package hr.fer.opp.projekt.common.zahtjev;
 
 import java.io.Serializable;
 
-public final class LoginZahtjev implements Zahtjev, Serializable {
+public final class LoginZahtjev extends Zahtjev implements Serializable {
     private static final long serialVersionUID = -7471217738657118945L;
 
     private final String korisnickoIme;

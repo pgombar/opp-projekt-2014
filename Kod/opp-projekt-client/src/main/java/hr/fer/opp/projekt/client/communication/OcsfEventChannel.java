@@ -1,19 +1,21 @@
 package hr.fer.opp.projekt.client.communication;
 
-import com.lloseng.ocsf.client.ObservableClient;
 import hr.fer.opp.projekt.common.odgovor.Odgovor;
+import hr.fer.opp.projekt.common.util.ZahtjevOdgovor;
 import hr.fer.opp.projekt.common.zahtjev.Zahtjev;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Queue;
-import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
+
+import com.lloseng.ocsf.client.ObservableClient;
 
 public class OcsfEventChannel implements EventChannel, Observer {
     private final ObservableClient client;
 
-    private final Queue<Odgovor> results = new ArrayBlockingQueue<Odgovor>(16);
+    private final Map<String, Odgovor> results = new ConcurrentHashMap<String, Odgovor>();
 
     public OcsfEventChannel(final ObservableClient client) {
         this.client = client;
@@ -25,12 +27,14 @@ public class OcsfEventChannel implements EventChannel, Observer {
         System.out.println("Odgovor: ");
         System.out.println(arg);
 
-        if (arg instanceof Odgovor) {
-            results.add((Odgovor) arg);
+        if (arg instanceof ZahtjevOdgovor) {
+        	ZahtjevOdgovor zo = (ZahtjevOdgovor) arg;
+            results.put(zo.getZahtjev().getZahtjevId(), zo.getOdgovor());
         }
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public <T> T sendAndWait(Zahtjev zahtjev) {
         try {
             client.sendToServer(zahtjev);
@@ -38,8 +42,9 @@ public class OcsfEventChannel implements EventChannel, Observer {
             e.printStackTrace();
         }
 
-        while (results.isEmpty()) {}
+        while (!results.containsKey(zahtjev.getZahtjevId())) {
+        }
 
-        return (T) results.remove();
+        return (T) results.get(zahtjev.getZahtjevId());
     }
 }

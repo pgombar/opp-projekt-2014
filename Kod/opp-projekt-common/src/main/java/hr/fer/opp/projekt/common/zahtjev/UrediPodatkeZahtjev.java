@@ -4,7 +4,7 @@ import hr.fer.opp.projekt.common.model.Korisnik;
 
 import java.io.Serializable;
 
-public final class UrediPodatkeZahtjev implements Zahtjev, Serializable {
+public final class UrediPodatkeZahtjev extends Zahtjev implements Serializable {
     private static final long serialVersionUID = -4870075412240218110L;
 
     private final Korisnik umjetnik;

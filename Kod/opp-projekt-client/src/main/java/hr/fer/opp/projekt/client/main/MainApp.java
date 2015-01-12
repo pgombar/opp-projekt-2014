@@ -171,7 +171,7 @@ public class MainApp extends Application {
 
 		t.scheduleAtFixedRate(new TimerTask() {
 			public void run() {
-				DohvatiPorukeZahtjev zahtjev = new DohvatiPorukeZahtjev(MainApp.this.korisnik,
+				DohvatiPorukeZahtjev zahtjev = new DohvatiPorukeZahtjev(new Korisnik(MainApp.this.korisnik),
 						MainApp.this.idZadnjePoruke);
 				DohvatiPorukeOdgovor odgovor = channel.sendAndWait(zahtjev);
 				if (!odgovor.getPoruke().isEmpty()) {
