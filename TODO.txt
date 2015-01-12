@@ -1,5 +1,5 @@
 + adminApp ponovo napraviti po uzoru na mainApp
-	- napraviti da se lista refresha ako dodas/obrises usera
+	+ napraviti da se lista refresha ako dodas/obrises usera
 	+ ubiti proces kod logouta
 + mijenjanje skina omoguciti
 + napraviti novi skin
@@ -21,10 +21,10 @@
 + fiksirati sve prozore
 + ubiti proces kad se prozor zatvori
 + uvecani prikaz slike (kad se klikne u galeriji)
++ mijenjanje porta i adrese na klijentu
++ mijenjanje porta i adrese na serveru
++ defaultni folder za umjetnine
 - POPUNJAVANJE BAZE
-- mijenjanje porta i adrese na klijentu
-- mijenjanje porta i adrese na serveru
-- defaultni folder za umjetnine
 
 *****manje bitno*****
 - srediti malo layout MyProfile (ruzno je, margine i tak)
