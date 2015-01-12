@@ -1,13 +1,15 @@
 package hr.fer.opp.projekt.client.login;
 
+import hr.fer.opp.projekt.client.Controller;
 import hr.fer.opp.projekt.client.main.MainApp;
+import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-public class ErrorController {
+public class ErrorController implements Controller {
 
 	private MainApp mainApp;
 	@FXML
@@ -34,7 +36,7 @@ public class ErrorController {
 		greska.setText(text);
 	}
 	
-    public void setMainApp(MainApp mainApp) {
-        this.mainApp = mainApp;
+    public void setMainApp(Application mainApp) {
+        this.mainApp = (MainApp) mainApp;
     }
 }

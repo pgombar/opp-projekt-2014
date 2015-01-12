@@ -2,7 +2,6 @@ package hr.fer.opp.projekt.client.admin;
 
 import hr.fer.opp.projekt.client.communication.EventChannel;
 import hr.fer.opp.projekt.client.communication.OcsfEventChannel;
-import hr.fer.opp.projekt.client.main.MainApp;
 import hr.fer.opp.projekt.common.model.Grana;
 import hr.fer.opp.projekt.common.model.Korisnik;
 import hr.fer.opp.projekt.common.model.Podgrana;
@@ -13,7 +12,6 @@ import hr.fer.opp.projekt.common.zahtjev.DohvatiSifrarnikeZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.PopisUmjetnikaZahtjev;
 import hr.fer.opp.projekt.common.zahtjev.PretragaUmjetnikaZahtjev;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -22,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -32,7 +31,7 @@ import javafx.stage.WindowEvent;
 
 import com.lloseng.ocsf.client.ObservableClient;
 
-public class AdminApp extends MainApp {
+public class AdminApp extends Application {
 
 	private Stage stage;
 	private BorderPane root;

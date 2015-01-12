@@ -1,16 +1,18 @@
 package hr.fer.opp.projekt.client.main;
 
+import hr.fer.opp.projekt.client.Controller;
 import hr.fer.opp.projekt.common.model.Korisnik;
 
 import java.util.List;
 
+import javafx.application.Application;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class ListItemController {
+public class ListItemController implements Controller {
 
 	private MainApp mainApp;
 	@FXML
@@ -36,10 +38,10 @@ public class ListItemController {
 	private void initialize() {
 	}
 
-    public void setMainApp(MainApp mainApp) {
-        this.mainApp = mainApp;
+    public void setMainApp(Application mainApp) {
+        this.mainApp = (MainApp) mainApp;
     }
-
+    
 	public void setKorisnickoIme(String korisnickoIme) {
 		this.korisnickoIme.setText(korisnickoIme);
 	}

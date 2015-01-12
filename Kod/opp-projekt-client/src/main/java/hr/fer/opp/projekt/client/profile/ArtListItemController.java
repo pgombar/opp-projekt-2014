@@ -1,14 +1,16 @@
 package hr.fer.opp.projekt.client.profile;
 
+import hr.fer.opp.projekt.client.Controller;
 import hr.fer.opp.projekt.client.main.MainApp;
 import hr.fer.opp.projekt.common.model.Umjetnina;
+import javafx.application.Application;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class ArtListItemController {
+public class ArtListItemController implements Controller {
 
 	private MainApp mainApp;
 	@FXML
@@ -39,7 +41,7 @@ public class ArtListItemController {
 		this.slika = slika;
 	}
 
-	public void setMainApp(MainApp mainApp) {
-		this.mainApp = mainApp;
-	}
+    public void setMainApp(Application mainApp) {
+        this.mainApp = (MainApp) mainApp;
+    }
 }

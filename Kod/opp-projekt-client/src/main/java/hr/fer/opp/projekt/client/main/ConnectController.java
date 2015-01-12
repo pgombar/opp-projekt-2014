@@ -1,18 +1,20 @@
 package hr.fer.opp.projekt.client.main;
 
+import hr.fer.opp.projekt.client.Controller;
 import hr.fer.opp.projekt.client.communication.OcsfEventChannel;
 
 import java.io.IOException;
 
-import com.lloseng.ocsf.client.ObservableClient;
-
+import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class ConnectController {
+import com.lloseng.ocsf.client.ObservableClient;
+
+public class ConnectController implements Controller {
 
 	private MainApp mainApp;
 	@FXML
@@ -36,9 +38,9 @@ public class ConnectController {
 		port.setText("5000");
 	}
 
-	public void setMainApp(MainApp mainApp) {
-		this.mainApp = mainApp;
-	}
+    public void setMainApp(Application mainApp) {
+        this.mainApp = (MainApp) mainApp;
+    }
 
 	@FXML
 	private void handleOdustani() {

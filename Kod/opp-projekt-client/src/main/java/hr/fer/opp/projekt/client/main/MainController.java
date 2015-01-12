@@ -1,21 +1,22 @@
 package hr.fer.opp.projekt.client.main;
 
+import hr.fer.opp.projekt.client.Controller;
 import hr.fer.opp.projekt.common.model.Grana;
 import hr.fer.opp.projekt.common.model.Podgrana;
 
 import java.util.List;
 
+import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 
-public class MainController {
+public class MainController implements Controller {
 
 	private MainApp mainApp;
 	@FXML
@@ -101,8 +102,8 @@ public class MainController {
 		status.setText(pocetniStatus);
 	}
 
-    public void setMainApp(MainApp mainApp) {
-        this.mainApp = mainApp;
+    public void setMainApp(Application mainApp) {
+        this.mainApp = (MainApp) mainApp;
     }
     
     public void inicijaliziraj() {

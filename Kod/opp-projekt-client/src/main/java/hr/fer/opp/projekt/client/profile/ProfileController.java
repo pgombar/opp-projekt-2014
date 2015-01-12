@@ -1,17 +1,17 @@
 package hr.fer.opp.projekt.client.profile;
 
+import hr.fer.opp.projekt.client.Controller;
 import hr.fer.opp.projekt.client.main.MainApp;
 import hr.fer.opp.projekt.common.model.Korisnik;
-import hr.fer.opp.projekt.common.model.Poruka;
 import hr.fer.opp.projekt.common.model.Umjetnina;
 
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.List;
 
+import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -32,7 +32,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
-public class ProfileController {
+public class ProfileController implements Controller {
 
 	private MainApp mainApp;
 
@@ -219,9 +219,9 @@ public class ProfileController {
 		this.slika = slika;
 	}
 
-	public void setMainApp(MainApp mainApp) {
-		this.mainApp = mainApp;
-	}
+    public void setMainApp(Application mainApp) {
+        this.mainApp = (MainApp) mainApp;
+    }
 
 	@FXML
 	public void handleBlock() {

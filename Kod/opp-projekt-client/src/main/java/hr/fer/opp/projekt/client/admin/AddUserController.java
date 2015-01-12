@@ -1,17 +1,17 @@
 package hr.fer.opp.projekt.client.admin;
 
+import hr.fer.opp.projekt.client.Controller;
 import hr.fer.opp.projekt.common.odgovor.AdminDodajKorisnikaOdgovor;
 import hr.fer.opp.projekt.common.zahtjev.AdminDodajKorisnikaZahtjev;
+import javafx.application.Application;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-public class AddUserController {
+public class AddUserController implements Controller {
 
 	private AdminApp mainApp;
 
@@ -56,23 +56,8 @@ public class AddUserController {
 		stage.close();
 	}
 
-	// public void setKorisnik(Korisnik korisnik) {
-	// this.korisnik = korisnik;
-	// korisnickoIme.setText(korisnik.getKorisnickoIme());
-	// ime.setText(korisnik.getIme());
-	// prezime.setText(korisnik.getPrezime());
-	// mail.setText(korisnik.getEmail());
-	// telefon.setText(korisnik.getTelefon());
-	// adresa.setText(korisnik.getAdresa());
-	// zvanje.setText(korisnik.getZvanje());
-	// grana.getSelectionModel().select(korisnik.getGrana());
-	// handleOdabirGrane();
-	// podgrana.getSelectionModel().select(korisnik.getPodgrana());
-	// zaporka.setText(korisnik.getZaporka());
-	// }
-
-	public void setMainApp(AdminApp mainApp) {
-		this.mainApp = mainApp;
+	public void setMainApp(Application mainApp) {
+		this.mainApp = (AdminApp) mainApp;
 	}
 
 }

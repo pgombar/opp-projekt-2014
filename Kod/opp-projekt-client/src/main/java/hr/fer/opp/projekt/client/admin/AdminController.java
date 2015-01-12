@@ -1,13 +1,14 @@
 package hr.fer.opp.projekt.client.admin;
 
+import hr.fer.opp.projekt.client.Controller;
 import hr.fer.opp.projekt.common.model.Grana;
 import hr.fer.opp.projekt.common.model.Korisnik;
 import hr.fer.opp.projekt.common.model.Podgrana;
-import hr.fer.opp.projekt.common.odgovor.AdminUkloniKorisnikaOdgovor;
 import hr.fer.opp.projekt.common.zahtjev.AdminUkloniKorisnikaZahtjev;
 
 import java.util.List;
 
+import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -16,9 +17,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import javafx.stage.Stage;
 
-public class AdminController {
+public class AdminController implements Controller {
 
 	private AdminApp mainApp;
 	private UserListController userListController;
@@ -93,8 +93,8 @@ public class AdminController {
 		});
 	}
 
-	public void setMainApp(AdminApp mainApp) {
-		this.mainApp = mainApp;
+	public void setMainApp(Application mainApp) {
+		this.mainApp = (AdminApp) mainApp;
 	}
 
 	public void inicijaliziraj() {
@@ -141,6 +141,6 @@ public class AdminController {
 		if (korisnik == null)
 			return;
 		AdminUkloniKorisnikaZahtjev zahtjev = new AdminUkloniKorisnikaZahtjev(korisnik.getId());
-		AdminUkloniKorisnikaOdgovor odg = mainApp.getChannel().sendAndWait(zahtjev);
+		mainApp.getChannel().sendAndWait(zahtjev);
 	}
 }

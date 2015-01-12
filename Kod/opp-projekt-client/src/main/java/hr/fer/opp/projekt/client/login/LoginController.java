@@ -1,18 +1,17 @@
 package hr.fer.opp.projekt.client.login;
 
+import hr.fer.opp.projekt.client.Controller;
 import hr.fer.opp.projekt.client.main.MainApp;
 import hr.fer.opp.projekt.common.odgovor.LoginOdgovor;
 import hr.fer.opp.projekt.common.zahtjev.LoginZahtjev;
+import javafx.application.Application;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 
-public class LoginController {
+public class LoginController implements Controller {
 
 	private MainApp mainApp;
 	@FXML
@@ -48,7 +47,7 @@ public class LoginController {
 		mainApp.showRegistration();
 	}
 
-    public void setMainApp(MainApp mainApp) {
-        this.mainApp = mainApp;
+    public void setMainApp(Application mainApp) {
+        this.mainApp = (MainApp) mainApp;
     }
 }

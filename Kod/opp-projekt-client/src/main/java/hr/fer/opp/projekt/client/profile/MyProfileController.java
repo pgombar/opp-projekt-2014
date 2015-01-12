@@ -1,5 +1,6 @@
 package hr.fer.opp.projekt.client.profile;
 
+import hr.fer.opp.projekt.client.Controller;
 import hr.fer.opp.projekt.client.main.MainApp;
 import hr.fer.opp.projekt.common.model.Korisnik;
 import hr.fer.opp.projekt.common.model.Umjetnina;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
+import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -40,7 +42,7 @@ import javafx.util.Callback;
 
 import javax.imageio.ImageIO;
 
-public class MyProfileController {
+public class MyProfileController implements Controller {
 
 	private MainApp mainApp;
 
@@ -330,4 +332,8 @@ public class MyProfileController {
 			}
 		}
 	}
+	
+    public void setMainApp(Application mainApp) {
+        this.mainApp = (MainApp) mainApp;
+    }
 }

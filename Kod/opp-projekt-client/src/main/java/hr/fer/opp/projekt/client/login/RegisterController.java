@@ -1,13 +1,15 @@
 package hr.fer.opp.projekt.client.login;
 
-import java.io.IOException;
-
+import hr.fer.opp.projekt.client.Controller;
 import hr.fer.opp.projekt.client.main.MainApp;
-import hr.fer.opp.projekt.client.profile.MyProfileController;
 import hr.fer.opp.projekt.common.model.Grana;
 import hr.fer.opp.projekt.common.model.Podgrana;
 import hr.fer.opp.projekt.common.odgovor.RegistracijaOdgovor;
 import hr.fer.opp.projekt.common.zahtjev.RegistracijaZahtjev;
+
+import java.io.IOException;
+
+import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -16,13 +18,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-public class RegisterController {
+public class RegisterController implements Controller {
 
 	private MainApp mainApp;
 
@@ -96,10 +96,10 @@ public class RegisterController {
 		podgrana.getSelectionModel().select(0);
 	}
 
-	public void setMainApp(MainApp mainApp) {
-		this.mainApp = mainApp;
+	public void setMainApp(Application mainApp) {
+		this.mainApp = (MainApp) mainApp;
 		ObservableList<Grana> grane = FXCollections.observableArrayList();
-		grane.addAll(mainApp.getGrane());
+		grane.addAll(this.mainApp.getGrane());
 		grana.setItems(grane);
 		grana.getSelectionModel().select(0);
 	}

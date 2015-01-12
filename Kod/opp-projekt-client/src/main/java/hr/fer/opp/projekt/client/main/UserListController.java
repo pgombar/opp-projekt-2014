@@ -1,11 +1,13 @@
 package hr.fer.opp.projekt.client.main;
 
+import hr.fer.opp.projekt.client.Controller;
 import hr.fer.opp.projekt.client.profile.ProfileController;
 import hr.fer.opp.projekt.common.model.Korisnik;
 
 import java.io.IOException;
 import java.util.List;
 
+import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -19,7 +21,7 @@ import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
-public class UserListController {
+public class UserListController implements Controller {
 
 	private MainApp mainApp;
 	@FXML
@@ -92,8 +94,8 @@ public class UserListController {
 		});
 	}
 	
-    public void setMainApp(MainApp mainApp) {
-        this.mainApp = mainApp;
+    public void setMainApp(Application mainApp) {
+        this.mainApp = (MainApp) mainApp;
     }
     
     public void setList(List<Korisnik> korisnici) {

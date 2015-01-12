@@ -1,5 +1,6 @@
 package hr.fer.opp.projekt.client.profile;
 
+import hr.fer.opp.projekt.client.Controller;
 import hr.fer.opp.projekt.client.login.ErrorController;
 import hr.fer.opp.projekt.client.main.MainApp;
 import hr.fer.opp.projekt.common.model.Grana;
@@ -10,6 +11,7 @@ import hr.fer.opp.projekt.common.zahtjev.UrediPodatkeZahtjev;
 
 import java.io.IOException;
 
+import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -22,7 +24,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class EditProfileController {
+public class EditProfileController implements Controller {
 
 	private MainApp mainApp;
 
@@ -147,9 +149,9 @@ public class EditProfileController {
 		}
 	}
 
-	public void setMainApp(MainApp mainApp) {
-		this.mainApp = mainApp;
-		grane.addAll(mainApp.getGrane());
+    public void setMainApp(Application mainApp) {
+        this.mainApp = (MainApp) mainApp;
+		grane.addAll(this.mainApp.getGrane());
 		grana.setItems(grane);
 	}
 

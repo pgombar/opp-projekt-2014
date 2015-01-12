@@ -1,14 +1,15 @@
 package hr.fer.opp.projekt.client.main;
 
+import hr.fer.opp.projekt.client.Controller;
 import hr.fer.opp.projekt.common.model.Korisnik;
-import hr.fer.opp.projekt.common.odgovor.PosaljiPorukuOdgovor;
 import hr.fer.opp.projekt.common.zahtjev.PosaljiPorukuZahtjev;
+import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
-public class ChatController {
+public class ChatController implements Controller {
 
 	private MainApp mainApp;
 	
@@ -31,8 +32,8 @@ public class ChatController {
 	private void initialize() {
 	}
 
-    public void setMainApp(MainApp mainApp) {
-        this.mainApp = mainApp;
+    public void setMainApp(Application mainApp) {
+        this.mainApp = (MainApp) mainApp;
     }
     
     @FXML
