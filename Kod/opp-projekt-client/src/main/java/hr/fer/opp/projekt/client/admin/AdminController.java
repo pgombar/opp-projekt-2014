@@ -11,12 +11,15 @@ import java.util.List;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 public class AdminController implements Controller {
 
@@ -78,6 +81,16 @@ public class AdminController implements Controller {
 
 	@FXML
 	private void initialize() {
+
+		pretraga.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent ke) {
+				if (ke.getCode().equals(KeyCode.ENTER)) {
+					handleTrazi();
+				}
+			}
+		});
+
 		kategorije.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<Kategorija>>() {
 			@Override
 			public void changed(ObservableValue<? extends TreeItem<Kategorija>> observable,
@@ -142,5 +155,6 @@ public class AdminController implements Controller {
 			return;
 		AdminUkloniKorisnikaZahtjev zahtjev = new AdminUkloniKorisnikaZahtjev(korisnik.getId());
 		mainApp.getChannel().sendAndWait(zahtjev);
+		this.mainApp.refresh();
 	}
 }

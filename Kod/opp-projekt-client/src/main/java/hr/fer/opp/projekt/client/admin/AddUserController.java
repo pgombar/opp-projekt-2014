@@ -48,6 +48,7 @@ public class AddUserController implements Controller {
 			Stage stage = (Stage) spremi.getScene().getWindow();
 			stage.close();
 		}
+		this.mainApp.refresh();
 	}
 
 	@FXML

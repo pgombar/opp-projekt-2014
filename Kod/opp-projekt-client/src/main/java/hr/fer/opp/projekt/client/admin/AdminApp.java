@@ -239,5 +239,10 @@ public class AdminApp extends Application {
 			e.printStackTrace();
 		}
 	}
+	
+	public void refresh() {
+		dohvatiPodatke();
+		userListController.setList(svi);
+	}
 
 }
