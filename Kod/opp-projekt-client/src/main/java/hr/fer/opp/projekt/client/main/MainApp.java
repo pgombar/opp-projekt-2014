@@ -1,6 +1,7 @@
 package hr.fer.opp.projekt.client.main;
 
 import hr.fer.opp.projekt.client.communication.EventChannel;
+import hr.fer.opp.projekt.client.login.ConnectController;
 import hr.fer.opp.projekt.client.login.LoginController;
 import hr.fer.opp.projekt.client.login.RegisterController;
 import hr.fer.opp.projekt.client.profile.MyProfileController;
@@ -56,11 +57,6 @@ public class MainApp extends Application {
 	private Stage stage;
 	private BorderPane root;
 	private EventChannel channel;
-
-	public void setChannel(EventChannel channel) {
-		this.channel = channel;
-	}
-
 	private MainController mainController;
 	private UserListController userListController;
 
@@ -79,6 +75,10 @@ public class MainApp extends Application {
 	public void start(Stage stage) throws Exception {
 		this.stage = stage;
 		showConnect();
+	}
+	
+	public void setChannel(EventChannel channel) {
+		this.channel = channel;
 	}
 
 	private void showConnect() {
@@ -106,7 +106,7 @@ public class MainApp extends Application {
 		// 5000);
 		// client.openConnection();
 		// this.channel = new OcsfEventChannel(client);
-		stage.setResizable(false);
+//		stage.setResizable(false);
 
 		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
@@ -154,6 +154,9 @@ public class MainApp extends Application {
 			root.getStylesheets().add(this.getClass().getClassLoader().getResource(skin).toExternalForm());
 
 			Scene scene = new Scene(root);
+			stage.setWidth(1024);
+			stage.setHeight(768);
+
 			stage.setScene(scene);
 			stage.show();
 
@@ -171,7 +174,7 @@ public class MainApp extends Application {
 
 		t.scheduleAtFixedRate(new TimerTask() {
 			public void run() {
-				DohvatiPorukeZahtjev zahtjev = new DohvatiPorukeZahtjev(MainApp.this.korisnik,
+				DohvatiPorukeZahtjev zahtjev = new DohvatiPorukeZahtjev(new Korisnik(MainApp.this.korisnik),
 						MainApp.this.idZadnjePoruke);
 				DohvatiPorukeOdgovor odgovor = channel.sendAndWait(zahtjev);
 				if (!odgovor.getPoruke().isEmpty()) {
@@ -261,6 +264,12 @@ public class MainApp extends Application {
 
 			Scene scene = new Scene(root);
 			stage.setScene(scene);
+			
+			stage.setWidth(960);
+			stage.setHeight(560);
+			
+			stage.setResizable(false);
+			
 			stage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -467,7 +476,7 @@ public class MainApp extends Application {
 
 	public void changeStatus(String osobniStatus) {
 		this.korisnik.setOsobniStatus(osobniStatus);
-		UrediPodatkeZahtjev zahtjev = new UrediPodatkeZahtjev(korisnik);
+		UrediPodatkeZahtjev zahtjev = new UrediPodatkeZahtjev(new Korisnik(korisnik));
 		UrediPodatkeOdgovor odgovor = channel.sendAndWait(zahtjev);
 		this.korisnik = odgovor.getKorisnik();
 	}

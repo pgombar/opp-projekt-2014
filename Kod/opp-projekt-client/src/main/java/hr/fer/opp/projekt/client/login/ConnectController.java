@@ -1,7 +1,8 @@
-package hr.fer.opp.projekt.client.main;
+package hr.fer.opp.projekt.client.login;
 
 import hr.fer.opp.projekt.client.Controller;
 import hr.fer.opp.projekt.client.communication.OcsfEventChannel;
+import hr.fer.opp.projekt.client.main.MainApp;
 
 import java.io.IOException;
 

@@ -26,9 +26,9 @@ public class ListItemController implements Controller {
 	@FXML
 	private ImageView online;
 	@FXML
-	private ImageView blocked;
+	private ImageView blokiran;
 	@FXML
-	private ImageView favorited;
+	private ImageView omiljen;
 	private Korisnik korisnik;
 
 	public ListItemController() {
@@ -41,18 +41,6 @@ public class ListItemController implements Controller {
     public void setMainApp(Application mainApp) {
         this.mainApp = (MainApp) mainApp;
     }
-    
-	public void setKorisnickoIme(String korisnickoIme) {
-		this.korisnickoIme.setText(korisnickoIme);
-	}
-
-	public void setImePrezime(String imePrezime) {
-		this.imePrezime.setText(imePrezime);
-	}
-
-	public void setStatus(String status) {
-		this.status.setText(status);
-	}
 	
 	private boolean isBlokiranOd() {
 		List<Korisnik> blokirani = korisnik.getBlokiraniUmjetnici();
@@ -72,14 +60,14 @@ public class ListItemController implements Controller {
 			online.setImage(new Image(this.getClass().getClassLoader().getResource("offline.png").toExternalForm()));
 		}
 		if(mainApp.isBlokiran(korisnik)) {
-			blocked.setImage(new Image(this.getClass().getClassLoader().getResource("block-mini.png").toExternalForm()));
+			blokiran.setImage(new Image(this.getClass().getClassLoader().getResource("block-mini.png").toExternalForm()));
 		} else {
-			blocked.setImage(new Image(this.getClass().getClassLoader().getResource("not-block-mini.png").toExternalForm()));
+			blokiran.setImage(new Image(this.getClass().getClassLoader().getResource("not-block-mini.png").toExternalForm()));
 		}
 		if(mainApp.isOmiljen(korisnik)) {
-			favorited.setImage(new Image(this.getClass().getClassLoader().getResource("fav-mini.png").toExternalForm()));
+			omiljen.setImage(new Image(this.getClass().getClassLoader().getResource("fav-mini.png").toExternalForm()));
 		} else {
-			favorited.setImage(new Image(this.getClass().getClassLoader().getResource("not-fav-mini.png").toExternalForm()));
+			omiljen.setImage(new Image(this.getClass().getClassLoader().getResource("not-fav-mini.png").toExternalForm()));
 		}
 		if (korisnik.getSlika() != null)
 			slika.setImage(SwingFXUtils.toFXImage(korisnik.getSlika(), null));

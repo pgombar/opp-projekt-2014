@@ -2,11 +2,14 @@ package hr.fer.opp.projekt.server.communication;
 
 import com.lloseng.ocsf.server.AbstractServer;
 import com.lloseng.ocsf.server.ConnectionToClient;
+
 import hr.fer.opp.projekt.common.model.Korisnik;
 import hr.fer.opp.projekt.common.odgovor.Odgovor;
+import hr.fer.opp.projekt.common.util.ZahtjevOdgovor;
 import hr.fer.opp.projekt.common.zahtjev.Zahtjev;
 import hr.fer.opp.projekt.server.repository.KorisnikRepository;
 import hr.fer.opp.projekt.server.rukovatelj.RukovateljZahtjevom;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -17,6 +20,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
+
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.util.*;
@@ -110,7 +114,12 @@ public class EventServer extends AbstractServer implements ApplicationContextAwa
 
 		Connection connection = connections.get(client.getId());
 
-		Odgovor odgovor = rukovatelj.handle(zahtjev, client, connection.korisnik);
+		Odgovor odgovor;
+		try {
+			odgovor = rukovatelj.handle(zahtjev, client, connection.korisnik);
+		} catch (Exception ex) {
+			odgovor = null;
+		}
 
 		if (connection.korisnik != null) {
 			korisnikRepository.setZadnjiPutAktivanFor(connection.korisnik.getId(), new Date());
@@ -119,7 +128,7 @@ public class EventServer extends AbstractServer implements ApplicationContextAwa
 		try {
 			LOGGER.debug("Odgovaram na zahtjev {} s {}.", zahtjev, odgovor);
 
-			client.sendToClient(odgovor);
+			client.sendToClient(new ZahtjevOdgovor(zahtjev, odgovor));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

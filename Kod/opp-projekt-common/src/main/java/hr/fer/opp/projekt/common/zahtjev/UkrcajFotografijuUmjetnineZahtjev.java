@@ -3,7 +3,7 @@ package hr.fer.opp.projekt.common.zahtjev;
 import java.io.Serializable;
 import java.util.Date;
 
-public final class UkrcajFotografijuUmjetnineZahtjev implements Zahtjev, Serializable {
+public final class UkrcajFotografijuUmjetnineZahtjev extends Zahtjev implements Serializable {
     private static final long serialVersionUID = 4797035126929496928L;
 
     private final byte[] slika;

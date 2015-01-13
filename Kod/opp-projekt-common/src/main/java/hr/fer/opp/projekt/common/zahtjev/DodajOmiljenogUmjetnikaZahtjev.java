@@ -2,7 +2,7 @@ package hr.fer.opp.projekt.common.zahtjev;
 
 import java.io.Serializable;
 
-public final class DodajOmiljenogUmjetnikaZahtjev implements Zahtjev, Serializable {
+public final class DodajOmiljenogUmjetnikaZahtjev extends Zahtjev implements Serializable {
     private static final long serialVersionUID = 1981754062924024442L;
 
     private final long umjetnik;

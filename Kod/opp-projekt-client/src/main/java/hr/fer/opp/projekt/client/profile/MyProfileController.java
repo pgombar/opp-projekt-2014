@@ -85,7 +85,7 @@ public class MyProfileController implements Controller {
 	@FXML
 	private Label greska;
 	@FXML
-	private ListView<Umjetnina> listView;
+	private ListView<Umjetnina> umjetnine;
 	private ObservableList<Umjetnina> data = FXCollections.observableArrayList();
 
 	private Korisnik korisnik;
@@ -94,8 +94,8 @@ public class MyProfileController implements Controller {
 	@FXML
 	private void initialize() {
 
-		listView.setItems(data);
-		listView.setCellFactory(new Callback<ListView<Umjetnina>, ListCell<Umjetnina>>() {
+		umjetnine.setItems(data);
+		umjetnine.setCellFactory(new Callback<ListView<Umjetnina>, ListCell<Umjetnina>>() {
 
 			@Override
 			public ListCell<Umjetnina> call(ListView<Umjetnina> p) {
@@ -125,11 +125,11 @@ public class MyProfileController implements Controller {
 			}
 		});
 
-		listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Umjetnina>() {
+		umjetnine.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Umjetnina>() {
 
 			@Override
 			public void changed(ObservableValue<? extends Umjetnina> observable, Umjetnina oldValue, Umjetnina newValue) {
-	    		Umjetnina umjetnina = listView.getSelectionModel().getSelectedItem();
+	    		Umjetnina umjetnina = umjetnine.getSelectionModel().getSelectedItem();
     			if(umjetnina == null) return;
 
         		Stage stage = new Stage();
@@ -140,7 +140,7 @@ public class MyProfileController implements Controller {
 
     			stage.setScene(new Scene(root));
     			stage.show();
-	    		listView.getSelectionModel().clearSelection();
+	    		umjetnine.getSelectionModel().clearSelection();
 			}
 		});
 
@@ -155,18 +155,6 @@ public class MyProfileController implements Controller {
 
 	public void add(Umjetnina umjetnina) {
 		data.add(umjetnina);
-	}
-
-	public void setKorisnickoIme(String korisnickoIme) {
-		this.korisnickoIme.setText(korisnickoIme);
-	}
-
-	public void setImePrezime(String imePrezime) {
-		this.imePrezime.setText(imePrezime);
-	}
-
-	public void setStatus(String status) {
-		this.status.setText(status);
 	}
 
 	public void setKorisnik(Korisnik korisnik) {
@@ -203,7 +191,7 @@ public class MyProfileController implements Controller {
 	}
 
 	@FXML
-	public void handlePromijeniPodatke() {
+	private void handlePromijeniPodatke() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(this.getClass().getClassLoader().getResource("fxml/profile/EditProfileLayout.fxml"));
@@ -228,11 +216,12 @@ public class MyProfileController implements Controller {
 	
 	private void promijeniSliku(BufferedImage image) {
 		try {
-			korisnik.setSlika(image);
-			UrediPodatkeZahtjev zahtjev = new UrediPodatkeZahtjev(korisnik);
+			Korisnik novi = new Korisnik(korisnik);
+			novi.setSlika(image);
+			UrediPodatkeZahtjev zahtjev = new UrediPodatkeZahtjev(novi);
 			mainApp.getChannel().sendAndWait(zahtjev);
 
-			DohvatiUmjetnikaZahtjev zahtjev2 = new DohvatiUmjetnikaZahtjev(korisnik.getId());
+			DohvatiUmjetnikaZahtjev zahtjev2 = new DohvatiUmjetnikaZahtjev(novi.getId());
 			DohvatiUmjetnikaOdgovor odgovor2 = mainApp.getChannel().sendAndWait(zahtjev2);
 
 			setKorisnik(odgovor2.getUmjetnik());
@@ -243,7 +232,7 @@ public class MyProfileController implements Controller {
 	}
 
 	@FXML
-	public void handlePromijeniSliku() {
+	private void handlePromijeniSliku() {
 		browseFile();
 		try {
 			if(file != null)
@@ -254,12 +243,12 @@ public class MyProfileController implements Controller {
 	}
 	
 	@FXML
-	public void handleObrisiSliku() {
+	private void handleObrisiSliku() {
 		promijeniSliku(null);
 	}
 
 	@FXML
-	public void handleUkrcaj() {
+	private void handleUkrcaj() {
 		greska.setText("");
 		if (imeUmjetnine.getText().equals("") || tehnika.getText().equals("") || datoteka.getText().equals("")) {
 			greska.setText("Sva polja moraju biti popunjena!");
@@ -294,18 +283,19 @@ public class MyProfileController implements Controller {
 		}
 	}
 
-	public void browseFile() {
+	private void browseFile() {
 		Stage stage = (Stage) datoteka.getScene().getWindow();
 		FileChooser fileChooser = new FileChooser();
 		if(mainApp.getFolder() != null) fileChooser.setInitialDirectory(mainApp.getFolder());
 		fileChooser.setTitle("Ukrcavanje slike");
 		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Images", "*.png", "*.jpg"),
 				new FileChooser.ExtensionFilter("JPG", "*.jpg"), new FileChooser.ExtensionFilter("PNG", "*.png"));
-		this.file = fileChooser.showOpenDialog(stage);
+		File file = fileChooser.showOpenDialog(stage);
+		if(file != null) this.file = file;
 	}
 
 	@FXML
-	public void handleBrowse() {
+	private void handleBrowse() {
 		browseFile();
 		if (file != null) {
 			try {
@@ -317,7 +307,7 @@ public class MyProfileController implements Controller {
 	}
 	
 	@FXML
-	public void handleFolder() {
+	private void handleFolder() {
 		Stage stage = (Stage) datoteka.getScene().getWindow();
 		DirectoryChooser chooser = new DirectoryChooser();
 		chooser.setTitle("Odabir direktorija");

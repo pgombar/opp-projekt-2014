@@ -25,7 +25,7 @@ public class UserListController implements Controller {
 
 	private MainApp mainApp;
 	@FXML
-	private ListView<Korisnik> listView;
+	private ListView<Korisnik> korisnici;
 	private List<Korisnik> prikaz;
 	private ObservableList<Korisnik> data = FXCollections.observableArrayList();
 	
@@ -34,8 +34,8 @@ public class UserListController implements Controller {
 	
 	@FXML
 	private void initialize() {
-		listView.setItems(data);
-		listView.setCellFactory(new Callback<ListView<Korisnik>, ListCell<Korisnik>>(){
+		korisnici.setItems(data);
+		korisnici.setCellFactory(new Callback<ListView<Korisnik>, ListCell<Korisnik>>(){
 			 
             @Override
             public ListCell<Korisnik> call(ListView<Korisnik> p) {
@@ -64,19 +64,19 @@ public class UserListController implements Controller {
             }
         });
 		
-		listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Korisnik>() {
+		korisnici.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Korisnik>() {
 
 		    @Override
 		    public void changed(ObservableValue<? extends Korisnik> observable, Korisnik oldValue, Korisnik newValue) {
 		    	try {	
-		    		if(listView.getSelectionModel().getSelectedItem() == null) return;
+		    		if(korisnici.getSelectionModel().getSelectedItem() == null) return;
             		FXMLLoader loader = new FXMLLoader();
             		loader.setLocation(this.getClass().getClassLoader().getResource("fxml/profile/ProfileLayout.fxml"));
             		Parent profile = (Parent) loader.load();
             		ProfileController controller = loader.getController();
             		controller.setMainApp(UserListController.this.mainApp);
             		profile.getStylesheets().add(this.getClass().getClassLoader().getResource(mainApp.getSkin()).toExternalForm());
-            		Korisnik korisnik = listView.getSelectionModel().getSelectedItem();
+            		Korisnik korisnik = korisnici.getSelectionModel().getSelectedItem();
             		controller.setKorisnik(korisnik);
             		
             		Stage stage = new Stage();
@@ -86,7 +86,7 @@ public class UserListController implements Controller {
         			stage.setScene(scene);
         			stage.show();
         			
-		    		listView.getSelectionModel().clearSelection();
+		    		korisnici.getSelectionModel().clearSelection();
             	} catch (IOException e) {
             		e.printStackTrace();
             	}

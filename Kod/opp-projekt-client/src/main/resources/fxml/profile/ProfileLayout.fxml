@@ -18,8 +18,8 @@
                   <HBox alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="420.0" spacing="5.0">
                      <children>
                         <ImageView fx:id="online" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="blocked" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="favorited" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="blokiran" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="omiljen" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
                   </HBox>
                </children>
@@ -78,13 +78,13 @@
                <children>
                   <Button fx:id="mail" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleMail" styleClass="icon" />
                   <Button fx:id="chat" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleChat" styleClass="icon" />
-                  <Button fx:id="block" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleBlock" styleClass="icon" />
-                  <Button fx:id="favorite" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleFavorite" styleClass="icon" />
+                  <Button fx:id="dodajUBlokirane" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleBlock" styleClass="icon" />
+                  <Button fx:id="dodajUOmiljene" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleFavorite" styleClass="icon" />
                </children>
             </HBox>
          </children>
       </VBox>
-      <ListView fx:id="listView" layoutX="14.0" layoutY="337.0" minHeight="0.0" minWidth="0.0" prefHeight="331.0" prefWidth="500.0" />
+      <ListView fx:id="umjetnine" layoutX="14.0" layoutY="337.0" minHeight="0.0" minWidth="0.0" prefHeight="331.0" prefWidth="500.0" />
       <Label layoutX="14.0" layoutY="316.0" text="Galerija umjetnina" />
    </children>
 </AnchorPane>

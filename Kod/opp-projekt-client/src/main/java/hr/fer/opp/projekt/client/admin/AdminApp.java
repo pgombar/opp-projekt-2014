@@ -40,10 +40,6 @@ public class AdminApp extends Application {
 	private AdminController mainController;
 	private UserListController userListController;
 
-	public UserListController getUserListController() {
-		return userListController;
-	}
-
 	private List<Korisnik> svi;
 	private List<Grana> grane;
 
@@ -87,6 +83,10 @@ public class AdminApp extends Application {
 		initRootLayout();
 	}
 
+	public UserListController getUserListController() {
+		return userListController;
+	}
+	
 	private void dohvatiPodatke() {
 		PopisUmjetnikaOdgovor odgovor = channel.sendAndWait(PopisUmjetnikaZahtjev.INSTANCE);
 		svi = new ArrayList<Korisnik>();

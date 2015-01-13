@@ -4,7 +4,7 @@ import hr.fer.opp.projekt.common.model.Korisnik;
 
 import java.io.Serializable;
 
-public class UkloniPorukeKorisnikaZahtjev implements Zahtjev, Serializable {
+public class UkloniPorukeKorisnikaZahtjev extends Zahtjev implements Serializable {
 
 	private static final long serialVersionUID = 2762187494602957134L;
 

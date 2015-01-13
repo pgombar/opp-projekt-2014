@@ -20,7 +20,7 @@ public class UserListController implements Controller {
 
 	private AdminApp mainApp;
 	@FXML
-	private ListView<Korisnik> listView;
+	private ListView<Korisnik> korisnici;
 	private ObservableList<Korisnik> data = FXCollections.observableArrayList();
 
 	public UserListController() {
@@ -28,8 +28,8 @@ public class UserListController implements Controller {
 
 	@FXML
 	private void initialize() {
-		listView.setItems(data);
-		listView.setCellFactory(new Callback<ListView<Korisnik>, ListCell<Korisnik>>() {
+		korisnici.setItems(data);
+		korisnici.setCellFactory(new Callback<ListView<Korisnik>, ListCell<Korisnik>>() {
 
 			@Override
 			public ListCell<Korisnik> call(ListView<Korisnik> p) {
@@ -74,6 +74,6 @@ public class UserListController implements Controller {
 	}
 
 	public ListView<Korisnik> getList() {
-		return this.listView;
+		return this.korisnici;
 	}
 }
