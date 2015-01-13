@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="pane" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hr.fer.opp.projekt.client.login.LoginController">
+<AnchorPane id="pane" maxHeight="540.0" maxWidth="960.0" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hr.fer.opp.projekt.client.login.LoginController">
    <children>
       <AnchorPane id="loginContainer" layoutX="560.0" layoutY="163.0" prefHeight="131.0" prefWidth="265.0" styleClass="welcomeContainer">
          <children>
@@ -24,12 +24,12 @@
             <Button layoutX="90.0" layoutY="43.0" mnemonicParsing="false" onAction="#handleRegister" styleClass="tekst" text="Registriraj se" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutY="38.0" prefHeight="60.0" prefWidth="960.0" styleClass="welcomeContainer">
+      <AnchorPane layoutY="38.0" maxWidth="960.0" minWidth="960.0" prefHeight="60.0" prefWidth="960.0" styleClass="welcomeContainer">
          <children>
             <Text id="naslov" layoutX="369.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="tekst" text="UMJETNINE" textAlignment="CENTER" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutY="520.0" prefHeight="20.0" prefWidth="960.0" styleClass="welcomeContainer">
+      <AnchorPane layoutY="506.0" prefHeight="20.0" prefWidth="960.0" styleClass="welcomeContainer">
          <children>
             <Text id="footer" layoutX="408.0" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="tekst" text="Copyright © 2015 Tutleki" />
          </children>

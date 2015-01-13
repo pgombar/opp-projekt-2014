@@ -1,6 +1,6 @@
 #pane{
     -fx-background-image: url("starry.jpg");
-    -fx-background-repeat: stretch;
+    -fx-background-repeat: no-repeat;
     -fx-background-position: center center; 
 }
 

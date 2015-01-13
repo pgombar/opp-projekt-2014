@@ -107,7 +107,7 @@ public class MainApp extends Application {
 		// 5000);
 		// client.openConnection();
 		// this.channel = new OcsfEventChannel(client);
-		stage.setResizable(false);
+//		stage.setResizable(false);
 
 		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
@@ -262,6 +262,12 @@ public class MainApp extends Application {
 
 			Scene scene = new Scene(root);
 			stage.setScene(scene);
+			
+			stage.setWidth(960);
+			stage.setHeight(560);
+			
+			stage.setResizable(false);
+			
 			stage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
