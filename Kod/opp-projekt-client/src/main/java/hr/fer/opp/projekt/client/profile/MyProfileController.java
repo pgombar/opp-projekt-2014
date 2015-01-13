@@ -85,7 +85,7 @@ public class MyProfileController implements Controller {
 	@FXML
 	private Label greska;
 	@FXML
-	private ListView<Umjetnina> listView;
+	private ListView<Umjetnina> umjetnine;
 	private ObservableList<Umjetnina> data = FXCollections.observableArrayList();
 
 	private Korisnik korisnik;
@@ -94,8 +94,8 @@ public class MyProfileController implements Controller {
 	@FXML
 	private void initialize() {
 
-		listView.setItems(data);
-		listView.setCellFactory(new Callback<ListView<Umjetnina>, ListCell<Umjetnina>>() {
+		umjetnine.setItems(data);
+		umjetnine.setCellFactory(new Callback<ListView<Umjetnina>, ListCell<Umjetnina>>() {
 
 			@Override
 			public ListCell<Umjetnina> call(ListView<Umjetnina> p) {
@@ -125,11 +125,11 @@ public class MyProfileController implements Controller {
 			}
 		});
 
-		listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Umjetnina>() {
+		umjetnine.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Umjetnina>() {
 
 			@Override
 			public void changed(ObservableValue<? extends Umjetnina> observable, Umjetnina oldValue, Umjetnina newValue) {
-	    		Umjetnina umjetnina = listView.getSelectionModel().getSelectedItem();
+	    		Umjetnina umjetnina = umjetnine.getSelectionModel().getSelectedItem();
     			if(umjetnina == null) return;
 
         		Stage stage = new Stage();
@@ -140,7 +140,7 @@ public class MyProfileController implements Controller {
 
     			stage.setScene(new Scene(root));
     			stage.show();
-	    		listView.getSelectionModel().clearSelection();
+	    		umjetnine.getSelectionModel().clearSelection();
 			}
 		});
 
@@ -216,11 +216,12 @@ public class MyProfileController implements Controller {
 	
 	private void promijeniSliku(BufferedImage image) {
 		try {
-			korisnik.setSlika(image);
-			UrediPodatkeZahtjev zahtjev = new UrediPodatkeZahtjev(korisnik);
+			Korisnik novi = new Korisnik(korisnik);
+			novi.setSlika(image);
+			UrediPodatkeZahtjev zahtjev = new UrediPodatkeZahtjev(novi);
 			mainApp.getChannel().sendAndWait(zahtjev);
 
-			DohvatiUmjetnikaZahtjev zahtjev2 = new DohvatiUmjetnikaZahtjev(korisnik.getId());
+			DohvatiUmjetnikaZahtjev zahtjev2 = new DohvatiUmjetnikaZahtjev(novi.getId());
 			DohvatiUmjetnikaOdgovor odgovor2 = mainApp.getChannel().sendAndWait(zahtjev2);
 
 			setKorisnik(odgovor2.getUmjetnik());
@@ -289,7 +290,8 @@ public class MyProfileController implements Controller {
 		fileChooser.setTitle("Ukrcavanje slike");
 		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Images", "*.png", "*.jpg"),
 				new FileChooser.ExtensionFilter("JPG", "*.jpg"), new FileChooser.ExtensionFilter("PNG", "*.png"));
-		this.file = fileChooser.showOpenDialog(stage);
+		File file = fileChooser.showOpenDialog(stage);
+		if(file != null) this.file = file;
 	}
 
 	@FXML

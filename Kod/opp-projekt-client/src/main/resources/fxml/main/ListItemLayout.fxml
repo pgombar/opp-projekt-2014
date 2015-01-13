@@ -17,8 +17,8 @@
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                <children>
                   <ImageView fx:id="online" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="blocked" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="favorited" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="blokiran" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="omiljen" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </HBox>
          </children>

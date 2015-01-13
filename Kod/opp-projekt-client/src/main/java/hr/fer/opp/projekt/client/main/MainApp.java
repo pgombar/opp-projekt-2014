@@ -57,11 +57,6 @@ public class MainApp extends Application {
 	private Stage stage;
 	private BorderPane root;
 	private EventChannel channel;
-
-	public void setChannel(EventChannel channel) {
-		this.channel = channel;
-	}
-
 	private MainController mainController;
 	private UserListController userListController;
 
@@ -80,6 +75,10 @@ public class MainApp extends Application {
 	public void start(Stage stage) throws Exception {
 		this.stage = stage;
 		showConnect();
+	}
+	
+	public void setChannel(EventChannel channel) {
+		this.channel = channel;
 	}
 
 	private void showConnect() {
@@ -155,6 +154,9 @@ public class MainApp extends Application {
 			root.getStylesheets().add(this.getClass().getClassLoader().getResource(skin).toExternalForm());
 
 			Scene scene = new Scene(root);
+			stage.setWidth(1024);
+			stage.setHeight(768);
+
 			stage.setScene(scene);
 			stage.show();
 
@@ -474,7 +476,7 @@ public class MainApp extends Application {
 
 	public void changeStatus(String osobniStatus) {
 		this.korisnik.setOsobniStatus(osobniStatus);
-		UrediPodatkeZahtjev zahtjev = new UrediPodatkeZahtjev(korisnik);
+		UrediPodatkeZahtjev zahtjev = new UrediPodatkeZahtjev(new Korisnik(korisnik));
 		UrediPodatkeOdgovor odgovor = channel.sendAndWait(zahtjev);
 		this.korisnik = odgovor.getKorisnik();
 	}
