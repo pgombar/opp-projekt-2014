@@ -61,19 +61,17 @@ public class ProfileController implements Controller {
 	@FXML
 	private Button chat;
 	@FXML
-	private GridPane grid1;
-	@FXML
 	private ImageView online;
 	@FXML
-	private ImageView blocked;
+	private ImageView blokiran;
 	@FXML
-	private ImageView favorited;
+	private ImageView omiljen;
 	@FXML
-	private Button block;
+	private Button dodajUBlokirane;
 	@FXML
-	private Button favorite;
+	private Button dodajUOmiljene;
 	@FXML
-	private ListView<Umjetnina> listView;
+	private ListView<Umjetnina> umjetnine;
 	private ObservableList<Umjetnina> data = FXCollections.observableArrayList();
 
 	private Korisnik korisnik;
@@ -86,8 +84,8 @@ public class ProfileController implements Controller {
 		mail.setGraphic(new ImageView(this.getClass().getClassLoader().getResource("mail.png").toExternalForm()));
 		chat.setGraphic(new ImageView(this.getClass().getClassLoader().getResource("chat.png").toExternalForm()));
 
-		listView.setItems(data);
-		listView.setCellFactory(new Callback<ListView<Umjetnina>, ListCell<Umjetnina>>() {
+		umjetnine.setItems(data);
+		umjetnine.setCellFactory(new Callback<ListView<Umjetnina>, ListCell<Umjetnina>>() {
 
 			@Override
 			public ListCell<Umjetnina> call(ListView<Umjetnina> p) {
@@ -118,11 +116,11 @@ public class ProfileController implements Controller {
 			}
 		});
 
-		listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Umjetnina>() {
+		umjetnine.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Umjetnina>() {
 
 			@Override
 			public void changed(ObservableValue<? extends Umjetnina> observable, Umjetnina oldValue, Umjetnina newValue) {
-	    		Umjetnina umjetnina = listView.getSelectionModel().getSelectedItem();
+	    		Umjetnina umjetnina = umjetnine.getSelectionModel().getSelectedItem();
     			if(umjetnina == null) return;
 
         		Stage stage = new Stage();
@@ -133,7 +131,7 @@ public class ProfileController implements Controller {
 
     			stage.setScene(new Scene(root));
     			stage.show();
-	    		listView.getSelectionModel().clearSelection();
+	    		umjetnine.getSelectionModel().clearSelection();
 			}
 		});
 	}
@@ -149,14 +147,6 @@ public class ProfileController implements Controller {
 
 	public void setKorisnickoIme(String korisnickoIme) {
 		this.korisnickoIme.setText(korisnickoIme);
-	}
-
-	public void setImePrezime(String imePrezime) {
-		this.imePrezime.setText(imePrezime);
-	}
-
-	public void setStatus(String status) {
-		this.status.setText(status);
 	}
 
 	public void setKorisnik(Korisnik korisnik) {
@@ -193,24 +183,24 @@ public class ProfileController implements Controller {
 			online.setImage(new Image(this.getClass().getClassLoader().getResource("offline.png").toExternalForm()));
 		}
 		if (mainApp.isBlokiran(korisnik)) {
-			blocked.setImage(new Image(this.getClass().getClassLoader().getResource("block-mini.png").toExternalForm()));
-			block.setGraphic(new ImageView(this.getClass().getClassLoader().getResource("block-mini.png")
+			blokiran.setImage(new Image(this.getClass().getClassLoader().getResource("block-mini.png").toExternalForm()));
+			dodajUBlokirane.setGraphic(new ImageView(this.getClass().getClassLoader().getResource("block-mini.png")
 					.toExternalForm()));
 		} else {
-			blocked.setImage(new Image(this.getClass().getClassLoader().getResource("not-block-mini.png")
+			blokiran.setImage(new Image(this.getClass().getClassLoader().getResource("not-block-mini.png")
 					.toExternalForm()));
-			block.setGraphic(new ImageView(this.getClass().getClassLoader().getResource("not-block-mini.png")
+			dodajUBlokirane.setGraphic(new ImageView(this.getClass().getClassLoader().getResource("not-block-mini.png")
 					.toExternalForm()));
 		}
 		if (mainApp.isOmiljen(korisnik)) {
-			favorited
+			omiljen
 					.setImage(new Image(this.getClass().getClassLoader().getResource("fav-mini.png").toExternalForm()));
-			favorite.setGraphic(new ImageView(this.getClass().getClassLoader().getResource("fav-mini.png")
+			dodajUOmiljene.setGraphic(new ImageView(this.getClass().getClassLoader().getResource("fav-mini.png")
 					.toExternalForm()));
 		} else {
-			favorited.setImage(new Image(this.getClass().getClassLoader().getResource("not-fav-mini.png")
+			omiljen.setImage(new Image(this.getClass().getClassLoader().getResource("not-fav-mini.png")
 					.toExternalForm()));
-			favorite.setGraphic(new ImageView(this.getClass().getClassLoader().getResource("not-fav-mini.png")
+			dodajUOmiljene.setGraphic(new ImageView(this.getClass().getClassLoader().getResource("not-fav-mini.png")
 					.toExternalForm()));
 		}
 	}
@@ -224,19 +214,19 @@ public class ProfileController implements Controller {
     }
 
 	@FXML
-	public void handleBlock() {
+	private void handleBlock() {
 		mainApp.toggleBlock(korisnik);
 		refreshIcons();
 	}
 
 	@FXML
-	public void handleFavorite() {
+	private void handleFavorite() {
 		mainApp.toggleFavorite(korisnik);
 		refreshIcons();
 	}
 
 	@FXML
-	public void handleMail() {
+	private void handleMail() {
 		String recipient = korisnik.getEmail();
 		String uriStr = String.format("mailto:%s", recipient);
 		try {
@@ -249,7 +239,7 @@ public class ProfileController implements Controller {
 	}
 
 	@FXML
-	public void handleChat() {
+	private void handleChat() {
 		if(korisnik.isOnline() && !mainApp.isBlokiran(korisnik) && !isBlokiranOd())
 			mainApp.chat(korisnik, "");
 		else

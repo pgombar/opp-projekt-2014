@@ -37,10 +37,6 @@ public class ArtListItemController implements Controller {
 		datumNastanka.setText(umjetnina.getDatumNastanka().toString());
 	}
 
-	public void setSlika(ImageView slika) {
-		this.slika = slika;
-	}
-
     public void setMainApp(Application mainApp) {
         this.mainApp = (MainApp) mainApp;
     }

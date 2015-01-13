@@ -1,6 +1,7 @@
 package hr.fer.opp.projekt.client.main;
 
 import hr.fer.opp.projekt.client.communication.EventChannel;
+import hr.fer.opp.projekt.client.login.ConnectController;
 import hr.fer.opp.projekt.client.login.LoginController;
 import hr.fer.opp.projekt.client.login.RegisterController;
 import hr.fer.opp.projekt.client.profile.MyProfileController;

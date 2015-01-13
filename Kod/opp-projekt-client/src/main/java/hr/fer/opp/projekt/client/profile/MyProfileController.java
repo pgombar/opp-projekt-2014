@@ -157,18 +157,6 @@ public class MyProfileController implements Controller {
 		data.add(umjetnina);
 	}
 
-	public void setKorisnickoIme(String korisnickoIme) {
-		this.korisnickoIme.setText(korisnickoIme);
-	}
-
-	public void setImePrezime(String imePrezime) {
-		this.imePrezime.setText(imePrezime);
-	}
-
-	public void setStatus(String status) {
-		this.status.setText(status);
-	}
-
 	public void setKorisnik(Korisnik korisnik) {
 		this.korisnik = korisnik;
 		korisnickoIme.setText(korisnik.getKorisnickoIme());
@@ -203,7 +191,7 @@ public class MyProfileController implements Controller {
 	}
 
 	@FXML
-	public void handlePromijeniPodatke() {
+	private void handlePromijeniPodatke() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(this.getClass().getClassLoader().getResource("fxml/profile/EditProfileLayout.fxml"));
@@ -243,7 +231,7 @@ public class MyProfileController implements Controller {
 	}
 
 	@FXML
-	public void handlePromijeniSliku() {
+	private void handlePromijeniSliku() {
 		browseFile();
 		try {
 			if(file != null)
@@ -254,12 +242,12 @@ public class MyProfileController implements Controller {
 	}
 	
 	@FXML
-	public void handleObrisiSliku() {
+	private void handleObrisiSliku() {
 		promijeniSliku(null);
 	}
 
 	@FXML
-	public void handleUkrcaj() {
+	private void handleUkrcaj() {
 		greska.setText("");
 		if (imeUmjetnine.getText().equals("") || tehnika.getText().equals("") || datoteka.getText().equals("")) {
 			greska.setText("Sva polja moraju biti popunjena!");
@@ -294,7 +282,7 @@ public class MyProfileController implements Controller {
 		}
 	}
 
-	public void browseFile() {
+	private void browseFile() {
 		Stage stage = (Stage) datoteka.getScene().getWindow();
 		FileChooser fileChooser = new FileChooser();
 		if(mainApp.getFolder() != null) fileChooser.setInitialDirectory(mainApp.getFolder());
@@ -305,7 +293,7 @@ public class MyProfileController implements Controller {
 	}
 
 	@FXML
-	public void handleBrowse() {
+	private void handleBrowse() {
 		browseFile();
 		if (file != null) {
 			try {
@@ -317,7 +305,7 @@ public class MyProfileController implements Controller {
 	}
 	
 	@FXML
-	public void handleFolder() {
+	private void handleFolder() {
 		Stage stage = (Stage) datoteka.getScene().getWindow();
 		DirectoryChooser chooser = new DirectoryChooser();
 		chooser.setTitle("Odabir direktorija");
