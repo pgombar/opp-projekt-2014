@@ -7,19 +7,22 @@ import hr.fer.opp.projekt.common.model.Umjetnina;
 import hr.fer.opp.projekt.server.repository.GranaRepository;
 import hr.fer.opp.projekt.server.repository.KorisnikRepository;
 import hr.fer.opp.projekt.server.repository.PodgranaRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import hr.fer.opp.projekt.server.repository.UmjetninaRepository;
+
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Date;
 
 import javax.annotation.PostConstruct;
 import javax.imageio.ImageIO;
 import javax.transaction.Transactional;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.ArrayList;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 @Component
 public class InicijalizacijaBaze {
@@ -31,11 +34,16 @@ public class InicijalizacijaBaze {
 
     private final PodgranaRepository podgranaRepository;
 
+    private final UmjetninaRepository umjetninaRepository;
+
+
     @Autowired
-    public InicijalizacijaBaze(KorisnikRepository korisnikRepository, GranaRepository granaRepository, PodgranaRepository podgranaRepository) {
+    public InicijalizacijaBaze(KorisnikRepository korisnikRepository, GranaRepository granaRepository, PodgranaRepository podgranaRepository,
+    		UmjetninaRepository umjetninaRepository) {
         this.korisnikRepository = korisnikRepository;
         this.granaRepository = granaRepository;
         this.podgranaRepository = podgranaRepository;
+        this.umjetninaRepository = umjetninaRepository;
     }
 
     @PostConstruct
@@ -45,6 +53,7 @@ public class InicijalizacijaBaze {
             addGrane();
             addPodgrane();
             addKorisnike();
+            addUmjetnine();
         }
     }
 
@@ -74,7 +83,7 @@ public class InicijalizacijaBaze {
         podgranaRepository.save(new Podgrana(grana(3), "Linorez"));
         podgranaRepository.save(new Podgrana(grana(3), "Bakropis"));
         podgranaRepository.save(new Podgrana(grana(3), "Litografija"));
-       
+     
     }
 
     private void addKorisnike() {
@@ -204,7 +213,15 @@ public class InicijalizacijaBaze {
                 new ArrayList<Umjetnina>(), null, false));
         
     }
-
+    
+    private void addUmjetnine() {
+    	umjetninaRepository.save(new Umjetnina("slika", "slikanje", new Date(), slika("profpic/doge.jpg"), korisnik(1)));
+    }
+    
+    private Korisnik korisnik(long id) {
+    	return korisnikRepository.findOne(id);
+    }
+    
     private Grana grana(long id) {
         return granaRepository.findOne(id);
     }
