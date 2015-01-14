@@ -150,11 +150,13 @@ public class AdminController implements Controller {
 
 	@FXML
 	private void handleObrisiKorisnika() {
-		Korisnik korisnik = userListController.getList().getSelectionModel().getSelectedItem();
+		Korisnik korisnik = userListController.getKorisnici().getSelectionModel().getSelectedItem();
 		if (korisnik == null)
 			return;
 		AdminUkloniKorisnikaZahtjev zahtjev = new AdminUkloniKorisnikaZahtjev(korisnik.getId());
 		mainApp.getChannel().sendAndWait(zahtjev);
-		this.mainApp.refresh();
+		
+		this.mainApp.getSvi().remove(korisnik);
+		this.mainApp.getUserListController().setList(this.mainApp.getSvi());
 	}
 }

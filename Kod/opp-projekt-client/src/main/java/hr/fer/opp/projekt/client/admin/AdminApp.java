@@ -41,6 +41,7 @@ public class AdminApp extends Application {
 	private UserListController userListController;
 
 	private List<Korisnik> svi;
+
 	private List<Grana> grane;
 
 	private String skin = "menu1.css";
@@ -86,11 +87,11 @@ public class AdminApp extends Application {
 	public UserListController getUserListController() {
 		return userListController;
 	}
-	
+
 	private void dohvatiPodatke() {
 		PopisUmjetnikaOdgovor odgovor = channel.sendAndWait(PopisUmjetnikaZahtjev.INSTANCE);
 		svi = new ArrayList<Korisnik>();
-		List<Korisnik> korisnici = odgovor.getRezultati();
+		List<Korisnik> korisnici = new ArrayList<>(odgovor.getRezultati());
 		for (Korisnik k : korisnici) {
 			svi.add(k);
 		}
@@ -154,7 +155,7 @@ public class AdminApp extends Application {
 	public void searchGrana(Grana grana) {
 		List<Korisnik> search = new ArrayList<>();
 		for (Korisnik k : svi) {
-			if (k.getGrana().getId() == grana.getId())
+			if (k.getGrana() != null && k.getGrana().getId() == grana.getId())
 				search.add(k);
 		}
 		userListController.setList(search);
@@ -163,7 +164,7 @@ public class AdminApp extends Application {
 	public void searchPodgrana(Podgrana podgrana) {
 		List<Korisnik> search = new ArrayList<>();
 		for (Korisnik k : svi) {
-			if (k.getPodgrana().getId() == podgrana.getId())
+			if (k.getPodgrana() != null && k.getPodgrana().getId() == podgrana.getId())
 				search.add(k);
 		}
 		userListController.setList(search);
@@ -239,10 +240,18 @@ public class AdminApp extends Application {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void refresh() {
 		dohvatiPodatke();
 		userListController.setList(svi);
+	}
+
+	public List<Korisnik> getSvi() {
+		return svi;
+	}
+	
+	public void setSvi(List<Korisnik> novo) {
+		this.svi = novo;
 	}
 
 }

@@ -89,14 +89,14 @@ public class MainController implements Controller {
 			}
 		});
 
-//		status.setOnKeyPressed(new EventHandler<KeyEvent>() {
-//			@Override
-//			public void handle(KeyEvent ke) {
-//				if (ke.getCode().equals(KeyCode.ENTER)) {
-//					handleObjaviStatus();
-//				}
-//			}
-//		});
+		status.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent ke) {
+				if (ke.getCode().equals(KeyCode.ENTER)) {
+					handleObjaviStatus();
+				}
+			}
+		});
 
 		kategorije.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<Kategorija>>() {
 			@Override

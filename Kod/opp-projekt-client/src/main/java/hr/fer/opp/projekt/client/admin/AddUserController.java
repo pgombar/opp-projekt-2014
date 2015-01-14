@@ -48,7 +48,8 @@ public class AddUserController implements Controller {
 			Stage stage = (Stage) spremi.getScene().getWindow();
 			stage.close();
 		}
-		this.mainApp.refresh();
+		this.mainApp.getSvi().add(odgovor.getKorisnik());
+		this.mainApp.getUserListController().setList(this.mainApp.getSvi());
 	}
 
 	@FXML

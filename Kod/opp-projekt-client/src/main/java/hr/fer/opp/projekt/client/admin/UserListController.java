@@ -21,6 +21,7 @@ public class UserListController implements Controller {
 	private AdminApp mainApp;
 	@FXML
 	private ListView<Korisnik> korisnici;
+	private List<Korisnik> prikaz;
 	private ObservableList<Korisnik> data = FXCollections.observableArrayList();
 
 	public UserListController() {
@@ -58,6 +59,7 @@ public class UserListController implements Controller {
 				return cell;
 			}
 		});
+
 	}
 
 	public void setMainApp(Application mainApp) {
@@ -65,15 +67,25 @@ public class UserListController implements Controller {
 	}
 
 	public void setList(List<Korisnik> korisnici) {
+		prikaz = korisnici;
 		data.clear();
 		data.addAll(korisnici);
+	}
+
+	public List<Korisnik> getPrikaz() {
+		return prikaz;
 	}
 
 	public void add(Korisnik korisnik) {
 		data.add(korisnik);
 	}
 
-	public ListView<Korisnik> getList() {
-		return this.korisnici;
+	public ListView<Korisnik> getKorisnici() {
+		return korisnici;
 	}
+
+	public void setKorisnici(ListView<Korisnik> korisnici) {
+		this.korisnici = korisnici;
+	}
+
 }
