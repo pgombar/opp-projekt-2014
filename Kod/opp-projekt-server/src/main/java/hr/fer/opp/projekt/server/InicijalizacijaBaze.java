@@ -215,8 +215,24 @@ public class InicijalizacijaBaze {
     }
     
     private void addUmjetnine() {
-    	umjetninaRepository.save(new Umjetnina("slika", "slikanje", new Date(), slika("profpic/doge.jpg"), korisnik(1)));
-    }
+    	umjetninaRepository.save(new Umjetnina("slika", "Slikarstvo", new Date(), slika("artwork/slika1.jpeg"), korisnik(5)));
+    	umjetninaRepository.save(new Umjetnina("slika", "Slikarstvo", new Date(), slika("artwork/slika2.jpg"), korisnik(5)));
+    	umjetninaRepository.save(new Umjetnina("slika", "Slikarstvo", new Date(), slika("artwork/slika3.jpg"), korisnik(4)));
+    	umjetninaRepository.save(new Umjetnina("slika", "Slikarstvo", new Date(), slika("artwork/slika4.jpg"), korisnik(11)));
+    	umjetninaRepository.save(new Umjetnina("slika", "Slikarstvo", new Date(), slika("artwork/slika5.jpg"), korisnik(11)));
+    	umjetninaRepository.save(new Umjetnina("slika", "Slikarstvo", new Date(), slika("artwork/slika6.jpg"), korisnik(4)));
+    	umjetninaRepository.save(new Umjetnina("kip", "Kiparstvo", new Date(), slika("artwork/kip1.jpg"), korisnik(1)));
+    	umjetninaRepository.save(new Umjetnina("kip", "Kiparstvo", new Date(), slika("artwork/kip2.jpg"), korisnik(2)));
+    	umjetninaRepository.save(new Umjetnina("kip", "Kiparstvo", new Date(), slika("artwork/kip3.jpg"), korisnik(2)));
+    	umjetninaRepository.save(new Umjetnina("kip", "Kiparstvo", new Date(), slika("artwork/kip4.jpg"), korisnik(3)));
+    	umjetninaRepository.save(new Umjetnina("kip", "Kiparstvo", new Date(), slika("artwork/kip5.jpg"), korisnik(3)));
+    	umjetninaRepository.save(new Umjetnina("kip", "Kiparstvo", new Date(), slika("artwork/kip6.jpg"), korisnik(3)));
+    	umjetninaRepository.save(new Umjetnina("linorez", "Grafika", new Date(), slika("artwork/linorez1.jpg"), korisnik(14)));
+    	umjetninaRepository.save(new Umjetnina("linorez", "Grafika", new Date(), slika("artwork/linorez2.jpg"), korisnik(13)));
+    	umjetninaRepository.save(new Umjetnina("linorez", "Grafika", new Date(), slika("artwork/linorez3.jpg"), korisnik(14)));
+    	umjetninaRepository.save(new Umjetnina("linorez", "Grafika", new Date(), slika("artwork/linorez4.jpeg"), korisnik(14)));
+    	umjetninaRepository.save(new Umjetnina("linorez", "Grafika", new Date(), slika("artwork/linorez5.jpeg"), korisnik(8)));
+   }
     
     private Korisnik korisnik(long id) {
     	return korisnikRepository.findOne(id);
@@ -236,7 +252,7 @@ public class InicijalizacijaBaze {
         try {
             return ImageIO.read(resource);
         } catch (IOException e) {
-            LOGGER.warn("Slika {0} ne postoji.", ime);
+            LOGGER.warn("Slika " + ime + " ne postoji.", ime);
             return null;
         }
     }
