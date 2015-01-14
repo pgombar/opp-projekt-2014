@@ -78,13 +78,18 @@ public class InicijalizacijaBaze {
     }
 
     private void addKorisnike() {
+    	
+    	korisnikRepository.save(new Korisnik("Ankica", "Ancic", "aancic", "ankica", "ankica@gmail.com", "091232827",
+                "Pod mostom 12", "Kaj buljis?", "Soboslikarica", grana(2), podgrana(5),
+                new ArrayList<Umjetnina>(), slika("profpic/doge.jpg"), true));
+    	
         korisnikRepository.save(new Korisnik("Mirko", "Broz", "mirko", "mirkec", "mirko@gmail.com", "091472827",
                 "Ilica 10", "Hvala ti, Slavko! Spasio si mi život!", "Kurir", grana(2), podgrana(5),
-                new ArrayList<Umjetnina>(), slika("profpic/profpic/Mirko_i_Slavko.jpg"), true));
+                new ArrayList<Umjetnina>(), slika("profpic/Mirko_i_Slavko.jpg"), true));
 
         korisnikRepository.save(new Korisnik("Slavko", "Broz", "slavko", "slavkec", "slavko@gmail.com", "091472828",
                 "Ilica 10", "Mirko, pazi metak!", "Kurir", grana(2), podgrana(6),
-                new ArrayList<Umjetnina>(), slika("profpic/profpic/Mirko_i_Slavko.jpg"), true));
+                new ArrayList<Umjetnina>(), slika("profpic/Mirko_i_Slavko.jpg"), true));
 
         korisnikRepository.save(new Korisnik("Ivica", "Rob", "ivo", "pivo", "ivek@gmail.com", "091472829",
                 "Kod bakice", "", "Student elektrotehnike", grana(1), podgrana(1),
@@ -138,19 +143,19 @@ public class InicijalizacijaBaze {
                 "", "krhhrkrhkhrhr rkhrkhrkrhkrh", "Trgovacki putnik", grana(3), podgrana(11),
                 new ArrayList<Umjetnina>(), slika("profpic/gregor.jpg"), false));
 
-        korisnikRepository.save(new Korisnik("Majka", "Hrabrost", "moja", "djeca", "profit@supersport.com", "091472842",
+        korisnikRepository.save(new Korisnik("Majka", "Hrabrost", "njezina", "djeca", "profit@supersport.com", "091472842",
                 "-", "", "Ratni profiter", grana(3), podgrana(12),
                 new ArrayList<Umjetnina>(), null, false));
 
         korisnikRepository.save(new Korisnik("Dean", "Kotiga", "najdrazaknjiga", "lovacuzitu", "lov@gmail.com", "091472843",
                 "Pod lipom 12", "gotcha", "Lovac", grana(3), podgrana(6),
-                new ArrayList<Umjetnina>(), slika("profpic/kotiga.jpg"), false));
+                new ArrayList<Umjetnina>(), slika("profpic/kotiga.jpeg"), false));
 
         korisnikRepository.save(new Korisnik("Imenko", "Prezimenko", "korisninckoime", "korisnickipassword", "imeprez@gmail.com", "091472844",
                 "Ulica, Grad, Broj", "", "Slikar", grana(1), podgrana(1),
                 new ArrayList<Umjetnina>(), null, false));
 
-        korisnikRepository.save(new Korisnik("Goran", "Jeban", "samo", "jako", "gk@gmail.com", "091472845",
+        korisnikRepository.save(new Korisnik("Goran", "Karan", "samo", "jako", "gk@gmail.com", "091472845",
                 "Pod lipom 32", "", "Graficar", grana(4), podgrana(12),
                 new ArrayList<Umjetnina>(), null, false));
 
